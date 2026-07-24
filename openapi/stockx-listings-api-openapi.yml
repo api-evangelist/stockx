@@ -1,0 +1,1349 @@
+openapi: 3.0.0
+info:
+  title: StockX Public Batch Listings API
+  version: 2.0.0
+  description: Manage StockX seller account using APIs
+  license:
+    name: MIT
+  contact: {}
+servers:
+- url: https://api.stockx.com/v2
+tags:
+- name: Listings
+  description: Listings APIs enable a seller to programmatically sell on StockX. The APIs enable a user to  create, update and delete listings on the marketplace, as well as view and fetch live market data for any live or expired listings you have
+paths:
+  /selling/listings:
+    post:
+      operationId: Create
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingAsyncOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: 'Create listings API allows you to create new listings.
+
+        The listings correspond to an ask in the StockX UI. The listings can be for the same variant ID.'
+      summary: Create a new listing
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateListingInput'
+    get:
+      operationId: GetAllListings
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Listings'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get all listings API allows you to fetch all existing listings. Multiple filters are available.
+      summary: Get all listings
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Requested page number. By default the page number starts at 1
+        in: query
+        name: pageNumber
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+        example: 1
+      - description: The number of listings to return. By default the page size starts at 1.
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+          maximum: 100
+        example: 100
+      - description: Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (" " | ' ').
+        in: query
+        name: productIds
+        required: false
+        schema:
+          type: string
+      - description: Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (" " | ' ').
+        in: query
+        name: variantIds
+        required: false
+        schema:
+          type: string
+      - description: Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (" " | ' ').
+        in: query
+        name: batchIds
+        required: false
+        schema:
+          type: string
+      - description: Start date of the query
+        in: query
+        name: fromDate
+        required: false
+        schema:
+          type: string
+        example: '2022-06-08'
+      - description: End date of the query
+        in: query
+        name: toDate
+        required: false
+        schema:
+          type: string
+        example: '2022-06-08'
+      - description: 'Comma separated list of listing statuses. This field must not include array brackets `[]` or quotation marks ("" | '''').<br><br>Available values: "INACTIVE", "ACTIVE", "CANCELED", "MATCHED", "COMPLETED"'
+        in: query
+        name: listingStatuses
+        required: false
+        schema:
+          type: string
+        example: ACTIVE
+      - description: Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks ("| ''). The inventory types are STANDARD, FLEX or DIRECT.
+        in: query
+        name: inventoryTypes
+        required: false
+        schema:
+          type: string
+        example: STANDARD
+      - description: 'The shipment''s unique display id associated with the listing. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+        in: query
+        name: initiatedShipmentDisplayIds
+        required: false
+        schema:
+          type: string
+      - description: Whether to include expired listings in the results. Defaults to false.
+        in: query
+        name: isExpired
+        required: false
+        schema:
+          type: boolean
+        example: false
+  /selling/listings/{listingId}/activate:
+    put:
+      operationId: ActivateListing
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingAsyncOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Activate listing API allows you to activate a listing. A listing is active when it contains an available ask.
+      summary: Activate a listing
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActivateListingInput'
+  /selling/listings/{listingId}/deactivate:
+    put:
+      operationId: DeactivateListing
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingAsyncOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Deactivate listing API allows you to deactivate a listing. A listing is deactivated when it doesn't have an ask or when it contains an expired ask.
+      summary: Deactivate a listing
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+  /selling/listings/{listingId}:
+    patch:
+      operationId: Update
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingAsyncOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Operation used to update an existing listing by its ID.
+      summary: Update a listing
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateListingInput'
+    delete:
+      operationId: DeleteListing
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingAsyncOperationResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Operation used to delete an existing listing by its ID.
+      summary: Delete a listing
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+    get:
+      operationId: FindById
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListingResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get a listing API allows you to get a listing by its ID.
+      summary: Get single listing
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+  /selling/listings/{listingId}/operations/{operationId}:
+    get:
+      operationId: FindOperationById
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationApi'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get listing operation API allows you to fetch a listing operation by listing ID and operation ID
+      summary: Get single listing operation
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing.
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+      - description: Unique ID for this operation.
+        in: path
+        name: operationId
+        required: true
+        schema:
+          type: string
+  /selling/listings/{listingId}/operations:
+    get:
+      operationId: GetListingOperations
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OperationsCursorResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get all listing operations API allows you to fetch a paginated list of single listing with all operations.
+      summary: Get all listing operations
+      tags:
+      - Listings
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: Unique ID for this listing
+        in: path
+        name: listingId
+        required: true
+        schema:
+          type: string
+      - description: Requested page number. Starts at 1.
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+          maximum: 100
+      - description: The cursor to use as a starting point
+        in: query
+        name: cursor
+        required: false
+        schema:
+          type: string
+components:
+  schemas:
+    CreateListingInput:
+      properties:
+        amount:
+          type: string
+          description: The amount this product is being listed for
+          example: '150'
+        variantId:
+          type: string
+          description: Unique StockX variant ID that this listing is being created for
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        currencyCode:
+          type: string
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        expiresAt:
+          type: string
+          description: UTC timestamp representing when this Ask should auto-expire.  If not provided, it will default to 999 days from today.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        active:
+          type: boolean
+          description: A flag that defaults to true, activating the listing on the StockX marketplace
+          example: true
+          default: 'true'
+        inventoryType:
+          type: string
+          description: 'The inventory this product is being listed in. If not provided, it will default to STANDARD.<br><br>Available values: "STANDARD", "DIRECT"'
+          example: STANDARD
+      required:
+      - amount
+      - variantId
+      type: object
+      additionalProperties: false
+    OperationApi:
+      properties:
+        listingId:
+          type: string
+          description: Unique ID for this listing
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        operationId:
+          type: string
+          description: Unique ID for this operation.
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        operationType:
+          $ref: '#/components/schemas/OperationType'
+          description: The types of operation conducted on the listing
+          example: CREATE
+        operationStatus:
+          $ref: '#/components/schemas/OperationStatus'
+          description: The current operation status of this listing
+          example: PENDING
+        operationInitiatedBy:
+          $ref: '#/components/schemas/OperationInitiatedBy'
+          description: This field specifices how the operation was initiated
+          example: SYSTEM
+        operationInitiatedVia:
+          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
+          description: What initiated the operation
+          example: INTERNAL-SYSTEM
+        createdAt:
+          type: string
+          description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this listing was last updated in UTC.  Represented as ISO 8601 format like 2022-01-18T20:20:39Z
+          example: '2021-11-09T12:44:31.000Z'
+        changes:
+          $ref: '#/components/schemas/ListingOperationsChangesDiff'
+          description: JSON metadata object which include the changes of current listing
+        error:
+          type: string
+          nullable: true
+          description: Error message if the creation failed
+          example: null
+      required:
+      - listingId
+      - operationId
+      - operationType
+      - operationStatus
+      - operationInitiatedBy
+      - operationInitiatedVia
+      - createdAt
+      - updatedAt
+      - changes
+      - error
+      type: object
+      additionalProperties: false
+    OperationsCursorResponse:
+      properties:
+        nextCursor:
+          type: string
+          nullable: true
+          description: Used for pagination when more than 200 operations are retrieved. The nextCursor value received in response will be same for all subsequent page requests.
+          example: c29tZS1jdXJzb3ItZGF0YQ==
+        operations:
+          items:
+            $ref: '#/components/schemas/OperationApi'
+          type: array
+          description: A list of the operations requested
+      required:
+      - nextCursor
+      - operations
+      type: object
+      additionalProperties: false
+    OperationInitiatedBy:
+      type: string
+      enum:
+      - USER
+      - SYSTEM
+    OperationStatus:
+      type: string
+      enum:
+      - PENDING
+      - SUCCEEDED
+      - FAILED
+    AuthenticationDetails:
+      properties:
+        status:
+          type: string
+          nullable: true
+        failureNotes:
+          type: string
+          nullable: true
+      required:
+      - status
+      - failureNotes
+      type: object
+      additionalProperties: false
+    Updates_RecursivePartial_ListingChangeableFields__:
+      properties: {}
+      type: object
+      example:
+        updatedAt: '2021-11-09T12:44:31.000Z'
+      description: The updates of current listing
+    Listings:
+      properties:
+        count:
+          type: number
+          format: double
+          description: Total number of items present
+          example: 266
+        pageSize:
+          type: number
+          format: double
+          description: Total number of items in the current page
+          example: 10
+        pageNumber:
+          type: number
+          format: double
+          description: Requested page number. Starts at 1.
+          example: 1
+        hasNextPage:
+          type: boolean
+          description: Returns true if there are elements in the next page.
+          example: true
+        listings:
+          items:
+            $ref: '#/components/schemas/ListListings'
+          type: array
+          description: List of listings
+      required:
+      - count
+      - pageSize
+      - pageNumber
+      - hasNextPage
+      - listings
+      type: object
+      additionalProperties: false
+    ListListings:
+      properties:
+        listingId:
+          type: string
+          description: Unique ID for this listing
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        status:
+          type: string
+          description: 'The current status of the listing<br><br>Available values: "INACTIVE", "ACTIVE", "DELETED", "CANCELED", "MATCHED", "COMPLETED"'
+          example: ACTIVE
+        amount:
+          type: string
+          nullable: true
+          description: The amount this product is being listed for
+          example: '300'
+        currencyCode:
+          type: string
+          nullable: true
+          description: 'The currency code. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: AUD
+        inventoryType:
+          type: string
+          nullable: true
+          description: A representation of the type of inventory being listed
+          example: STANDARD
+        createdAt:
+          type: string
+          description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this listing was last updated in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        batch:
+          allOf:
+          - $ref: '#/components/schemas/ListingsResponseBatch'
+          nullable: true
+          description: Information about the batch this listing is part of, if this listing was touched with the batch APIs
+        ask:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseAsk'
+          nullable: true
+          description: An object with ask details
+        authenticationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AuthenticationDetails'
+          nullable: true
+          description: An object with authentication details
+        order:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseOrder'
+          nullable: true
+          description: An object containing the order details
+        product:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseProduct'
+          nullable: true
+          description: An object containing the product details.
+        initiatedShipments:
+          allOf:
+          - $ref: '#/components/schemas/ManifestDataResponse'
+          nullable: true
+          description: An object containing details about the seller initiated shipments.
+        variant:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseVariant'
+          nullable: true
+          description: Details about the particular product variant
+        condition:
+          type: string
+          nullable: true
+          description: The condition of the item
+          example: Used
+        conditionDescription:
+          type: string
+          nullable: true
+          description: A description of the item's condition
+          example: Brand new, never worn
+      required:
+      - listingId
+      - status
+      - amount
+      - currencyCode
+      - inventoryType
+      - createdAt
+      - updatedAt
+      - batch
+      - ask
+      - authenticationDetails
+      - order
+      - product
+      - initiatedShipments
+      - variant
+      - condition
+      - conditionDescription
+      type: object
+      additionalProperties: false
+    PublicApiError:
+      properties:
+        statusCode:
+          $ref: '#/components/schemas/HttpStatusCodeLiteral'
+          description: The error status code
+          example: 400
+        message:
+          type: string
+          description: The error message
+          example: The request did not succeed 😭
+      required:
+      - statusCode
+      - message
+      type: object
+      additionalProperties: false
+    HttpStatusCodeLiteral:
+      type: number
+      enum:
+      - 100
+      - 101
+      - 102
+      - 200
+      - 201
+      - 202
+      - 203
+      - 204
+      - 205
+      - 206
+      - 207
+      - 208
+      - 226
+      - 300
+      - 301
+      - 302
+      - 303
+      - 304
+      - 305
+      - 307
+      - 308
+      - 400
+      - 401
+      - 402
+      - 403
+      - 404
+      - 405
+      - 406
+      - 407
+      - 408
+      - 409
+      - 410
+      - 411
+      - 412
+      - 413
+      - 414
+      - 415
+      - 416
+      - 417
+      - 418
+      - 422
+      - 423
+      - 424
+      - 426
+      - 428
+      - 429
+      - 431
+      - 451
+      - 500
+      - 501
+      - 502
+      - 503
+      - 504
+      - 505
+      - 506
+      - 507
+      - 508
+      - 510
+      - 511
+    ListingResponse:
+      properties:
+        listingId:
+          type: string
+          description: Unique ID for this listing
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        status:
+          type: string
+          description: 'The current status of the listing<br><br>Available values: "INACTIVE", "ACTIVE", "DELETED", "CANCELED", "MATCHED", "COMPLETED"'
+          example: ACTIVE
+        amount:
+          type: string
+          nullable: true
+          description: The amount this product is being listed for
+          example: '300'
+        currencyCode:
+          type: string
+          nullable: true
+          description: 'The currency code. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: AUD
+        inventoryType:
+          type: string
+          nullable: true
+          description: A representation of the type of inventory being listed
+          example: STANDARD
+        createdAt:
+          type: string
+          description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this listing was last updated in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        batch:
+          allOf:
+          - $ref: '#/components/schemas/ListingsResponseBatch'
+          nullable: true
+          description: Information about the batch this listing is part of, if this listing was touched with the batch APIs
+        ask:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseAsk'
+          nullable: true
+          description: An object with ask details
+        order:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseOrder'
+          nullable: true
+          description: An object containing the order details
+        product:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseProduct'
+          nullable: true
+          description: An object containing the product details.
+        variant:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseVariant'
+          nullable: true
+          description: Details about the particular product variant
+        authenticationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AuthenticationDetails'
+          nullable: true
+          description: Details about authentication status and failure notes
+        payout:
+          allOf:
+          - $ref: '#/components/schemas/Payout'
+          nullable: true
+          description: The payout object that contains the payout details and any adjustments like selling fees, shipping fees, taxes, etc.
+        lastOperation:
+          allOf:
+          - $ref: '#/components/schemas/ListingResponseOperation'
+          nullable: true
+          description: An object containing the the details of the operation.
+        initiatedShipments:
+          allOf:
+          - $ref: '#/components/schemas/ManifestDataResponse'
+          nullable: true
+          description: Details about manifests associated with the listing
+        condition:
+          type: string
+          nullable: true
+          description: The condition of the item
+          example: Used
+        conditionDescription:
+          type: string
+          nullable: true
+          description: A description of the item's condition
+          example: Brand new, never worn
+      required:
+      - listingId
+      - status
+      - amount
+      - currencyCode
+      - inventoryType
+      - createdAt
+      - updatedAt
+      - batch
+      - ask
+      - order
+      - product
+      - variant
+      - authenticationDetails
+      - payout
+      - lastOperation
+      - initiatedShipments
+      - condition
+      - conditionDescription
+      type: object
+      additionalProperties: false
+    SupportedOperationInitiatedVia:
+      enum:
+      - IOS
+      - ANDROID
+      - WEB
+      - STOCKX-PRO
+      - SCOUT
+      - SHOPIFY
+      - PUBLIC-API
+      - INTERNAL-SYSTEM
+      type: string
+    OperationType:
+      type: string
+      enum:
+      - CREATE
+      - UPDATE
+      - DELETE
+      - ACTIVATE
+      - DEACTIVATE
+      - CANCEL_ORDER
+      - RECLAIM
+      - CANCEL_RECLAIM
+      - TPS_CHECK
+    ListingAsyncOperationResponse:
+      properties:
+        listingId:
+          type: string
+          description: Unique ID for this listing
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        operationId:
+          type: string
+          description: Unique ID for this operation
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        operationType:
+          $ref: '#/components/schemas/OperationType'
+          description: The types of operation conducted on the listing
+          example: CREATE
+        operationStatus:
+          $ref: '#/components/schemas/OperationStatus'
+          description: The current operation status of this listing
+          example: PENDING
+        operationUrl:
+          type: string
+          nullable: true
+          description: The URL used for to poll the status of the operation.
+          example: https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be
+        operationInitiatedBy:
+          $ref: '#/components/schemas/OperationInitiatedBy'
+          description: This field specifies how the operation was initiated
+          example: SYSTEM
+        operationInitiatedVia:
+          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
+          description: By whom was the operation initiated
+          example: PUBLIC-API
+        createdAt:
+          type: string
+          description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this listing was last updated in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        changes:
+          $ref: '#/components/schemas/ListingOperationsChangesDiff'
+          description: JSON metadata object which include the changes of current listing
+        error:
+          type: string
+          nullable: true
+          description: Error message if the creation failed
+          example: null
+      required:
+      - listingId
+      - operationId
+      - operationType
+      - operationStatus
+      - operationUrl
+      - operationInitiatedBy
+      - operationInitiatedVia
+      - createdAt
+      - updatedAt
+      - changes
+      type: object
+      additionalProperties: false
+    ListingOperationsChangesDiff:
+      $ref: '#/components/schemas/Diff_RecursivePartial_ListingChangeableFields__'
+      description: JSON metadata object which include the changes of current listing
+    ListingResponseVariant:
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier that specifics a particular product.
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        variantName:
+          type: string
+          description: Unique readable name of the products variant
+          example: color
+        variantValue:
+          type: string
+          nullable: true
+          description: The value of the variant variant. For example, in the sneakers case, this could be 10 or in the trading cards case, this could be PSA 10, etc
+          example: black
+      required:
+      - variantId
+      - variantName
+      - variantValue
+      type: object
+      additionalProperties: false
+    Payout:
+      description: The payout object that contains the payout details and any adjustments
+      properties:
+        totalPayout:
+          type: string
+          description: The total amount to be paid for the sale of the product
+          example: 76.81
+        salePrice:
+          type: string
+          description: The amount the product was sold for
+          example: 79
+        totalAdjustments:
+          type: string
+          description: The sum of all adjustments made
+          example: -7
+        currencyCode:
+          type: string
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+        adjustments:
+          items:
+            $ref: '#/components/schemas/Adjustment'
+          type: array
+          description: The payout adjustment details if applicable
+      required:
+      - totalPayout
+      - salePrice
+      - totalAdjustments
+      - currencyCode
+      - adjustments
+      type: object
+      additionalProperties: false
+    Diff_RecursivePartial_ListingChangeableFields__:
+      description: JSON metadata object which include the changes of current listing
+      properties:
+        additions:
+          $ref: '#/components/schemas/Additions_RecursivePartial_ListingChangeableFields__'
+        updates:
+          $ref: '#/components/schemas/Updates_RecursivePartial_ListingChangeableFields__'
+        removals:
+          $ref: '#/components/schemas/Removals_RecursivePartial_ListingChangeableFields__'
+      required:
+      - additions
+      - updates
+      - removals
+      type: object
+      additionalProperties: false
+    ManifestDataResponse:
+      properties:
+        inbound:
+          properties:
+            displayId:
+              type: string
+              description: 'The ID associated with the shipment arriving at StockX. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+          required:
+          - displayId
+          type: object
+      required:
+      - inbound
+      type: object
+      additionalProperties: false
+    Additions_RecursivePartial_ListingChangeableFields__:
+      properties: {}
+      type: object
+      example:
+        active: true
+        askData:
+          amount: '100'
+          currency: USD
+          expiresAt: '2022-08-24T18:06:43.600Z'
+      description: The additions of current listing
+    ListingResponseOperation:
+      properties:
+        operationId:
+          type: string
+          description: Unique ID for this operation
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        operationType:
+          $ref: '#/components/schemas/OperationType'
+          description: The types of operation conducted on the listing
+          example: ACTIVATE
+        operationStatus:
+          $ref: '#/components/schemas/OperationStatus'
+          description: The current operation status of this listing
+          example: PENDING
+        operationInitiatedBy:
+          $ref: '#/components/schemas/OperationInitiatedBy'
+          description: This field specifies how the operation was initiated.
+          example: USER
+        operationInitiatedVia:
+          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
+          description: By whom was the operation initiated
+          example: PUBLIC-API
+        operationCreatedAt:
+          type: string
+          description: When the operation was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        operationUpdatedAt:
+          type: string
+          description: Time of the last update in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        changes:
+          $ref: '#/components/schemas/ListingOperationsChangesDiff'
+          description: Listing changes associated with this operation
+        error:
+          type: string
+          nullable: true
+          description: Operation error
+          example: ''
+      required:
+      - operationId
+      - operationType
+      - operationStatus
+      - operationInitiatedBy
+      - operationInitiatedVia
+      - operationCreatedAt
+      - operationUpdatedAt
+      - changes
+      type: object
+      additionalProperties: false
+    Adjustment:
+      properties:
+        adjustmentType:
+          type: string
+          description: The type of adjustment made
+          example: Shipping Fee (10%)
+        amount:
+          type: string
+          description: The amount of the adjustment
+          example: 2.13
+        percentage:
+          type: string
+          description: The percentage of the adjustment
+          example: 0.1
+      required:
+      - adjustmentType
+      - amount
+      - percentage
+      type: object
+      additionalProperties: false
+    ListingResponseOrder:
+      properties:
+        orderNumber:
+          type: string
+          nullable: true
+          description: 'The order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
+        orderCreatedAt:
+          type: string
+          nullable: true
+          description: When the order was created
+          example: '2021-11-09T12:44:31.000Z'
+        orderStatus:
+          type: string
+          nullable: true
+          description: The status of the given order
+          example: CREATED
+      required:
+      - orderNumber
+      - orderCreatedAt
+      - orderStatus
+      type: object
+      additionalProperties: false
+    ListingResponseProduct:
+      properties:
+        productId:
+          type: string
+          description: Unique ID for this product
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        productName:
+          type: string
+          nullable: true
+          description: The name of the product
+          example: Nike Air
+        styleId:
+          type: string
+          nullable: true
+          description: The style id of the product
+          example: FV5029-006
+      required:
+      - productId
+      - productName
+      - styleId
+      type: object
+      additionalProperties: false
+    Removals_RecursivePartial_ListingChangeableFields__:
+      properties: {}
+      type: object
+      description: The removals of current listing
+    ListingResponseAsk:
+      properties:
+        askId:
+          type: string
+          description: Id of the created ask
+        askCreatedAt:
+          type: string
+          description: When the ask was created
+          example: '2021-11-09T12:44:31.000Z'
+        askUpdatedAt:
+          type: string
+          description: When the ask was updated
+          example: '2021-11-09T12:44:31.000Z'
+        askExpiresAt:
+          type: string
+          description: When the ask will expire
+          example: '2021-11-09T12:44:31.000Z'
+      required:
+      - askId
+      - askCreatedAt
+      - askUpdatedAt
+      type: object
+      additionalProperties: false
+    ListingsResponseBatch:
+      properties:
+        batchId:
+          type: string
+          description: ID of the associated batch
+          example: 86378f62-ad0e-4a06-9c8e-642731bb9140
+        taskId:
+          type: string
+          description: Id of the associated task
+          example: 7083634e-3bc5-4747-a4f3-768093074b5e
+      type: object
+      additionalProperties: false
+    UpdateListingInput:
+      properties:
+        amount:
+          type: string
+          description: 'The amount that will appear on stockx.com
+
+            The amount this product is being listed for'
+          example: '150'
+        currencyCode:
+          type: string
+          description: 'Currency in which the ask is placed<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"
+
+            The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        expiresAt:
+          type: string
+          description: 'When the ask expires
+
+            UTC timestamp representing when this listing should auto-expire.  If not provided, it will default to 999 days from today. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z'
+          example: '2021-11-09T12:44:31.000Z'
+      type: object
+      additionalProperties: false
+    ActivateListingInput:
+      properties:
+        amount:
+          type: string
+          description: The amount this product is being listed for
+          example: '150'
+        currencyCode:
+          type: string
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        expiresAt:
+          type: string
+          description: UTC timestamp representing when this Ask should auto-expire.  If not provided, it will default to 999 days from today.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+      type: object
+      additionalProperties: false
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

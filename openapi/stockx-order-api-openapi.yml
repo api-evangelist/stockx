@@ -1,0 +1,877 @@
+openapi: 3.0.0
+info:
+  title: StockX Public Batch Order API
+  version: 2.0.0
+  description: Manage StockX seller account using APIs
+  license:
+    name: MIT
+  contact: {}
+servers:
+- url: https://api.stockx.com/v2
+tags:
+- name: Order
+  description: Order APIs enable a user to view all their active orders / sales as well as details for a single order.
+paths:
+  /selling/orders/active:
+    get:
+      operationId: GetOrders
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orders'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: 'Get all active orders API allows you to view all their active orders in the StockX marketplace.
+
+        An order is considered active from the time it was created to the time the product was received and authenticated by StockX and the seller is paid out.'
+      summary: Get active orders
+      tags:
+      - Order
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: The number of page
+        in: query
+        name: pageNumber
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+      - description: Requested page number. Starts at 1
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+          maximum: 100
+      - description: 'To filter your Orders by a given order status<br><br>Available values: "CREATED", "CCAUTHORIZATIONFAILED", "SHIPPED", "RECEIVED", "AUTHENTICATING", "AUTHENTICATED", "PAYOUTPENDING", "PAYOUTCOMPLETED", "SYSTEMFULFILLED", "PAYOUTFAILED", "SUSPENDED", "PENDING", "DONOTSHIP"'
+        in: query
+        name: orderStatus
+        required: false
+        schema:
+          type: string
+        example: CREATED
+      - description: Unique identifier for a product
+        in: query
+        name: productId
+        required: false
+        schema:
+          type: string
+      - description: Unique identifier for a products variant
+        in: query
+        name: variantId
+        required: false
+        schema:
+          type: string
+      - description: The field by which the results are sorted. Defaults to "CREATEDAT" and can also accept "SHIPBYDATE".
+        in: query
+        name: sortOrder
+        required: false
+        schema:
+          type: string
+      - description: Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks ("| ''). The inventory types are STANDARD, FLEX or DIRECT.
+        in: query
+        name: inventoryTypes
+        required: false
+        schema:
+          type: string
+        example: STANDARD
+      - description: 'The shipment''s unique display id associated with the order. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+        in: query
+        name: initiatedShipmentDisplayIds
+        required: false
+        schema:
+          type: string
+  /selling/orders/history:
+    get:
+      operationId: GetHistoricalOrders
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Orders'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get all historical orders. Multiple filters are available.
+      summary: Get historical orders
+      tags:
+      - Order
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: The start date of when the orders were created. Format is YYYY-MM-DD.
+        in: query
+        name: fromDate
+        required: false
+        schema:
+          type: string
+      - description: The end date of when the orders were created. Format is YYYY-MM-DD.
+        in: query
+        name: toDate
+        required: false
+        schema:
+          type: string
+      - description: The requested page number. By default the page number is 1
+        in: query
+        name: pageNumber
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+        example: 1
+      - description: The number of orders to be returned. By default the number is 10
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          type: integer
+          minimum: 1
+          maximum: 100
+        example: 100
+      - description: 'To filter your Orders by a given order status<br><br>Available values: "AUTHFAILED", "DIDNOTSHIP", "CANCELED", "COMPLETED", "RETURNED"'
+        in: query
+        name: orderStatus
+        required: false
+        schema:
+          type: string
+        example: CANCELED
+      - description: Unique StockX product ID
+        in: query
+        name: productId
+        required: false
+        schema:
+          type: string
+      - description: Unique StockX variant ID
+        in: query
+        name: variantId
+        required: false
+        schema:
+          type: string
+      - description: Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks ("| ''). The inventory types are STANDARD, FLEX or DIRECT.
+        in: query
+        name: inventoryTypes
+        required: false
+        schema:
+          type: string
+        example: STANDARD
+      - description: 'The shipment''s unique display id associated with the order. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+        in: query
+        name: initiatedShipmentDisplayIds
+        required: false
+        schema:
+          type: string
+  /selling/orders/{orderNumber}:
+    get:
+      operationId: GetOrder
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DetailedOrder'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: 'Get order details API allows you to fetch details for a single order by order number.
+
+        This includes shipping and payout information.'
+      summary: Get single order
+      tags:
+      - Order
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: 'The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
+        in: path
+        name: orderNumber
+        required: true
+        schema:
+          type: string
+  /selling/orders/{orderNumber}/shipping-document/{shippingId}:
+    get:
+      operationId: GetOrderShipment
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/pdf:
+              schema: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get an existing shipping document.
+      summary: Get shipping document
+      tags:
+      - Order
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: The number of order to fetch
+        in: path
+        name: orderNumber
+        required: true
+        schema:
+          type: string
+        example: 323314425-323214184
+      - description: The shipping ID of order to fetch
+        in: path
+        name: shippingId
+        required: true
+        schema:
+          type: string
+        example: 323314425-323214184
+  /selling/orders/{orderNumber}/shipping-document:
+    get:
+      operationId: GetOrderShipmentDocuments
+      responses:
+        '200':
+          description: Ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetShipmentDetailsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicApiError'
+      description: Get shipping documents for an order. This endpoint only supports Direct order types.
+      summary: Get order shipping document
+      tags:
+      - Order
+      security:
+      - api_key: []
+        jwt: []
+      parameters:
+      - description: The number of order to fetch
+        in: path
+        name: orderNumber
+        required: true
+        schema:
+          type: string
+        example: 06-9XUDDWG8F1
+components:
+  schemas:
+    HistoricalOrderStatus:
+      enum:
+      - AUTHFAILED
+      - DIDNOTSHIP
+      - CANCELED
+      - COMPLETED
+      - RETURNED
+      type: string
+    Shipment:
+      properties:
+        shipByDate:
+          type: string
+          nullable: true
+          description: Date that the order should be shipped by.
+        trackingNumber:
+          type: string
+          nullable: true
+          description: The shipments tracking number
+          example: 1Z3983AF9121770825
+        trackingUrl:
+          type: string
+          nullable: true
+          description: The URL to the carriers web page.
+          example: http://wwwapps.ups.com/etracking/tracking.cgi?tracknum=1Z3983AF9121770825
+        carrierCode:
+          type: string
+          nullable: true
+          description: The carrier code for the shipment provider.
+          example: UPS
+        shippingLabelUrl:
+          type: string
+          nullable: true
+          description: The URL of the shipping label
+          example: https://stockx.com/shipping_label.png
+        shippingDocumentUrl:
+          type: string
+          nullable: true
+          description: The URL of the StockX shipping document.
+          example: https://api.stockx.io/v1/selling/orders/12342334/shipping-document/S-123
+      required:
+      - shipByDate
+      - trackingNumber
+      - trackingUrl
+      - carrierCode
+      - shippingLabelUrl
+      - shippingDocumentUrl
+      type: object
+      additionalProperties: false
+    DetailedOrder:
+      properties:
+        askId:
+          type: string
+          description: Unique identifier for an ask on the StockX platform
+          example: '13658831621304650018'
+        orderNumber:
+          type: string
+          description: 'The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
+        listingId:
+          type: string
+          nullable: true
+          description: Unique ID for this listing
+          example: 35d76ac8-a112-4d75-b44f-c8ef04a87c93
+        amount:
+          type: string
+          description: The ask/order price
+          example: '140'
+        currencyCode:
+          type: string
+          nullable: true
+          description: 'The currency type for this order.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the order was created in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
+          example: '2021-08-25T13:51:47.000Z'
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the order was updated in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
+          example: '2021-08-25T13:51:47.000Z'
+        variant:
+          $ref: '#/components/schemas/Variant'
+          description: Details about the product variant
+        product:
+          $ref: '#/components/schemas/OrderProduct'
+          description: Product information
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/OrderStatus'
+          - type: string
+          description: The current status of the order.
+        shipment:
+          allOf:
+          - $ref: '#/components/schemas/Shipment'
+          nullable: true
+          description: The shipment details of the order.
+        initiatedShipments:
+          allOf:
+          - $ref: '#/components/schemas/ManifestDataResponse'
+          nullable: true
+          description: An object containing details about the seller initiated shipments.
+        inventoryType:
+          $ref: '#/components/schemas/InventoryType'
+          description: The inventory type of the order.
+        authenticationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AuthenticationDetails'
+          nullable: true
+          description: Details about authentication status and failure notes
+        payout:
+          $ref: '#/components/schemas/Payout'
+          description: The payout object that contains the payout details and any adjustments like selling fees, shipping fees, taxes, etc.
+      required:
+      - askId
+      - orderNumber
+      - listingId
+      - amount
+      - currencyCode
+      - createdAt
+      - updatedAt
+      - variant
+      - product
+      - status
+      - shipment
+      - initiatedShipments
+      - inventoryType
+      - payout
+      type: object
+      additionalProperties: false
+    ListOrders:
+      properties:
+        orderNumber:
+          type: string
+          description: 'The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
+        listingId:
+          type: string
+          nullable: true
+          description: Unique ID for this listing
+          example: 35d76ac8-a112-4d75-b44f-c8ef04a87c93
+        askId:
+          type: string
+          description: Unique identifier for an ask on the StockX platform
+          example: '13658831621304650018'
+        amount:
+          type: string
+          description: The ask/order price
+          example: '140'
+        currencyCode:
+          type: string
+          nullable: true
+          description: 'The currency type for this order.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/OrderStatus'
+          - type: string
+          description: The current status of the order.
+        createdAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the order was created in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
+          example: '2021-08-25T13:51:47.000Z'
+        updatedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: When the order was updated in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
+          example: '2021-08-25T13:51:47.000Z'
+        product:
+          $ref: '#/components/schemas/OrderProduct'
+          description: Product information
+        variant:
+          $ref: '#/components/schemas/Variant'
+          description: Details about the product variant
+        authenticationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AuthenticationDetails'
+          nullable: true
+          description: Details about authentication status and failure notes
+        payout:
+          allOf:
+          - $ref: '#/components/schemas/Payout'
+          nullable: true
+          description: Details about payout for the listing
+        initiatedShipments:
+          allOf:
+          - $ref: '#/components/schemas/ManifestDataResponse'
+          nullable: true
+          description: An object containing details about the customer initiated shipment
+        inventoryType:
+          $ref: '#/components/schemas/InventoryType'
+          description: The type of item storage for the order
+        condition:
+          type: string
+          nullable: true
+          description: The condition of the item
+          example: Used
+        conditionDescription:
+          type: string
+          nullable: true
+          description: A description of the item's condition
+          example: Brand new, never worn
+      required:
+      - orderNumber
+      - listingId
+      - askId
+      - amount
+      - currencyCode
+      - status
+      - createdAt
+      - updatedAt
+      - product
+      - variant
+      - authenticationDetails
+      - inventoryType
+      - condition
+      - conditionDescription
+      type: object
+      additionalProperties: false
+    AuthenticationDetails:
+      properties:
+        status:
+          type: string
+          nullable: true
+        failureNotes:
+          type: string
+          nullable: true
+      required:
+      - status
+      - failureNotes
+      type: object
+      additionalProperties: false
+    PublicApiError:
+      properties:
+        statusCode:
+          $ref: '#/components/schemas/HttpStatusCodeLiteral'
+          description: The error status code
+          example: 400
+        message:
+          type: string
+          description: The error message
+          example: The request did not succeed 😭
+      required:
+      - statusCode
+      - message
+      type: object
+      additionalProperties: false
+    HttpStatusCodeLiteral:
+      type: number
+      enum:
+      - 100
+      - 101
+      - 102
+      - 200
+      - 201
+      - 202
+      - 203
+      - 204
+      - 205
+      - 206
+      - 207
+      - 208
+      - 226
+      - 300
+      - 301
+      - 302
+      - 303
+      - 304
+      - 305
+      - 307
+      - 308
+      - 400
+      - 401
+      - 402
+      - 403
+      - 404
+      - 405
+      - 406
+      - 407
+      - 408
+      - 409
+      - 410
+      - 411
+      - 412
+      - 413
+      - 414
+      - 415
+      - 416
+      - 417
+      - 418
+      - 422
+      - 423
+      - 424
+      - 426
+      - 428
+      - 429
+      - 431
+      - 451
+      - 500
+      - 501
+      - 502
+      - 503
+      - 504
+      - 505
+      - 506
+      - 507
+      - 508
+      - 510
+      - 511
+    Orders:
+      properties:
+        count:
+          type: number
+          format: double
+          description: Total number of items present
+          example: 266
+        pageSize:
+          type: number
+          format: double
+          description: Total number of items in the current page
+          example: 10
+        pageNumber:
+          type: number
+          format: double
+          description: Requested page number. Starts at 1.
+          example: 1
+        hasNextPage:
+          type: boolean
+          description: Returns true if there are elements in the next page.
+          example: true
+        orders:
+          items:
+            $ref: '#/components/schemas/ListOrders'
+          type: array
+          description: List containing the orders
+      required:
+      - count
+      - pageSize
+      - pageNumber
+      - hasNextPage
+      - orders
+      type: object
+      additionalProperties: false
+    OrderStatus:
+      anyOf:
+      - $ref: '#/components/schemas/ActiveOrderStatus'
+      - $ref: '#/components/schemas/HistoricalOrderStatus'
+      - $ref: '#/components/schemas/UnknownStatus'
+      description: Status for the current order
+    InventoryType:
+      enum:
+      - STANDARD
+      - FLEX
+      - DFS
+      - DIRECT
+      type: string
+    Payout:
+      description: The payout object that contains the payout details and any adjustments
+      properties:
+        totalPayout:
+          type: string
+          description: The total amount to be paid for the sale of the product
+          example: 76.81
+        salePrice:
+          type: string
+          description: The amount the product was sold for
+          example: 79
+        totalAdjustments:
+          type: string
+          description: The sum of all adjustments made
+          example: -7
+        currencyCode:
+          type: string
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+        adjustments:
+          items:
+            $ref: '#/components/schemas/Adjustment'
+          type: array
+          description: The payout adjustment details if applicable
+      required:
+      - totalPayout
+      - salePrice
+      - totalAdjustments
+      - currencyCode
+      - adjustments
+      type: object
+      additionalProperties: false
+    GetShipmentDetailsResponse:
+      description: Response structure for shipment details.
+      properties:
+        shippingDocuments:
+          properties:
+            requiredDocuments:
+              $ref: '#/components/schemas/Record_string.DocumentURL_'
+              description: Required documents for the shipment.
+            message:
+              type: string
+              description: message and instructions related to the shipment.
+            additionalDocumentsRequired:
+              type: boolean
+              description: Is Additional Shipping Label required.
+            thermalLabelOnly:
+              allOf:
+              - $ref: '#/components/schemas/DocumentURL'
+              nullable: true
+              description: Thermal label only document (optional).
+            sellerShippingInstructions:
+              properties:
+                normalLabel:
+                  $ref: '#/components/schemas/Record_LanguageCode.DocumentURL_'
+                  description: Normal label documents by language (optional).
+                thermalLabel:
+                  $ref: '#/components/schemas/Record_LanguageCode.DocumentURL_'
+                  description: Thermal label documents by language.
+              required:
+              - thermalLabel
+              type: object
+              nullable: true
+              description: Seller shipping instructions in various label formats and languages.
+          type: object
+          nullable: true
+          description: Documents related to the shipment.
+      type: object
+      additionalProperties: false
+    ManifestDataResponse:
+      properties:
+        inbound:
+          properties:
+            displayId:
+              type: string
+              description: 'The ID associated with the shipment arriving at StockX. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+          required:
+          - displayId
+          type: object
+      required:
+      - inbound
+      type: object
+      additionalProperties: false
+    Adjustment:
+      properties:
+        adjustmentType:
+          type: string
+          description: The type of adjustment made
+          example: Shipping Fee (10%)
+        amount:
+          type: string
+          description: The amount of the adjustment
+          example: 2.13
+        percentage:
+          type: string
+          description: The percentage of the adjustment
+          example: 0.1
+      required:
+      - adjustmentType
+      - amount
+      - percentage
+      type: object
+      additionalProperties: false
+    Record_string.DocumentURL_:
+      properties: {}
+      type: object
+      description: Construct a type with a set of properties K of type T
+    ActiveOrderStatus:
+      enum:
+      - CREATED
+      - CCAUTHORIZATIONFAILED
+      - SHIPPED
+      - RECEIVED
+      - AUTHENTICATING
+      - AUTHENTICATED
+      - PAYOUTPENDING
+      - PAYOUTCOMPLETED
+      - SYSTEMFULFILLED
+      - PAYOUTFAILED
+      - SUSPENDED
+      - PENDING
+      - DONOTSHIP
+      type: string
+    Variant:
+      description: Variant information
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier for a products variant
+        variantName:
+          type: string
+          description: Unique readable name of the products variant
+          example: Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0
+        variantValue:
+          type: string
+          nullable: true
+          description: The value of the variant. For example, in the sneakers case, this could be 10 or in the trading cards case, this could be PSA 10, etc.
+          example: PSA 10
+      required:
+      - variantId
+      - variantName
+      - variantValue
+      type: object
+      additionalProperties: false
+    DocumentURL:
+      type: string
+      description: Type alias for document URLs.
+    Record_LanguageCode.DocumentURL_:
+      properties: {}
+      type: object
+      description: Construct a type with a set of properties K of type T
+    OrderProduct:
+      description: Product information
+      properties:
+        productId:
+          type: string
+          description: StockX product ID
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        productName:
+          type: string
+          nullable: true
+          description: Name of the product
+          example: Gucci Duchessa Boston Bag
+        styleId:
+          type: string
+          nullable: true
+          description: Style id of the product
+      required:
+      - productId
+      - productName
+      - styleId
+      type: object
+      additionalProperties: false
+    UnknownStatus:
+      enum:
+      - UNKNOWN
+      type: string
+  securitySchemes:
+    api_key:
+      type: apiKey
+      name: x-api-key
+      in: header
+    jwt:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
