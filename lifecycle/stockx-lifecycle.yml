@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.stockx.com/portal/api-updates/
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://api.stockx.com/v2
+  docs: https://developer.stockx.com/portal/api-introduction
+changelog: https://developer.stockx.com/portal/api-updates/
+support:
+  docs: https://developer.stockx.com/portal/api-introduction
+  program: StockX Developer Program (access approval required; API key issued on approval)
+deprecation:
+  policy_url: null
+  sunset_header: false
+  detail: No formal RFC 8594 Sunset/Deprecation header policy is published; API changes are announced on the API Updates page and via email to developer-program members.
+status_page: null
+sla:
+  url: null
+rate_limits:
+  quota: 25000 requests per 24 hours
+  burst: 1 request per second
+  reset: 00:00 UTC
+webhooks:
+  documented: true
+  detail: StockX documents a webhooks/subscription surface in its developer portal, but no machine-readable event catalog or AsyncAPI is published; not captured as an artifact to avoid fabrication.
+deprecated_operations: []

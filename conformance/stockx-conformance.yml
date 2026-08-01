@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/stockx-public-openapi-original.json
+docs: https://developer.stockx.com/portal/authentication
+standards:
+- id: oauth2
+  conforms: true
+  evidence: Auth0 OAuth2 Authorization Code flow documented (accounts.stockx.com/authorize, /oauth/token);
+    bearer JWT applied to all requests
+- id: openid-connect
+  conforms: true
+  evidence: accounts.stockx.com publishes /.well-known/openid-configuration (Auth0 issuer)
+- id: api-key
+  conforms: true
+  evidence: x-api-key header securityScheme in OpenAPI
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors use a custom {statusCode,message} JSON envelope, not application/problem+json
+- id: pagination
+  conforms: true
+  evidence: pageNumber/pageSize offset pagination on list endpoints; cursor pagination on listing operations
+- id: idempotency
+  conforms: false
+  evidence: no idempotency-key header documented in OpenAPI
+- id: rfc8594-sunset
+  conforms: false
+  evidence: no Deprecation/Sunset header policy documented

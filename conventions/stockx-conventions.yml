@@ -1,0 +1,40 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/stockx-public-openapi-original.json
+docs: https://developer.stockx.com/portal/api-introduction
+authentication:
+  style: api-key + oauth2-bearer
+  detail: Every request requires an x-api-key header AND an Authorization Bearer JWT (Auth0). See authentication/stockx-authentication.yml.
+idempotency:
+  supported: false
+  detail: No idempotency-key header is documented. Write operations (listing create/update/delete) are made safe via asynchronous batch operations with server-issued batchId and per-item status polling rather than client idempotency keys.
+pagination:
+  styles:
+  - style: page-number
+    params: [pageNumber, pageSize]
+    applies_to: [catalog/search, selling/listings, selling/orders/active, selling/orders/history]
+  - style: cursor
+    params: [cursor, pageSize]
+    applies_to: ['selling/listings/{listingId}/operations']
+async_operations:
+  detail: Bulk listing changes are asynchronous. POST create/update/delete-listing return a batchId; poll GET .../batch/{batchId} and .../items for per-item status. Single-listing writes return an operation that can be polled at selling/listings/{listingId}/operations/{operationId}.
+versioning:
+  scheme: uri-path
+  current: v2
+  base_url: https://api.stockx.com/v2
+  detail: Version is pinned in the URL path (/v2). See lifecycle/stockx-lifecycle.yml.
+error_envelope:
+  media_type: application/json
+  schema: PublicApiError
+  shape: '{ statusCode: integer, message: string }'
+  detail: Not RFC 9457 problem+json. See errors/stockx-problem-types.yml.
+rate_limiting:
+  quota: 25000 requests per rolling 24-hour period
+  burst: 1 request per second
+  reset: 00:00 UTC daily
+  detail: See rate-limits and lifecycle artifacts.
+cross_links:
+  authentication: authentication/stockx-authentication.yml
+  errors: errors/stockx-problem-types.yml
+  lifecycle: lifecycle/stockx-lifecycle.yml
+  scopes: scopes/stockx-scopes.yml

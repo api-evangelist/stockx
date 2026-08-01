@@ -1,0 +1,106 @@
+generated: '2026-07-21'
+method: derived
+status: candidate
+source: openapi/stockx-public-openapi-original.json
+note: Candidate tool list derived one-per-operation from the StockX Public API OpenAPI. No official StockX
+  MCP server is published as of this pass.
+server:
+  name: stockx
+  transport: http
+tools:
+- name: create_listings
+  description: Batch listings creation
+  source_operation: openapi/stockx-public-openapi-original.json#CreateListings
+- name: get_listing_create_batch
+  description: Batch listings creation - Get Batch Status
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingCreateBatch
+- name: get_listing_create_batch_items
+  description: Batch listings creation - Get Items
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingCreateBatchItems
+- name: delete_listings
+  description: Batch listings deletion
+  source_operation: openapi/stockx-public-openapi-original.json#DeleteListings
+- name: get_listing_delete_batch
+  description: Batch listings deletion - Get Batch Status
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingDeleteBatch
+- name: get_listing_delete_batch_items
+  description: Batch listings deletion - Get Items
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingDeleteBatchItems
+- name: update_listings
+  description: Batch listings update
+  source_operation: openapi/stockx-public-openapi-original.json#UpdateListings
+- name: get_listing_update_batch
+  description: Batch listings update - Get Batch Status
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingUpdateBatch
+- name: get_listing_update_batch_items
+  description: Batch listings update - Get Items
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingUpdateBatchItems
+- name: ingestion
+  description: Post - Create a Catalog Ingestion Job (Beta)
+  source_operation: openapi/stockx-public-openapi-original.json#Ingestion
+- name: ingestion_items
+  description: Get - Catalog Ingestion Status (Beta)
+  source_operation: openapi/stockx-public-openapi-original.json#IngestionItems
+- name: get_product
+  description: Get single product
+  source_operation: openapi/stockx-public-openapi-original.json#GetProduct
+- name: get_variant
+  description: Get single product variant
+  source_operation: openapi/stockx-public-openapi-original.json#GetVariant
+- name: get_variants
+  description: Get all product variants
+  source_operation: openapi/stockx-public-openapi-original.json#GetVariants
+- name: get_variant_market_data
+  description: Get market data for a variant
+  source_operation: openapi/stockx-public-openapi-original.json#GetVariantMarketData
+- name: get_product_market_data
+  description: Get market data for a product
+  source_operation: openapi/stockx-public-openapi-original.json#GetProductMarketData
+- name: get_variants_by_gtin
+  description: Retrieve product variant details by GTIN
+  source_operation: openapi/stockx-public-openapi-original.json#GetVariantsByGtin
+- name: search
+  description: Search catalog
+  source_operation: openapi/stockx-public-openapi-original.json#Search
+- name: create
+  description: Create a new listing
+  source_operation: openapi/stockx-public-openapi-original.json#Create
+- name: get_all_listings
+  description: Get all listings
+  source_operation: openapi/stockx-public-openapi-original.json#GetAllListings
+- name: activate_listing
+  description: Activate a listing
+  source_operation: openapi/stockx-public-openapi-original.json#ActivateListing
+- name: deactivate_listing
+  description: Deactivate a listing
+  source_operation: openapi/stockx-public-openapi-original.json#DeactivateListing
+- name: update
+  description: Update a listing
+  source_operation: openapi/stockx-public-openapi-original.json#Update
+- name: delete_listing
+  description: Delete a listing
+  source_operation: openapi/stockx-public-openapi-original.json#DeleteListing
+- name: find_by_id
+  description: Get single listing
+  source_operation: openapi/stockx-public-openapi-original.json#FindById
+- name: find_operation_by_id
+  description: Get single listing operation
+  source_operation: openapi/stockx-public-openapi-original.json#FindOperationById
+- name: get_listing_operations
+  description: Get all listing operations
+  source_operation: openapi/stockx-public-openapi-original.json#GetListingOperations
+- name: get_orders
+  description: Get active orders
+  source_operation: openapi/stockx-public-openapi-original.json#GetOrders
+- name: get_historical_orders
+  description: Get historical orders
+  source_operation: openapi/stockx-public-openapi-original.json#GetHistoricalOrders
+- name: get_order
+  description: Get single order
+  source_operation: openapi/stockx-public-openapi-original.json#GetOrder
+- name: get_order_shipment
+  description: Get shipping document
+  source_operation: openapi/stockx-public-openapi-original.json#GetOrderShipment
+- name: get_order_shipment_documents
+  description: Get order shipping document
+  source_operation: openapi/stockx-public-openapi-original.json#GetOrderShipmentDocuments

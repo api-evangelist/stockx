@@ -1,0 +1,37 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/stockx-public-openapi-original.json
+format: custom-json
+envelope:
+  media_type: application/json
+  schema: PublicApiError
+  fields:
+    statusCode: HTTP status code (integer)
+    message: Human-readable error message
+note: StockX Public API returns a simple {statusCode,message} JSON error envelope (PublicApiError), not
+  RFC 9457 problem+json.
+problems:
+- status: 400
+  title: Bad Request
+  example_operations:
+  - openapi/stockx-public-openapi-original.json#CreateListings
+  - openapi/stockx-public-openapi-original.json#DeleteListings
+  - openapi/stockx-public-openapi-original.json#UpdateListings
+- status: 401
+  title: Unauthorized
+  example_operations:
+  - openapi/stockx-public-openapi-original.json#CreateListings
+  - openapi/stockx-public-openapi-original.json#GetListingCreateBatch
+  - openapi/stockx-public-openapi-original.json#GetListingCreateBatchItems
+- status: 404
+  title: Not found
+  example_operations:
+  - openapi/stockx-public-openapi-original.json#GetProduct
+  - openapi/stockx-public-openapi-original.json#GetVariant
+  - openapi/stockx-public-openapi-original.json#GetVariants
+- status: 500
+  title: Internal Server Error
+  example_operations:
+  - openapi/stockx-public-openapi-original.json#CreateListings
+  - openapi/stockx-public-openapi-original.json#GetListingCreateBatch
+  - openapi/stockx-public-openapi-original.json#GetListingCreateBatchItems

@@ -1,0 +1,20 @@
+generated: '2026-07-21'
+method: generated
+source: openapi/stockx-public-openapi-original.json
+skills:
+- file: stockx-search-and-price.md
+  name: Search the catalog and read market data
+  api: openapi/stockx-public-openapi-original.json
+  operations: [Search, GetProduct, GetVariants, GetVariantMarketData, GetProductMarketData]
+- file: stockx-create-and-manage-listing.md
+  name: Create and manage a seller listing
+  api: openapi/stockx-public-openapi-original.json
+  operations: [Search, GetVariants, Create, GetListingOperations, FindById, ActivateListing, DeactivateListing, DeleteListing]
+- file: stockx-batch-list-inventory.md
+  name: Bulk-list inventory with batch operations
+  api: openapi/stockx-public-openapi-original.json
+  operations: [CreateListings, GetListingCreateBatch, GetListingCreateBatchItems]
+- file: stockx-track-orders.md
+  name: Track sales orders and shipping documents
+  api: openapi/stockx-public-openapi-original.json
+  operations: [GetOrders, GetHistoricalOrders, GetOrder, GetOrderShipmentDocuments, GetOrderShipment]

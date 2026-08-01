@@ -1,0 +1,20 @@
+{
+  "provider": "stockx",
+  "sources": [
+    "stockx-batch-api-openapi.yml",
+    "stockx-catalog-api-openapi.yml",
+    "stockx-listings-api-openapi.yml",
+    "stockx-order-api-openapi.yml"
+  ],
+  "outputs": [
+    "stockx-batch-api-openapi.yml",
+    "stockx-catalog-api-openapi.yml",
+    "stockx-listings-api-openapi.yml",
+    "stockx-order-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

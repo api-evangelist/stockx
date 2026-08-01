@@ -1,0 +1,72 @@
+generated: '2026-07-21'
+method: derived
+source: openapi/stockx-public-openapi-original.json
+docs: https://developer.stockx.com/openapi/reference
+entities:
+- name: Product
+  id_field: productId
+  key_schemas:
+  - Product
+  domain: catalog
+  relationships:
+  - type: has_many
+    target: Variant
+    via: variants
+  - type: has_one
+    target: ProductMarketData
+    via: market-data
+- name: Variant
+  id_field: variantId
+  key_schemas:
+  - Variant
+  domain: catalog
+  relationships:
+  - type: belongs_to
+    target: Product
+    via: productId
+  - type: has_one
+    target: VariantMarketData
+    via: market-data
+- name: Listing
+  id_field: listingId
+  domain: selling
+  relationships:
+  - type: belongs_to
+    target: Product
+    via: productId
+  - type: belongs_to
+    target: Variant
+    via: variantId
+  - type: has_many
+    target: ListingOperation
+    via: operations
+  - type: belongs_to
+    target: Batch
+    via: batchId
+- name: Order
+  id_field: orderNumber
+  domain: selling
+  relationships:
+  - type: belongs_to
+    target: Product
+    via: productId
+  - type: belongs_to
+    target: Variant
+    via: variantId
+  - type: has_many
+    target: ShippingDocument
+    via: shipping-document
+- name: Batch
+  id_field: batchId
+  domain: selling
+  relationships:
+  - type: has_many
+    target: Listing
+    via: items
+- name: Ingestion
+  id_field: ingestionId
+  domain: catalog
+  relationships:
+  - type: has_many
+    target: IngestionItem
+    via: items

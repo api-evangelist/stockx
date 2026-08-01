@@ -1,0 +1,43 @@
+generated: '2026-07-21'
+method: searched
+source: openapi/stockx-public-openapi-original.json
+docs: https://developer.stockx.com/portal/authentication
+summary:
+  types:
+  - apiKey
+  - http
+  - oauth2
+  api_key_in:
+  - header
+  oauth2_flows:
+  - authorizationCode
+notes: >-
+  StockX Public API requires BOTH an x-api-key header AND an OAuth 2.0 bearer
+  access token on every request. Access tokens are issued by StockX's Auth0
+  tenant (accounts.stockx.com) via the Authorization Code flow; the audience
+  must be set to gateway.stockx.com. The API key is generated in the developer
+  portal once developer-program access is approved.
+schemes:
+- name: api_key
+  type: apiKey
+  in: header
+  parameter: x-api-key
+  sources:
+  - openapi/stockx-public-openapi-original.json
+- name: jwt
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  sources:
+  - openapi/stockx-public-openapi-original.json
+- name: oauth2
+  type: oauth2
+  flow: authorizationCode
+  authorizationUrl: https://accounts.stockx.com/authorize
+  tokenUrl: https://accounts.stockx.com/oauth/token
+  jwks_uri: https://accounts.stockx.com/.well-known/jwks.json
+  audience: gateway.stockx.com
+  scopes:
+  - openid
+  - offline_access
+  source: https://accounts.stockx.com/.well-known/openid-configuration

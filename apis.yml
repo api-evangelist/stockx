@@ -1,27 +1,171 @@
 aid: stockx
 name: StockX
-description: StockX is a company surfaced as a portfolio company of battery-ventures, gv and added to
-  the API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment
-  pipeline.
+description: >-
+  StockX is a global online marketplace for sneakers, streetwear, electronics, collectibles,
+  and trading cards, operating on a live bid/ask model similar to a stock exchange. The StockX
+  Public API (v2.0.0) lets approved developers in the StockX Developer Program search the product
+  catalog, read live market data (bids/asks), create and manage seller listings individually or in
+  bulk via asynchronous batch operations, and track sales orders and their shipping documents.
+  Requests authenticate with an x-api-key header plus an OAuth 2.0 bearer token issued by StockX's
+  Auth0 tenant. StockX was surfaced as a portfolio company of Battery Ventures and GV.
 url: https://raw.githubusercontent.com/api-evangelist/stockx/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
 x-backed-by:
 - battery-ventures
 - gv
-x-tier: stub
-x-tier-reason: portfolio-lead
+x-tier: profiled
+x-tier-reason: has-public-api
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-21'
+image: https://developer.stockx.com/icon.png
 tags:
 - Company
-apis: []
+- Marketplace
+- E-Commerce
+- Sneakers
+- Streetwear
+- Resale
+- Collectibles
+- Catalog
+- Selling
+- Orders
+apis:
+- aid: stockx:stockx-batch-api
+  name: StockX Batch API
+  description: >-
+    Batch APIs enable a user to create, update, delete listings in bulk. Batch APIs are asynchronous in
+    nature and we provide mechanisms to poll the API so that you can keep track of the batch completion.  Once
+    a batch is successfully completed, you can view the status of each individual listing.  We track each
+    individual listing inside a batch separately so you can have scenarios where some listings succeed
+    and some fail in a single batch.
+  humanURL: https://developer.stockx.com/
+  baseURL: https://api.stockx.com/v2
+  tags:
+  - Batch
+  properties:
+  - type: OpenAPI
+    url: openapi/stockx-batch-api-openapi.yml
+  - type: APIReference
+    url: https://developer.stockx.com/portal/api-reference
+- aid: stockx:stockx-catalog-api
+  name: StockX Catalog API
+  description: >-
+    The StockX Catalog API provides a means for partners to search for catalog data, and request products
+    to be added. Partners can search our Catalog to get StockX product and variant IDs for various purposes.
+    Access to the Catalog Ingestion API is approved on a request-by-request basis.
+  humanURL: https://developer.stockx.com/
+  baseURL: https://api.stockx.com/v2
+  tags:
+  - Catalog
+  properties:
+  - type: OpenAPI
+    url: openapi/stockx-catalog-api-openapi.yml
+  - type: APIReference
+    url: https://developer.stockx.com/portal/api-reference
+- aid: stockx:stockx-listings-api
+  name: StockX Listings API
+  description: >-
+    Listings APIs enable a seller to programmatically sell on StockX. The APIs enable a user to  create,
+    update and delete listings on the marketplace, as well as view and fetch live market data for any
+    live or expired listings you have
+  humanURL: https://developer.stockx.com/
+  baseURL: https://api.stockx.com/v2
+  tags:
+  - Listings
+  properties:
+  - type: OpenAPI
+    url: openapi/stockx-listings-api-openapi.yml
+  - type: APIReference
+    url: https://developer.stockx.com/portal/api-reference
+- aid: stockx:stockx-order-api
+  name: StockX Order API
+  description: >-
+    Order APIs enable a user to view all their active orders / sales as well as details for a single order.
+  humanURL: https://developer.stockx.com/
+  baseURL: https://api.stockx.com/v2
+  tags:
+  - Order
+  properties:
+  - type: OpenAPI
+    url: openapi/stockx-order-api-openapi.yml
+  - type: APIReference
+    url: https://developer.stockx.com/portal/api-reference
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
+x-enrichment:
+  date: '2026-07-21'
+  status: enriched
+  artifacts_added: 18
+  pass: local-v1
 common:
+- type: DeveloperPortal
+  url: https://developer.stockx.com/
+- type: Documentation
+  url: https://developer.stockx.com/portal/api-introduction
+- type: APIReference
+  url: https://developer.stockx.com/portal/api-reference
+- type: GettingStarted
+  url: https://developer.stockx.com/portal/api-introduction
+- type: Authentication
+  url: authentication/stockx-authentication.yml
+- type: OAuthScopes
+  url: scopes/stockx-scopes.yml
+- type: Conventions
+  url: conventions/stockx-conventions.yml
+- type: ErrorCatalog
+  url: errors/stockx-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/stockx-lifecycle.yml
+- type: ChangeLog
+  url: changelog/stockx-changelog.yml
+- type: Conformance
+  url: conformance/stockx-conformance.yml
+- type: DataModel
+  url: data-model/stockx-data-model.yml
+- type: MCPServer
+  url: mcp/stockx-mcp.yml
+- type: AgenticAccess
+  url: agentic-access/stockx-agentic-access.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: LLMsTxt
+  url: llms/stockx-llms.txt
+- type: Packages
+  url: packages/stockx-packages.yml
+- type: WellKnown
+  url: well-known/stockx-well-known.yml
+- type: DomainSecurity
+  url: security/stockx-domain-security.yml
+- type: RateLimits
+  url: rate-limits/stockx-rate-limits.yml
+- type: GitHubOrganization
+  url: https://github.com/stockx
+- type: Blog
+  url: https://stockx.com/news
+- type: Support
+  url: https://stockx.com/help
+- type: SignUp
+  url: https://developer.stockx.com/
+- type: TermsOfService
+  url: https://stockx.com/en-us/terms
+- type: PrivacyPolicy
+  url: https://stockx.com/about/privacy-policy
 - type: Website
-  url: http://stockx.com
+  url: https://stockx.com

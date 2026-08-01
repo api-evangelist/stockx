@@ -1,0 +1,22 @@
+generated: '2026-07-21'
+method: searched
+note: >-
+  StockX does not publish a first-party API client SDK. The packages below are
+  community/third-party wrappers found on public registries and are marked
+  official: false. No type: SDKs pointer is emitted because there is no
+  first-party client library.
+packages:
+- language: javascript
+  registry: npm
+  name: stockx-api
+  url: https://www.npmjs.com/package/stockx-api
+  install: npm install stockx-api
+  official: false
+  note: Community wrapper (matthew1232) over StockX's unofficial endpoints.
+- language: javascript
+  registry: npm
+  name: "@albertogferrario/stockx-api"
+  url: https://www.npmjs.com/package/@albertogferrario/stockx-api
+  install: npm install @albertogferrario/stockx-api
+  official: false
+  note: Community TypeScript wrapper.

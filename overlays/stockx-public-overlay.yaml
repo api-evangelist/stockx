@@ -1,0 +1,23 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for StockX Public API
+  version: 1.0.0
+extends: openapi/stockx-public-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-21'
+    x-apievangelist-rate-limit: 25000 requests / 24h, 1 request/second, resets 00:00 UTC
+    x-apievangelist-auth: OAuth2 Authorization Code (Auth0 accounts.stockx.com, audience gateway.stockx.com)
+      + x-api-key header
+    x-apievangelist-artifacts:
+    - authentication
+    - scopes
+    - conventions
+    - errors
+    - lifecycle
+    - data-model
+    - conformance
+    - mcp
+    - agentic-access
+    - skills

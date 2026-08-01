@@ -1,0 +1,37 @@
+# StockX Public API
+
+> StockX operates a global marketplace for sneakers, streetwear, electronics, collectibles, and trading cards on a bid/ask model. The StockX Public API (v2.0.0) lets approved developers search the product catalog, read live market data, create and manage seller listings (individually or in bulk batches), and track sales orders and shipping documents. Base URL: https://api.stockx.com/v2
+
+## Authentication
+- Requires BOTH an `x-api-key` header and an OAuth 2.0 Bearer access token on every request.
+- Tokens are issued by StockX's Auth0 tenant via the Authorization Code flow; audience must be `gateway.stockx.com`.
+- Authorize: https://accounts.stockx.com/authorize — Token: https://accounts.stockx.com/oauth/token
+- Rate limit: 25,000 requests / 24h, 1 request/second, resets 00:00 UTC.
+
+## APIs
+- [StockX Public API OpenAPI](https://developer.stockx.com/swagger.json): OpenAPI 3.0.0, 32 operations across Catalog, Listings, Order, and Batch.
+- [API Reference](https://developer.stockx.com/openapi/reference): Operation-by-operation reference.
+
+## Docs
+- [Developer Portal](https://developer.stockx.com/): Home for the StockX Developer Program.
+- [API Introduction](https://developer.stockx.com/portal/api-introduction): Overview and getting started.
+- [Authentication](https://developer.stockx.com/portal/authentication): OAuth + API key setup.
+- [API Updates](https://developer.stockx.com/portal/api-updates/): Changelog / announcements.
+
+## Product areas
+- Catalog: `Search`, `GetProduct`, `GetVariants`, `GetVariantMarketData`, `GetProductMarketData`, `GetVariantsByGtin`, catalog `Ingestion`.
+- Listings: `Create`, `GetAllListings`, `ActivateListing`, `DeactivateListing`, `Update`, `DeleteListing`, `FindById`, listing operations.
+- Batch: `CreateListings`, `UpdateListings`, `DeleteListings` (+ batch/item status pollers) for bulk inventory.
+- Order: `GetOrders`, `GetHistoricalOrders`, `GetOrder`, shipping-document retrieval.
+
+## Repository artifacts
+- OpenAPI: openapi/stockx-public-openapi-original.json
+- Authentication: authentication/stockx-authentication.yml
+- OAuth scopes: scopes/stockx-scopes.yml
+- Conventions: conventions/stockx-conventions.yml
+- Errors: errors/stockx-problem-types.yml
+- Lifecycle: lifecycle/stockx-lifecycle.yml
+- Data model: data-model/stockx-data-model.yml
+- Conformance: conformance/stockx-conformance.yml
+- MCP (candidate): mcp/stockx-mcp.yml
+- Agent skills: skills/_index.yml

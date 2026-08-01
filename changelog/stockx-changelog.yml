@@ -1,0 +1,11 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.stockx.com/portal/api-updates/
+scheme: semver
+current_version: 2.0.0
+detail: >-
+  StockX publishes API changes on its "API Updates" page and notifies developer-program
+  members by email. The page is a running narrative rather than a machine-readable dated
+  feed; individual dated entries are not reproduced here to avoid fabrication. The current
+  published API version is 2.0.0 (server https://api.stockx.com/v2).
+entries: []

@@ -1,0 +1,27 @@
+generated: '2026-07-21'
+method: searched
+note: >-
+  Probed /.well-known/ discovery paths on the StockX API host (api.stockx.com),
+  the developer portal (developer.stockx.com), the identity host
+  (accounts.stockx.com) and the marketing site (stockx.com). Only the Auth0
+  OpenID Connect discovery document returned 200.
+hosts:
+- host: https://accounts.stockx.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: stockx-openid-configuration.json
+- host: https://developer.stockx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://stockx.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+- host: https://gateway.stockx.com
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404

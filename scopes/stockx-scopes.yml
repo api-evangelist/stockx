@@ -1,0 +1,26 @@
+generated: '2026-07-21'
+method: searched
+source: https://accounts.stockx.com/.well-known/openid-configuration
+docs: https://developer.stockx.com/portal/authentication
+note: >-
+  The StockX Public API OpenAPI declares only http-bearer + api-key security
+  schemes, but access tokens are minted by StockX's Auth0 tenant via the OAuth 2.0
+  Authorization Code flow. The authorization request must set audience to
+  gateway.stockx.com. Application-level authorization (catalog/selling/orders) is
+  governed by the developer program grant tied to the API key rather than by
+  granular OAuth scopes; the scopes below are the identity/session scopes the
+  Auth0 authorize endpoint accepts.
+schemes:
+- name: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://accounts.stockx.com/authorize
+    tokenUrl: https://accounts.stockx.com/oauth/token
+    audience: gateway.stockx.com
+scopes:
+- scope: openid
+  description: Issue an OpenID Connect ID token for the authenticating StockX user.
+  flows: [authorizationCode]
+- scope: offline_access
+  description: Issue a refresh token so the application can obtain new access tokens without re-prompting the user.
+  flows: [authorizationCode]

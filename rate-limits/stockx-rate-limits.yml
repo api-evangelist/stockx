@@ -1,0 +1,16 @@
+generated: '2026-07-21'
+method: searched
+source: https://developer.stockx.com/portal/api-introduction
+docs: https://developer.stockx.com/portal/authentication
+scope: per-client (developer-program API key)
+limits:
+- name: daily-quota
+  limit_count: 25000
+  window: 24h
+  detail: Maximum 25,000 requests per rolling 24-hour period.
+- name: burst
+  limit_count: 1
+  window: 1s
+  detail: Maximum 1 request per second.
+reset: 00:00 UTC daily
+notes: Exceeding the limit returns HTTP 429; back off and retry.
