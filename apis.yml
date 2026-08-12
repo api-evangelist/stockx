@@ -115,6 +115,8 @@ x-enrichment:
   artifacts_added: 18
   pass: local-v1
 common:
+- type: Overlay
+  url: overlays/stockx-public-overlay.yaml
 - type: DeveloperPortal
   url: https://developer.stockx.com/
 - type: Documentation
