@@ -1,0 +1,2287 @@
+{
+  "item": [
+    {
+      "id": "9b46c378-707b-4a62-a759-a388301bf6fe",
+      "name": "Batch",
+      "description": {
+        "content": "Batch APIs enable a user to create, update, delete listings in bulk. Batch APIs are asynchronous in nature and we provide mechanisms to poll the API so that you can keep track of the batch completion.  Once a batch is successfully completed, you can view the status of each individual listing.  We track each individual listing inside a batch separately so you can have scenarios where some listings succeed and some fail in a single batch.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b9c84f52-f69b-4c0f-a5c4-f0749b9bd094",
+          "name": "Batch listings creation",
+          "request": {
+            "name": "Batch listings creation",
+            "description": {
+              "content": "Create a new batch of listings",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "create-listing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"quantity\": \"<double>\",\n      \"variantId\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"inventoryType\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"currencyCode\": \"<string>\",\n      \"expiresAt\": \"<string>\"\n    },\n    {\n      \"quantity\": \"<double>\",\n      \"variantId\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"inventoryType\": \"<string>\",\n      \"active\": \"<boolean>\",\n      \"currencyCode\": \"<string>\",\n      \"expiresAt\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "34f8c3ce-5263-4e9a-a0ad-6f6fdb7de9da",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"QUEUED\",\n  \"completedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"totalItems\": 10,\n  \"itemStatuses\": {\n    \"key_0\": 5661.57452817003,\n    \"key_1\": 1563.0759131090565\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "864b9154-feb4-49ec-abf0-904b4613e578",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a141df6e-cc2d-4e71-b271-74b8e66dc69b",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "122e3e12-edca-434d-8d0b-797c6444f118",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    {\n      \"quantity\": 10,\n      \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"79\",\n      \"inventoryType\": \"STANDARD\",\n      \"active\": true,\n      \"currencyCode\": \"USD\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "18a093b2-0f5e-4021-9431-3dd54bcb7889",
+          "name": "Batch listings creation - Get Batch Status",
+          "request": {
+            "name": "Batch listings creation - Get Batch Status",
+            "description": {
+              "content": "Once you are able to create a batch successfully, you need to poll the get batch status API to track the progress of the batch.\nThis polling is necessary because all batch operations are asynchronous in nature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "create-listing",
+                ":batchId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) Unique Batch ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "fc3f6f46-43d3-4a8d-b531-c016f850ee82",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"QUEUED\",\n  \"completedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"totalItems\": 10,\n  \"itemStatuses\": {\n    \"key_0\": 1884.2478621154157,\n    \"key_1\": 6184.309873376084,\n    \"key_2\": 6881.425606091661\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e8d3bb5d-609d-471b-80c1-bd2d2b33b1a6",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b5698b7-ad6f-4737-ad29-861d37f37f34",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5dba9d8f-162d-4ef7-b32a-63f804253544",
+          "name": "Batch listings creation - Get Items",
+          "request": {
+            "name": "Batch listings creation - Get Items",
+            "description": {
+              "content": "Once a batch completes successfully, you need to use the get batch items API to see the results of each item in the batch.\nYou can also use this API at any point in time after the batch is created to see the progress of each individual item in a batch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "create-listing",
+                ":batchId",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of listing"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) The ID of batch"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "75699674-0d70-4b31-ae88-b4e6963b9d8f",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) The ID of batch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"itemId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"status\": \"QUEUED\",\n      \"listingInput\": {\n        \"active\": true,\n        \"currencyCode\": \"USD\",\n        \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n        \"amount\": \"300\"\n      },\n      \"result\": {\n        \"askId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n      },\n      \"error\": \"string\"\n    },\n    {\n      \"itemId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"status\": \"QUEUED\",\n      \"listingInput\": {\n        \"active\": false,\n        \"currencyCode\": \"USD\",\n        \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n        \"amount\": \"300\"\n      },\n      \"result\": {\n        \"askId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n      },\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e2401d28-1b6e-4444-a49d-21990b4aeeed",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) The ID of batch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4dea8a5b-6baa-4308-8f2d-aaa65b6df919",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "create-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) The ID of batch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ef3a8cb-b688-400d-848d-aa0fafd5e75d",
+          "name": "Batch listings deletion",
+          "request": {
+            "name": "Batch listings deletion",
+            "description": {
+              "content": "Batch delete listings API allows a user to delete up to 100 individual listings in a single API call.\nThis API is asynchronous in nature and will return a batchId that you would need to poll using the polling APIs described later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "delete-listing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"<string>\"\n    },\n    {\n      \"listingId\": \"<string>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d8d55c18-6156-4b16-930f-0cca96640ef9",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"QUEUED\",\n  \"completedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"totalItems\": 10,\n  \"itemStatuses\": {\n    \"key_0\": 2074.7656881734533,\n    \"key_1\": 3062.9847668878506,\n    \"key_2\": 2448.3379512725046\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5fd9afbb-a1ab-4131-bf5a-385735ad80df",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3153f285-6afd-4a2a-beaf-cfd7e70ce950",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46aa150a-6839-4db7-91b1-ae16360eebb5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22548905-9509-464f-af74-6f5a2b1c7262",
+          "name": "Batch listings deletion - Get Batch Status",
+          "request": {
+            "name": "Batch listings deletion - Get Batch Status",
+            "description": {
+              "content": "Once you are able to create a batch successfully, you need to poll the get batch status API to track the progress of the batch.\nThis polling is necessary because all batch operations are asynchronous in nature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "delete-listing",
+                ":batchId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) Unique Batch ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e525905d-00af-40a0-9285-6cd16ca96dd9",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"QUEUED\",\n  \"completedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"totalItems\": 10,\n  \"itemStatuses\": {\n    \"key_0\": 2074.7656881734533,\n    \"key_1\": 3062.9847668878506,\n    \"key_2\": 2448.3379512725046\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "406e7e53-a2a4-4224-85f8-dd5ff1b41755",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f5a8166f-23a0-413d-92bb-57c5a4324a07",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "9fbb2fcb-4cd2-40a3-9b14-25376e58c833",
+          "name": "Batch listings deletion - Get Items",
+          "request": {
+            "name": "Batch listings deletion - Get Items",
+            "description": {
+              "content": "Once a batch completes successfully, you need to use the get batch items API to see the results of each item in the batch.\nYou can also use this API at any point in time after the batch is created to see the progress of each individual item in a batch.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "delete-listing",
+                ":batchId",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) Unique Batch ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a7dcd238-6bd6-40fb-a212-528afd752beb",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"itemId\": \"09f3f859-9000-56cg-a624-6642d6a68318\",\n      \"status\": \"IN_PROGRESS\",\n      \"listingInput\": {\n        \"id\": \"string\"\n      },\n      \"error\": \"string\",\n      \"result\": {\n        \"askId\": \"09f3f859-9000-56cg-a624-6642d6a68318\",\n        \"listingId\": \"09f3f859-9000-56cg-a624-6642d6a68318\"\n      }\n    },\n    {\n      \"itemId\": \"09f3f859-9000-56cg-a624-6642d6a68318\",\n      \"status\": \"IN_PROGRESS\",\n      \"listingInput\": {\n        \"id\": \"string\"\n      },\n      \"error\": \"string\",\n      \"result\": {\n        \"askId\": \"09f3f859-9000-56cg-a624-6642d6a68318\",\n        \"listingId\": \"09f3f859-9000-56cg-a624-6642d6a68318\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "79cbe04d-94e9-49a8-8dad-06751de15bba",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "11e9cf47-178f-4585-ba14-fba05dcda678",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "delete-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fbb51b7f-fedb-4d69-a2bd-424dd51d38ff",
+          "name": "Batch listings update",
+          "request": {
+            "name": "Batch listings update",
+            "description": {
+              "content": "Batch update listings API allows a user to update up to 100 individual listings in a single API call.\nThis API is asynchronous in nature and will return a batchId that you would need to poll using the polling APIs described later.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "update-listing"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"active\": \"<boolean>\"\n    },\n    {\n      \"listingId\": \"<string>\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"<string>\",\n      \"currencyCode\": \"<string>\",\n      \"active\": \"<boolean>\"\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ab9428d-9bd7-4cea-af9d-0a64d0ca51f8",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"QUEUED\",\n  \"completedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"totalItems\": 10,\n  \"itemStatuses\": {\n    \"key_0\": 5430.822278653782,\n    \"key_1\": 7596.69321530951,\n    \"key_2\": 8709.103586224917,\n    \"key_3\": 6740.497098584647\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d0f63049-fa91-4843-96f4-03a41d8abf74",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "34b57567-901f-4a39-92a1-2a3d0d12836e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e024188-75ec-45da-ac0c-92ee61abf35d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"items\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"amount\": \"<string>\",\n      \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n      \"currencyCode\": \"USD\",\n      \"active\": true\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "175e9a29-793c-458b-8342-cf0e167e6daa",
+          "name": "Batch listings update - Get Batch Status",
+          "request": {
+            "name": "Batch listings update - Get Batch Status",
+            "description": {
+              "content": "Once you are able to create a batch successfully, you need to poll the get batch status API to track the progress of the batch.\nThis polling is necessary because all batch operations are asynchronous in nature.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "update-listing",
+                ":batchId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) Unique Batch ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cf4b0fa3-0268-43eb-b252-432cb586bebb",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"batchId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"QUEUED\",\n  \"completedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"totalItems\": 10,\n  \"itemStatuses\": {\n    \"key_0\": 3860.239941721423\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "acb8b1ed-2ee1-45a3-9e8f-28a2c0b8ce1a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7ac67438-a534-4e3c-8564-3d69565bcc2a",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing",
+                    ":batchId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c445b08d-5948-4caa-98c6-3f8ea2375b10",
+          "name": "Batch listings update - Get Items",
+          "request": {
+            "name": "Batch listings update - Get Items",
+            "description": {
+              "content": "Once a batch completes successfully, you need to use the get batch items API to see the results of each item in the batch.\nYou can also use this API at any point in time after the batch is created to see the progress of each individual item in a batch",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "batch",
+                "update-listing",
+                ":batchId",
+                "items"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>",
+                  "description": "Status of listing"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "batchId",
+                  "description": "(Required) Unique Batch ID"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8fe2b150-7259-43d0-a689-a128616af7e7",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"items\": [\n    {\n      \"itemId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"status\": \"QUEUED\",\n      \"listingInput\": {\n        \"active\": false,\n        \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"currencyCode\": \"USD\",\n        \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n        \"amount\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n      },\n      \"result\": {\n        \"askId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n      },\n      \"error\": \"string\"\n    },\n    {\n      \"itemId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"status\": \"QUEUED\",\n      \"listingInput\": {\n        \"active\": false,\n        \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"currencyCode\": \"USD\",\n        \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n        \"amount\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n      },\n      \"result\": {\n        \"askId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n        \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\"\n      },\n      \"error\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d65af263-f98a-4e31-8548-a866ec42552a",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3da3413c-4424-4600-96a9-cb36a4477bbb",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "batch",
+                    "update-listing",
+                    ":batchId",
+                    "items"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "status",
+                      "value": "COMPLETED"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "batchId",
+                      "description": "(Required) Unique Batch ID"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stockx.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "976fdaea-02b9-40a0-8ee9-aa48bcba8c6c",
+    "name": "StockX Public Batch API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage StockX seller account using APIs",
+      "type": "text/plain"
+    }
+  }
+}

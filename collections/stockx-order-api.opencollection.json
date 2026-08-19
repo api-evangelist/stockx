@@ -1,0 +1,239 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "StockX Public Batch Order API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get active orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/orders/active",
+            "params": [
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "The number of page"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Starts at 1"
+              },
+              {
+                "name": "orderStatus",
+                "value": "CREATED",
+                "type": "query",
+                "description": "To filter your Orders by a given order status<br><br>Available values: \"CREATED\", \"CCAUTHORIZATIONFAILED\", \"SHIPPED\", \"RECEIVED\", \"AUTHENTICATING\", \"AUTHENTICATED\", \"PAYOUTPENDING\", \"PAYOUTCOMPLETED\", \"SYSTEMFULFILLED\", \"PAYOUTFAILED\", \"SUSPENDED\", \"PENDING\", \"DONOTSHIP\""
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for a product"
+              },
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "query",
+                "description": "Unique identifier for a products variant"
+              },
+              {
+                "name": "sortOrder",
+                "value": "",
+                "type": "query",
+                "description": "The field by which the results are sorted. Defaults to \"CREATEDAT\" and can also accept \"SHIPBYDATE\"."
+              },
+              {
+                "name": "inventoryTypes",
+                "value": "STANDARD",
+                "type": "query",
+                "description": "Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks (\"| ''). The inventory types are STANDARD, FLEX or DIRECT."
+              },
+              {
+                "name": "initiatedShipmentDisplayIds",
+                "value": "",
+                "type": "query",
+                "description": "The shipment's unique display id associated with the order. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all active orders API allows you to view all their active orders in the StockX marketplace.\nAn order is considered active from the time it was created to the time the product was received and authenticated by StockX and the seller is paid out."
+        },
+        {
+          "info": {
+            "name": "Get historical orders",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/orders/history",
+            "params": [
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "The start date of when the orders were created. Format is YYYY-MM-DD."
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "The end date of when the orders were created. Format is YYYY-MM-DD."
+              },
+              {
+                "name": "pageNumber",
+                "value": "1",
+                "type": "query",
+                "description": "The requested page number. By default the page number is 1"
+              },
+              {
+                "name": "pageSize",
+                "value": "100",
+                "type": "query",
+                "description": "The number of orders to be returned. By default the number is 10"
+              },
+              {
+                "name": "orderStatus",
+                "value": "CANCELED",
+                "type": "query",
+                "description": "To filter your Orders by a given order status<br><br>Available values: \"AUTHFAILED\", \"DIDNOTSHIP\", \"CANCELED\", \"COMPLETED\", \"RETURNED\""
+              },
+              {
+                "name": "productId",
+                "value": "",
+                "type": "query",
+                "description": "Unique StockX product ID"
+              },
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "query",
+                "description": "Unique StockX variant ID"
+              },
+              {
+                "name": "inventoryTypes",
+                "value": "STANDARD",
+                "type": "query",
+                "description": "Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks (\"| ''). The inventory types are STANDARD, FLEX or DIRECT."
+              },
+              {
+                "name": "initiatedShipmentDisplayIds",
+                "value": "",
+                "type": "query",
+                "description": "The shipment's unique display id associated with the order. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all historical orders. Multiple filters are available."
+        },
+        {
+          "info": {
+            "name": "Get single order",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/orders/:orderNumber",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "",
+                "type": "path",
+                "description": "The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get order details API allows you to fetch details for a single order by order number.\nThis includes shipping and payout information."
+        },
+        {
+          "info": {
+            "name": "Get shipping document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/orders/:orderNumber/shipping-document/:shippingId",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "323314425-323214184",
+                "type": "path",
+                "description": "The number of order to fetch"
+              },
+              {
+                "name": "shippingId",
+                "value": "323314425-323214184",
+                "type": "path",
+                "description": "The shipping ID of order to fetch"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get an existing shipping document."
+        },
+        {
+          "info": {
+            "name": "Get order shipping document",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/orders/:orderNumber/shipping-document",
+            "params": [
+              {
+                "name": "orderNumber",
+                "value": "06-9XUDDWG8F1",
+                "type": "path",
+                "description": "The number of order to fetch"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get shipping documents for an order. This endpoint only supports Direct order types."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

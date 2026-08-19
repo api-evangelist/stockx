@@ -1,0 +1,287 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "StockX Public Batch Catalog API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Catalog",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Post - Create a Catalog Ingestion Job (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stockx.com/v2/catalog/ingestion",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "<b>Seamlessly Integrate Catalog Data into Our Platform.</b><br>To create an ingestion job, you need to provide a set of catalog attributes. This API is asynchronous and will return an IngestionID that will require polling."
+        },
+        {
+          "info": {
+            "name": "Get - Catalog Ingestion Status (Beta)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/ingestion/:ingestionId",
+            "params": [
+              {
+                "name": "ingestionId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID used to return the status of an ingestion job."
+              },
+              {
+                "name": "status",
+                "value": "",
+                "type": "query",
+                "description": "The status of the ingestion job. In review, Completed, Rejected."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "<b>Monitor Your Data Integration Status.</b><br>Once you create an ingestion job successfully, you need to poll the get catalog ingestion API to track the progress, whether the entire job or individual updates."
+        },
+        {
+          "info": {
+            "name": "Get single product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/products/:productId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a product"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get product details API allows you to fetch details for a single product"
+        },
+        {
+          "info": {
+            "name": "Get single product variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/products/:productId/variants/:variantId",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a product"
+              },
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a products variant"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get variant details API allows you to fetch the details of a single variant for a given product.\nIf the product id doesn't contain the specified variant, a validation error will be returned."
+        },
+        {
+          "info": {
+            "name": "Get all product variants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/products/:productId/variants",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a product"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get product variants API allows you to get all the different variants of a given product."
+        },
+        {
+          "info": {
+            "name": "Get market data for a variant",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/products/:productId/variants/:variantId/market-data",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a product"
+              },
+              {
+                "name": "variantId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a products variant"
+              },
+              {
+                "name": "currencyCode",
+                "value": "",
+                "type": "query",
+                "description": "The currency code this product is being listed in.<br><br>Available values: \"AUD\", \"CAD\", \"CHF\", \"EUR\", \"GBP\", \"HKD\", \"JPY\", \"KRW\", \"MXN\", \"NZD\", \"SGD\", \"USD\""
+              },
+              {
+                "name": "country",
+                "value": "",
+                "type": "query",
+                "description": "ISO Alpha-2 code representing the country you need the market data for. If not provided, will default to your country."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Market Data API allows you to obtain basic market data - the highest Bid and lowest Ask amount for a given variant.\nIf the product id doesn't contain the specified variant, a validation error will be returned.<br/>\n<b>Note:</b>\n<ul><li>We have deprecated the country param as the market data will now be based on your market.</li>\n<li>Based on your region, the response object may vary.</li>\n<li>Undercut protection is disabled. The system may automatically set a price (beat US) just below your "
+        },
+        {
+          "info": {
+            "name": "Get market data for a product",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/products/:productId/market-data",
+            "params": [
+              {
+                "name": "productId",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for a product"
+              },
+              {
+                "name": "currencyCode",
+                "value": "",
+                "type": "query",
+                "description": "The currency code this product is being listed in.<br><br>Available values: \"AUD\", \"CAD\", \"CHF\", \"EUR\", \"GBP\", \"HKD\", \"JPY\", \"KRW\", \"MXN\", \"NZD\", \"SGD\", \"USD\""
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get Market Data API allows you to obtain basic market data - the highest Bid and lowest Ask amount for all variants of given product.\nYou may notice discrepancies in the values for sellFasterAmount and earnMoreAmount between this and the ‘Get market data for a variant` API. This is because this API does not take into account any live asks you currently have for each individual variant, while the 'Get market data for a variant’ API does.<br/>\n<b>Note:</b>\n<li>Based on your region, the response ob"
+        },
+        {
+          "info": {
+            "name": "Retrieve product variant details by GTIN",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/products/variants/gtins/:gtin",
+            "params": [
+              {
+                "name": "gtin",
+                "value": "194817794556",
+                "type": "path",
+                "description": "(Global Trade Item Number ) Unique identifier for a product variant"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Fetches details for a single product variant using its GTIN (Global Trade Item Number).\nIf the gtin id is invalid, a validation error will be thrown."
+        },
+        {
+          "info": {
+            "name": "Search catalog",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/catalog/search",
+            "params": [
+              {
+                "name": "query",
+                "value": "",
+                "type": "query",
+                "description": "Specifies a keyword, GTIN (UPC, EAN, ITF-14) or styleId string to search for products"
+              },
+              {
+                "name": "pageNumber",
+                "value": "1",
+                "type": "query",
+                "description": "Requested page number. By default, the page number starts at 1."
+              },
+              {
+                "name": "pageSize",
+                "value": "10",
+                "type": "query",
+                "description": "The number of products to return. By default, the page size starts at 1."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Search catalog API allows you to search the StockX catalog via freeform text, GTIN (UPC, EAN, ITF-14) or styleId.\nThe output is a paginated list of products that match the search term provided in the API call."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,248 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "StockX Public Batch API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Batch",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Batch listings creation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stockx.com/v2/selling/batch/create-listing",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create a new batch of listings"
+        },
+        {
+          "info": {
+            "name": "Batch listings creation - Get Batch Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/batch/create-listing/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Batch ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Once you are able to create a batch successfully, you need to poll the get batch status API to track the progress of the batch.\nThis polling is necessary because all batch operations are asynchronous in nature."
+        },
+        {
+          "info": {
+            "name": "Batch listings creation - Get Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/batch/create-listing/:batchId/items",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of batch"
+              },
+              {
+                "name": "status",
+                "value": "COMPLETED",
+                "type": "query",
+                "description": "Status of listing"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Once a batch completes successfully, you need to use the get batch items API to see the results of each item in the batch.\nYou can also use this API at any point in time after the batch is created to see the progress of each individual item in a batch."
+        },
+        {
+          "info": {
+            "name": "Batch listings deletion",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stockx.com/v2/selling/batch/delete-listing",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Batch delete listings API allows a user to delete up to 100 individual listings in a single API call.\nThis API is asynchronous in nature and will return a batchId that you would need to poll using the polling APIs described later."
+        },
+        {
+          "info": {
+            "name": "Batch listings deletion - Get Batch Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/batch/delete-listing/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Batch ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Once you are able to create a batch successfully, you need to poll the get batch status API to track the progress of the batch.\nThis polling is necessary because all batch operations are asynchronous in nature."
+        },
+        {
+          "info": {
+            "name": "Batch listings deletion - Get Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/batch/delete-listing/:batchId/items",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Batch ID"
+              },
+              {
+                "name": "status",
+                "value": "COMPLETED",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Once a batch completes successfully, you need to use the get batch items API to see the results of each item in the batch.\nYou can also use this API at any point in time after the batch is created to see the progress of each individual item in a batch."
+        },
+        {
+          "info": {
+            "name": "Batch listings update",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stockx.com/v2/selling/batch/update-listing",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Batch update listings API allows a user to update up to 100 individual listings in a single API call.\nThis API is asynchronous in nature and will return a batchId that you would need to poll using the polling APIs described later."
+        },
+        {
+          "info": {
+            "name": "Batch listings update - Get Batch Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/batch/update-listing/:batchId",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Batch ID"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Once you are able to create a batch successfully, you need to poll the get batch status API to track the progress of the batch.\nThis polling is necessary because all batch operations are asynchronous in nature."
+        },
+        {
+          "info": {
+            "name": "Batch listings update - Get Items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/batch/update-listing/:batchId/items",
+            "params": [
+              {
+                "name": "batchId",
+                "value": "",
+                "type": "path",
+                "description": "Unique Batch ID"
+              },
+              {
+                "name": "status",
+                "value": "COMPLETED",
+                "type": "query",
+                "description": "Status of listing"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Once a batch completes successfully, you need to use the get batch items API to see the results of each item in the batch.\nYou can also use this API at any point in time after the batch is created to see the progress of each individual item in a batch"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

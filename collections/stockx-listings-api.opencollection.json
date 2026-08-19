@@ -1,0 +1,325 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "StockX Public Batch Listings API",
+    "version": "2.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get all listings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/listings",
+            "params": [
+              {
+                "name": "pageNumber",
+                "value": "1",
+                "type": "query",
+                "description": "Requested page number. By default the page number starts at 1"
+              },
+              {
+                "name": "pageSize",
+                "value": "100",
+                "type": "query",
+                "description": "The number of listings to return. By default the page size starts at 1."
+              },
+              {
+                "name": "productIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (\" \" | ' ')."
+              },
+              {
+                "name": "variantIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (\" \" | ' ')."
+              },
+              {
+                "name": "batchIds",
+                "value": "",
+                "type": "query",
+                "description": "Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (\" \" | ' ')."
+              },
+              {
+                "name": "fromDate",
+                "value": "2022-06-08",
+                "type": "query",
+                "description": "Start date of the query"
+              },
+              {
+                "name": "toDate",
+                "value": "2022-06-08",
+                "type": "query",
+                "description": "End date of the query"
+              },
+              {
+                "name": "listingStatuses",
+                "value": "ACTIVE",
+                "type": "query",
+                "description": "Comma separated list of listing statuses. This field must not include array brackets `[]` or quotation marks (\"\" | '').<br><br>Available values: \"INACTIVE\", \"ACTIVE\", \"CANCELED\", \"MATCHED\", \"COMPLETED\""
+              },
+              {
+                "name": "inventoryTypes",
+                "value": "STANDARD",
+                "type": "query",
+                "description": "Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks (\"| ''). The inventory types are STANDARD, FLEX or DIRECT."
+              },
+              {
+                "name": "initiatedShipmentDisplayIds",
+                "value": "",
+                "type": "query",
+                "description": "The shipment's unique display id associated with the listing. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro."
+              },
+              {
+                "name": "isExpired",
+                "value": "false",
+                "type": "query",
+                "description": "Whether to include expired listings in the results. Defaults to false."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all listings API allows you to fetch all existing listings. Multiple filters are available."
+        },
+        {
+          "info": {
+            "name": "Create a new listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stockx.com/v2/selling/listings",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Create listings API allows you to create new listings.\nThe listings correspond to an ask in the StockX UI. The listings can be for the same variant ID."
+        },
+        {
+          "info": {
+            "name": "Activate a listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId/activate",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Activate listing API allows you to activate a listing. A listing is active when it contains an available ask."
+        },
+        {
+          "info": {
+            "name": "Deactivate a listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId/deactivate",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Deactivate listing API allows you to deactivate a listing. A listing is deactivated when it doesn't have an ask or when it contains an expired ask."
+        },
+        {
+          "info": {
+            "name": "Get single listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get a listing API allows you to get a listing by its ID."
+        },
+        {
+          "info": {
+            "name": "Update a listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Operation used to update an existing listing by its ID."
+        },
+        {
+          "info": {
+            "name": "Delete a listing",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Operation used to delete an existing listing by its ID."
+        },
+        {
+          "info": {
+            "name": "Get single listing operation",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId/operations/:operationId",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing."
+              },
+              {
+                "name": "operationId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this operation."
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get listing operation API allows you to fetch a listing operation by listing ID and operation ID"
+        },
+        {
+          "info": {
+            "name": "Get all listing operations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.stockx.com/v2/selling/listings/:listingId/operations",
+            "params": [
+              {
+                "name": "listingId",
+                "value": "",
+                "type": "path",
+                "description": "Unique ID for this listing"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "Requested page number. Starts at 1."
+              },
+              {
+                "name": "cursor",
+                "value": "",
+                "type": "query",
+                "description": "The cursor to use as a starting point"
+              }
+            ],
+            "auth": {
+              "type": "apikey",
+              "key": "x-api-key",
+              "value": "{{x-api-key}}",
+              "placement": "header"
+            }
+          },
+          "docs": "Get all listing operations API allows you to fetch a paginated list of single listing with all operations."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

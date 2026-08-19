@@ -1,0 +1,1636 @@
+{
+  "item": [
+    {
+      "id": "c5ae148d-ccc1-4105-ae14-997e764cda42",
+      "name": "Order",
+      "description": {
+        "content": "Order APIs enable a user to view all their active orders / sales as well as details for a single order.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "483ec774-bba9-42da-a597-cbe63d42865d",
+          "name": "Get active orders",
+          "request": {
+            "name": "Get active orders",
+            "description": {
+              "content": "Get all active orders API allows you to view all their active orders in the StockX marketplace.\nAn order is considered active from the time it was created to the time the product was received and authenticated by StockX and the seller is paid out.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "orders",
+                "active"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>",
+                  "description": "The number of page"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Requested page number. Starts at 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderStatus",
+                  "value": "<string>",
+                  "description": "To filter your Orders by a given order status<br><br>Available values: \"CREATED\", \"CCAUTHORIZATIONFAILED\", \"SHIPPED\", \"RECEIVED\", \"AUTHENTICATING\", \"AUTHENTICATED\", \"PAYOUTPENDING\", \"PAYOUTCOMPLETED\", \"SYSTEMFULFILLED\", \"PAYOUTFAILED\", \"SUSPENDED\", \"PENDING\", \"DONOTSHIP\""
+                },
+                {
+                  "disabled": false,
+                  "key": "productId",
+                  "value": "<string>",
+                  "description": "Unique identifier for a product"
+                },
+                {
+                  "disabled": false,
+                  "key": "variantId",
+                  "value": "<string>",
+                  "description": "Unique identifier for a products variant"
+                },
+                {
+                  "disabled": false,
+                  "key": "sortOrder",
+                  "value": "<string>",
+                  "description": "The field by which the results are sorted. Defaults to \"CREATEDAT\" and can also accept \"SHIPBYDATE\"."
+                },
+                {
+                  "disabled": false,
+                  "key": "inventoryTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks (\"| ''). The inventory types are STANDARD, FLEX or DIRECT."
+                },
+                {
+                  "disabled": false,
+                  "key": "initiatedShipmentDisplayIds",
+                  "value": "<string>",
+                  "description": "The shipment's unique display id associated with the order. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "05f0fb30-dd39-4803-82de-add0e147130c",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CREATED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 266,\n  \"pageSize\": 10,\n  \"pageNumber\": 1,\n  \"hasNextPage\": true,\n  \"orders\": [\n    {\n      \"orderNumber\": \"string\",\n      \"listingId\": \"35d76ac8-a112-4d75-b44f-c8ef04a87c93\",\n      \"askId\": \"13658831621304650018\",\n      \"amount\": \"140\",\n      \"currencyCode\": \"USD\",\n      \"status\": \"PAYOUTFAILED\",\n      \"createdAt\": \"2021-08-25T13:51:47.000Z\",\n      \"updatedAt\": \"2021-08-25T13:51:47.000Z\",\n      \"product\": {\n        \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"productName\": \"Gucci Duchessa Boston Bag\",\n        \"styleId\": \"string\"\n      },\n      \"variant\": {\n        \"variantId\": \"string\",\n        \"variantName\": \"Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0\",\n        \"variantValue\": \"PSA 10\"\n      },\n      \"authenticationDetails\": {\n        \"status\": \"string\",\n        \"failureNotes\": \"string\"\n      },\n      \"inventoryType\": \"STANDARD\",\n      \"condition\": \"Used\",\n      \"conditionDescription\": \"Brand new, never worn\",\n      \"payout\": {\n        \"totalPayout\": \"string\",\n        \"salePrice\": \"string\",\n        \"totalAdjustments\": \"string\",\n        \"currencyCode\": \"string\",\n        \"adjustments\": [\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"initiatedShipments\": {\n        \"inbound\": {\n          \"displayId\": \"string\"\n        }\n      }\n    },\n    {\n      \"orderNumber\": \"string\",\n      \"listingId\": \"35d76ac8-a112-4d75-b44f-c8ef04a87c93\",\n      \"askId\": \"13658831621304650018\",\n      \"amount\": \"140\",\n      \"currencyCode\": \"USD\",\n      \"status\": \"SYSTEMFULFILLED\",\n      \"createdAt\": \"2021-08-25T13:51:47.000Z\",\n      \"updatedAt\": \"2021-08-25T13:51:47.000Z\",\n      \"product\": {\n        \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"productName\": \"Gucci Duchessa Boston Bag\",\n        \"styleId\": \"string\"\n      },\n      \"variant\": {\n        \"variantId\": \"string\",\n        \"variantName\": \"Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0\",\n        \"variantValue\": \"PSA 10\"\n      },\n      \"authenticationDetails\": {\n        \"status\": \"string\",\n        \"failureNotes\": \"string\"\n      },\n      \"inventoryType\": \"FLEX\",\n      \"condition\": \"Used\",\n      \"conditionDescription\": \"Brand new, never worn\",\n      \"payout\": {\n        \"totalPayout\": \"string\",\n        \"salePrice\": \"string\",\n        \"totalAdjustments\": \"string\",\n        \"currencyCode\": \"string\",\n        \"adjustments\": [\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"initiatedShipments\": {\n        \"inbound\": {\n          \"displayId\": \"string\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f96acd4b-3ed7-4a31-af31-fab671272e48",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CREATED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6df9798b-d28f-44a7-8a8f-d6c8b66b1a88",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CREATED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c33370bb-481f-475e-998e-90c478b731ca",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "active"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CREATED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sortOrder",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3462118-1a40-4562-830f-23bba097b9bf",
+          "name": "Get historical orders",
+          "request": {
+            "name": "Get historical orders",
+            "description": {
+              "content": "Get all historical orders. Multiple filters are available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "orders",
+                "history"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<string>",
+                  "description": "The start date of when the orders were created. Format is YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<string>",
+                  "description": "The end date of when the orders were created. Format is YYYY-MM-DD."
+                },
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>",
+                  "description": "The requested page number. By default the page number is 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "The number of orders to be returned. By default the number is 10"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderStatus",
+                  "value": "<string>",
+                  "description": "To filter your Orders by a given order status<br><br>Available values: \"AUTHFAILED\", \"DIDNOTSHIP\", \"CANCELED\", \"COMPLETED\", \"RETURNED\""
+                },
+                {
+                  "disabled": false,
+                  "key": "productId",
+                  "value": "<string>",
+                  "description": "Unique StockX product ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "variantId",
+                  "value": "<string>",
+                  "description": "Unique StockX variant ID"
+                },
+                {
+                  "disabled": false,
+                  "key": "inventoryTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks (\"| ''). The inventory types are STANDARD, FLEX or DIRECT."
+                },
+                {
+                  "disabled": false,
+                  "key": "initiatedShipmentDisplayIds",
+                  "value": "<string>",
+                  "description": "The shipment's unique display id associated with the order. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5a3c7a1b-ae60-4de6-a327-0fd82381b6cf",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CANCELED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 266,\n  \"pageSize\": 10,\n  \"pageNumber\": 1,\n  \"hasNextPage\": true,\n  \"orders\": [\n    {\n      \"orderNumber\": \"string\",\n      \"listingId\": \"35d76ac8-a112-4d75-b44f-c8ef04a87c93\",\n      \"askId\": \"13658831621304650018\",\n      \"amount\": \"140\",\n      \"currencyCode\": \"USD\",\n      \"status\": \"PAYOUTFAILED\",\n      \"createdAt\": \"2021-08-25T13:51:47.000Z\",\n      \"updatedAt\": \"2021-08-25T13:51:47.000Z\",\n      \"product\": {\n        \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"productName\": \"Gucci Duchessa Boston Bag\",\n        \"styleId\": \"string\"\n      },\n      \"variant\": {\n        \"variantId\": \"string\",\n        \"variantName\": \"Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0\",\n        \"variantValue\": \"PSA 10\"\n      },\n      \"authenticationDetails\": {\n        \"status\": \"string\",\n        \"failureNotes\": \"string\"\n      },\n      \"inventoryType\": \"STANDARD\",\n      \"condition\": \"Used\",\n      \"conditionDescription\": \"Brand new, never worn\",\n      \"payout\": {\n        \"totalPayout\": \"string\",\n        \"salePrice\": \"string\",\n        \"totalAdjustments\": \"string\",\n        \"currencyCode\": \"string\",\n        \"adjustments\": [\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"initiatedShipments\": {\n        \"inbound\": {\n          \"displayId\": \"string\"\n        }\n      }\n    },\n    {\n      \"orderNumber\": \"string\",\n      \"listingId\": \"35d76ac8-a112-4d75-b44f-c8ef04a87c93\",\n      \"askId\": \"13658831621304650018\",\n      \"amount\": \"140\",\n      \"currencyCode\": \"USD\",\n      \"status\": \"PENDING\",\n      \"createdAt\": \"2021-08-25T13:51:47.000Z\",\n      \"updatedAt\": \"2021-08-25T13:51:47.000Z\",\n      \"product\": {\n        \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"productName\": \"Gucci Duchessa Boston Bag\",\n        \"styleId\": \"string\"\n      },\n      \"variant\": {\n        \"variantId\": \"string\",\n        \"variantName\": \"Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0\",\n        \"variantValue\": \"PSA 10\"\n      },\n      \"authenticationDetails\": {\n        \"status\": \"string\",\n        \"failureNotes\": \"string\"\n      },\n      \"inventoryType\": \"DFS\",\n      \"condition\": \"Used\",\n      \"conditionDescription\": \"Brand new, never worn\",\n      \"payout\": {\n        \"totalPayout\": \"string\",\n        \"salePrice\": \"string\",\n        \"totalAdjustments\": \"string\",\n        \"currencyCode\": \"string\",\n        \"adjustments\": [\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"adjustmentType\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"percentage\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"initiatedShipments\": {\n        \"inbound\": {\n          \"displayId\": \"string\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb1e877d-2983-444a-b363-d9b4b76a41c9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CANCELED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "505cca0a-3174-4dcf-a350-15c4be4775bf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CANCELED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fe726bb9-d6f4-4ec6-b933-849e2530dac3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    "history"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "orderStatus",
+                      "value": "CANCELED"
+                    },
+                    {
+                      "key": "productId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "65b22cac-7f6c-4a47-a81d-12f371004178",
+          "name": "Get single order",
+          "request": {
+            "name": "Get single order",
+            "description": {
+              "content": "Get order details API allows you to fetch details for a single order by order number.\nThis includes shipping and payout information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "orders",
+                ":orderNumber"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderNumber",
+                  "description": "(Required) The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb14b2d1-6078-4fca-a0a7-cd4b030e1d70",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"askId\": \"13658831621304650018\",\n  \"orderNumber\": \"string\",\n  \"listingId\": \"35d76ac8-a112-4d75-b44f-c8ef04a87c93\",\n  \"amount\": \"140\",\n  \"currencyCode\": \"USD\",\n  \"createdAt\": \"2021-08-25T13:51:47.000Z\",\n  \"updatedAt\": \"2021-08-25T13:51:47.000Z\",\n  \"variant\": {\n    \"variantId\": \"string\",\n    \"variantName\": \"Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0\",\n    \"variantValue\": \"PSA 10\"\n  },\n  \"product\": {\n    \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n    \"productName\": \"Gucci Duchessa Boston Bag\",\n    \"styleId\": \"string\"\n  },\n  \"status\": \"PAYOUTCOMPLETED\",\n  \"shipment\": {\n    \"shipByDate\": \"string\",\n    \"trackingNumber\": \"1Z3983AF9121770825\",\n    \"trackingUrl\": \"http://wwwapps.ups.com/etracking/tracking.cgi?tracknum=1Z3983AF9121770825\",\n    \"carrierCode\": \"UPS\",\n    \"shippingLabelUrl\": \"https://stockx.com/shipping_label.png\",\n    \"shippingDocumentUrl\": \"https://api.stockx.io/v1/selling/orders/12342334/shipping-document/S-123\"\n  },\n  \"initiatedShipments\": {\n    \"inbound\": {\n      \"displayId\": \"string\"\n    }\n  },\n  \"inventoryType\": \"FLEX\",\n  \"payout\": {\n    \"totalPayout\": \"string\",\n    \"salePrice\": \"string\",\n    \"totalAdjustments\": \"string\",\n    \"currencyCode\": \"string\",\n    \"adjustments\": [\n      {\n        \"adjustmentType\": \"Shipping Fee (10%)\",\n        \"amount\": \"string\",\n        \"percentage\": \"string\"\n      },\n      {\n        \"adjustmentType\": \"Shipping Fee (10%)\",\n        \"amount\": \"string\",\n        \"percentage\": \"string\"\n      }\n    ]\n  },\n  \"authenticationDetails\": {\n    \"status\": \"string\",\n    \"failureNotes\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52fa5a8e-ac9a-417e-8320-b5daaeebf971",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ce96d7a3-0ec6-42ca-a442-3451164b4707",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e50a34f6-3cab-4816-bddc-3890efa5cc1c",
+          "name": "Get shipping document",
+          "request": {
+            "name": "Get shipping document",
+            "description": {
+              "content": "Get an existing shipping document.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "orders",
+                ":orderNumber",
+                "shipping-document",
+                ":shippingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderNumber",
+                  "description": "(Required) The number of order to fetch"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shippingId",
+                  "description": "(Required) The shipping ID of order to fetch"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8ccf3eb0-c511-483e-a640-5acc7b0b5962",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document",
+                    ":shippingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingId",
+                      "description": "(Required) The shipping ID of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c5f1ecb2-db08-42fa-93f1-b726847f3e94",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document",
+                    ":shippingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingId",
+                      "description": "(Required) The shipping ID of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9404b7b1-7378-4293-89f1-97933f1c1fe6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document",
+                    ":shippingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingId",
+                      "description": "(Required) The shipping ID of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd6966fa-8bbf-40c9-aa78-3fbdfb429d78",
+          "name": "Get order shipping document",
+          "request": {
+            "name": "Get order shipping document",
+            "description": {
+              "content": "Get shipping documents for an order. This endpoint only supports Direct order types.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "orders",
+                ":orderNumber",
+                "shipping-document"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderNumber",
+                  "description": "(Required) The number of order to fetch"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "54338090-388e-47ab-b504-66a015061349",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"shippingDocuments\": {\n    \"requiredDocuments\": {},\n    \"message\": \"string\",\n    \"additionalDocumentsRequired\": false,\n    \"thermalLabelOnly\": \"string\",\n    \"sellerShippingInstructions\": {\n      \"thermalLabel\": {},\n      \"normalLabel\": {}\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5741a018-360f-4b67-abab-b4159ac47e03",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b2d79fe4-2b20-4bae-a8ea-0ec5ac7f7fb3",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5364ca76-82ff-456f-b45f-042c4997df96",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "orders",
+                    ":orderNumber",
+                    "shipping-document"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderNumber",
+                      "description": "(Required) The number of order to fetch"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stockx.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "06295ca7-0fc6-4175-b5c9-ea3676d7f276",
+    "name": "StockX Public Batch Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage StockX seller account using APIs",
+      "type": "text/plain"
+    }
+  }
+}

@@ -104,3 +104,9 @@ tools:
 - name: get_order_shipment_documents
   description: Get order shipping document
   source_operation: openapi/stockx-public-openapi-original.json#GetOrderShipmentDocuments
+deployment:
+  mode: none
+  verified: derived
+  tools: 32
+  checked: '2026-08-12'
+  source: catalog MCP census

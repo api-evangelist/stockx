@@ -1,0 +1,3114 @@
+{
+  "item": [
+    {
+      "id": "8a7f821b-f181-4a8e-9a0d-2d3655981d49",
+      "name": "Listings",
+      "description": {
+        "content": "Listings APIs enable a seller to programmatically sell on StockX. The APIs enable a user to  create, update and delete listings on the marketplace, as well as view and fetch live market data for any live or expired listings you have",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9d086183-8ffe-4a68-9e46-8f5fb8ad7268",
+          "name": "Create a new listing",
+          "request": {
+            "name": "Create a new listing",
+            "description": {
+              "content": "Create listings API allows you to create new listings.\nThe listings correspond to an ask in the StockX UI. The listings can be for the same variant ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"variantId\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"expiresAt\": \"<string>\",\n  \"active\": \"true\",\n  \"inventoryType\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2ec5c657-1eec-49bf-bcb4-4e8ecc653bf3",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n  \"active\": true,\n  \"inventoryType\": \"STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationType\": \"CREATE\",\n  \"operationStatus\": \"PENDING\",\n  \"operationUrl\": \"https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be\",\n  \"operationInitiatedBy\": \"SYSTEM\",\n  \"operationInitiatedVia\": \"PUBLIC-API\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"changes\": {\n    \"additions\": {\n      \"active\": true,\n      \"askData\": {\n        \"amount\": \"100\",\n        \"currency\": \"USD\",\n        \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n      }\n    },\n    \"updates\": {\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    \"removals\": {}\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ec19de37-c749-4fe4-9456-ffc0f2c17690",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n  \"active\": true,\n  \"inventoryType\": \"STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb57b280-f31f-4100-b3f6-76941e8d94b2",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n  \"active\": true,\n  \"inventoryType\": \"STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1d15922a-151b-4eee-a081-3fab3a11a339",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"variantId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\",\n  \"active\": true,\n  \"inventoryType\": \"STANDARD\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "99af6581-aaf6-4681-84dd-60077e412dd7",
+          "name": "Get all listings",
+          "request": {
+            "name": "Get all listings",
+            "description": {
+              "content": "Get all listings API allows you to fetch all existing listings. Multiple filters are available.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageNumber",
+                  "value": "<integer>",
+                  "description": "Requested page number. By default the page number starts at 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "The number of listings to return. By default the page size starts at 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "productIds",
+                  "value": "<string>",
+                  "description": "Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (\" \" | ' ')."
+                },
+                {
+                  "disabled": false,
+                  "key": "variantIds",
+                  "value": "<string>",
+                  "description": "Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (\" \" | ' ')."
+                },
+                {
+                  "disabled": false,
+                  "key": "batchIds",
+                  "value": "<string>",
+                  "description": "Comma separated list of ids. This field must not include array brackets `[]` or quotation marks (\" \" | ' ')."
+                },
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<string>",
+                  "description": "Start date of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<string>",
+                  "description": "End date of the query"
+                },
+                {
+                  "disabled": false,
+                  "key": "listingStatuses",
+                  "value": "<string>",
+                  "description": "Comma separated list of listing statuses. This field must not include array brackets `[]` or quotation marks (\"\" | '').<br><br>Available values: \"INACTIVE\", \"ACTIVE\", \"CANCELED\", \"MATCHED\", \"COMPLETED\""
+                },
+                {
+                  "disabled": false,
+                  "key": "inventoryTypes",
+                  "value": "<string>",
+                  "description": "Comma-separated list of inventory type(s). This field must not include array brackets [] or quotation marks (\"| ''). The inventory types are STANDARD, FLEX or DIRECT."
+                },
+                {
+                  "disabled": false,
+                  "key": "initiatedShipmentDisplayIds",
+                  "value": "<string>",
+                  "description": "The shipment's unique display id associated with the listing. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro."
+                },
+                {
+                  "disabled": false,
+                  "key": "isExpired",
+                  "value": "<boolean>",
+                  "description": "Whether to include expired listings in the results. Defaults to false."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "393765e8-0539-4152-94d5-5403637fab96",
+              "name": "Ok",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "productIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "batchIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "listingStatuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isExpired",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"count\": 266,\n  \"pageSize\": 10,\n  \"pageNumber\": 1,\n  \"hasNextPage\": true,\n  \"listings\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"status\": \"ACTIVE\",\n      \"amount\": \"300\",\n      \"currencyCode\": \"AUD\",\n      \"inventoryType\": \"STANDARD\",\n      \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n      \"batch\": {\n        \"batchId\": \"86378f62-ad0e-4a06-9c8e-642731bb9140\",\n        \"taskId\": \"7083634e-3bc5-4747-a4f3-768093074b5e\"\n      },\n      \"ask\": {\n        \"askId\": \"string\",\n        \"askCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n        \"askUpdatedAt\": \"2021-11-09T12:44:31.000Z\",\n        \"askExpiresAt\": \"2021-11-09T12:44:31.000Z\"\n      },\n      \"authenticationDetails\": {\n        \"status\": \"string\",\n        \"failureNotes\": \"string\"\n      },\n      \"order\": {\n        \"orderNumber\": \"string\",\n        \"orderCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n        \"orderStatus\": \"CREATED\"\n      },\n      \"product\": {\n        \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"productName\": \"Nike Air\",\n        \"styleId\": \"FV5029-006\"\n      },\n      \"initiatedShipments\": {\n        \"inbound\": {\n          \"displayId\": \"string\"\n        }\n      },\n      \"variant\": {\n        \"variantId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"variantName\": \"color\",\n        \"variantValue\": \"black\"\n      },\n      \"condition\": \"Used\",\n      \"conditionDescription\": \"Brand new, never worn\"\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"status\": \"ACTIVE\",\n      \"amount\": \"300\",\n      \"currencyCode\": \"AUD\",\n      \"inventoryType\": \"STANDARD\",\n      \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n      \"batch\": {\n        \"batchId\": \"86378f62-ad0e-4a06-9c8e-642731bb9140\",\n        \"taskId\": \"7083634e-3bc5-4747-a4f3-768093074b5e\"\n      },\n      \"ask\": {\n        \"askId\": \"string\",\n        \"askCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n        \"askUpdatedAt\": \"2021-11-09T12:44:31.000Z\",\n        \"askExpiresAt\": \"2021-11-09T12:44:31.000Z\"\n      },\n      \"authenticationDetails\": {\n        \"status\": \"string\",\n        \"failureNotes\": \"string\"\n      },\n      \"order\": {\n        \"orderNumber\": \"string\",\n        \"orderCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n        \"orderStatus\": \"CREATED\"\n      },\n      \"product\": {\n        \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"productName\": \"Nike Air\",\n        \"styleId\": \"FV5029-006\"\n      },\n      \"initiatedShipments\": {\n        \"inbound\": {\n          \"displayId\": \"string\"\n        }\n      },\n      \"variant\": {\n        \"variantId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n        \"variantName\": \"color\",\n        \"variantValue\": \"black\"\n      },\n      \"condition\": \"Used\",\n      \"conditionDescription\": \"Brand new, never worn\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ad9377e0-3e82-4559-aaf7-90ecc0da1b8b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "productIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "batchIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "listingStatuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isExpired",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf7a8973-0979-40d3-b964-613ee3012fcf",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "productIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "batchIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "listingStatuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isExpired",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5ed3dad-b2ec-4907-8f56-f53b80e67de4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageNumber",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    },
+                    {
+                      "key": "productIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "variantIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "batchIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "fromDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "2022-06-08"
+                    },
+                    {
+                      "key": "listingStatuses",
+                      "value": "ACTIVE"
+                    },
+                    {
+                      "key": "inventoryTypes",
+                      "value": "STANDARD"
+                    },
+                    {
+                      "key": "initiatedShipmentDisplayIds",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "isExpired",
+                      "value": "false"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0bdc2e69-cb34-4b46-8d86-d1e5910213da",
+          "name": "Activate a listing",
+          "request": {
+            "name": "Activate a listing",
+            "description": {
+              "content": "Activate listing API allows you to activate a listing. A listing is active when it contains an available ask.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId",
+                "activate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"expiresAt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9de8c52c-d880-44b1-8082-491201fd7a46",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationType\": \"CREATE\",\n  \"operationStatus\": \"PENDING\",\n  \"operationUrl\": \"https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be\",\n  \"operationInitiatedBy\": \"SYSTEM\",\n  \"operationInitiatedVia\": \"PUBLIC-API\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"changes\": {\n    \"additions\": {\n      \"active\": true,\n      \"askData\": {\n        \"amount\": \"100\",\n        \"currency\": \"USD\",\n        \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n      }\n    },\n    \"updates\": {\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    \"removals\": {}\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "58cdbbf9-6466-4348-a593-b45d5e08d6c9",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e239c8f8-8b63-4d20-9a36-79e72184c9f9",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5b64709b-c008-4edd-94ff-3afa6abf110a",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3d7c74c8-96a1-4ac4-8d50-4fb3e2b7845e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "activate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "902c2071-1192-45a0-9046-cea1159b6765",
+          "name": "Deactivate a listing",
+          "request": {
+            "name": "Deactivate a listing",
+            "description": {
+              "content": "Deactivate listing API allows you to deactivate a listing. A listing is deactivated when it doesn't have an ask or when it contains an expired ask.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId",
+                "deactivate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c084a411-b973-4eae-953c-1844d3c676a2",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationType\": \"CREATE\",\n  \"operationStatus\": \"PENDING\",\n  \"operationUrl\": \"https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be\",\n  \"operationInitiatedBy\": \"SYSTEM\",\n  \"operationInitiatedVia\": \"PUBLIC-API\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"changes\": {\n    \"additions\": {\n      \"active\": true,\n      \"askData\": {\n        \"amount\": \"100\",\n        \"currency\": \"USD\",\n        \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n      }\n    },\n    \"updates\": {\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    \"removals\": {}\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6e8c5975-ca0b-4957-b6e1-f2c0da8f85fc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "62767a80-c523-4adf-a043-d1de2edabc2e",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "895f5171-dff2-48d2-9f42-16447adbe108",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "342b36c1-d2e3-4506-99c3-2268881fa921",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "deactivate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a115a274-0616-4cc9-8684-c9ecb5f108b3",
+          "name": "Update a listing",
+          "request": {
+            "name": "Update a listing",
+            "description": {
+              "content": "Operation used to update an existing listing by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"amount\": \"<string>\",\n  \"currencyCode\": \"<string>\",\n  \"expiresAt\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dc480cf0-dde6-488a-894b-e7d8927e9f90",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationType\": \"CREATE\",\n  \"operationStatus\": \"PENDING\",\n  \"operationUrl\": \"https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be\",\n  \"operationInitiatedBy\": \"SYSTEM\",\n  \"operationInitiatedVia\": \"PUBLIC-API\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"changes\": {\n    \"additions\": {\n      \"active\": true,\n      \"askData\": {\n        \"amount\": \"100\",\n        \"currency\": \"USD\",\n        \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n      }\n    },\n    \"updates\": {\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    \"removals\": {}\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df016843-e94f-4500-b383-9e181d638759",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "27072b51-adcf-4d65-8261-fc00a4e5e4af",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd7994bb-47c9-4e6f-bc63-b70378d11131",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"amount\": \"150\",\n  \"currencyCode\": \"USD\",\n  \"expiresAt\": \"2021-11-09T12:44:31.000Z\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f50fb80-4a0d-46d0-8ff5-36228d95a33b",
+          "name": "Delete a listing",
+          "request": {
+            "name": "Delete a listing",
+            "description": {
+              "content": "Operation used to delete an existing listing by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "13528b8f-8eba-4d54-b800-003973860a1a",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationType\": \"CREATE\",\n  \"operationStatus\": \"PENDING\",\n  \"operationUrl\": \"https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be\",\n  \"operationInitiatedBy\": \"SYSTEM\",\n  \"operationInitiatedVia\": \"PUBLIC-API\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"changes\": {\n    \"additions\": {\n      \"active\": true,\n      \"askData\": {\n        \"amount\": \"100\",\n        \"currency\": \"USD\",\n        \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n      }\n    },\n    \"updates\": {\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    \"removals\": {}\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "098e6043-a52e-4da2-96f0-7c2d5b260b02",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ab5aa91f-5e46-4efd-830e-5edf1c2711de",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dfc564c7-fa80-4eea-87cb-a5b6fb4f95f6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "60435134-a935-488e-87be-26d5a3a68b76",
+          "name": "Get single listing",
+          "request": {
+            "name": "Get single listing",
+            "description": {
+              "content": "Get a listing API allows you to get a listing by its ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "f760704b-e95f-476d-819e-373f34b15587",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"status\": \"ACTIVE\",\n  \"amount\": \"300\",\n  \"currencyCode\": \"AUD\",\n  \"inventoryType\": \"STANDARD\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"batch\": {\n    \"batchId\": \"86378f62-ad0e-4a06-9c8e-642731bb9140\",\n    \"taskId\": \"7083634e-3bc5-4747-a4f3-768093074b5e\"\n  },\n  \"ask\": {\n    \"askId\": \"string\",\n    \"askCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n    \"askUpdatedAt\": \"2021-11-09T12:44:31.000Z\",\n    \"askExpiresAt\": \"2021-11-09T12:44:31.000Z\"\n  },\n  \"order\": {\n    \"orderNumber\": \"string\",\n    \"orderCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n    \"orderStatus\": \"CREATED\"\n  },\n  \"product\": {\n    \"productId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n    \"productName\": \"Nike Air\",\n    \"styleId\": \"FV5029-006\"\n  },\n  \"variant\": {\n    \"variantId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n    \"variantName\": \"color\",\n    \"variantValue\": \"black\"\n  },\n  \"authenticationDetails\": {\n    \"status\": \"string\",\n    \"failureNotes\": \"string\"\n  },\n  \"payout\": {\n    \"totalPayout\": \"string\",\n    \"salePrice\": \"string\",\n    \"totalAdjustments\": \"string\",\n    \"currencyCode\": \"string\",\n    \"adjustments\": [\n      {\n        \"adjustmentType\": \"Shipping Fee (10%)\",\n        \"amount\": \"string\",\n        \"percentage\": \"string\"\n      },\n      {\n        \"adjustmentType\": \"Shipping Fee (10%)\",\n        \"amount\": \"string\",\n        \"percentage\": \"string\"\n      }\n    ]\n  },\n  \"lastOperation\": {\n    \"operationId\": \"bf364c53-eb77-4522-955c-6a6ce952cc6f\",\n    \"operationType\": \"ACTIVATE\",\n    \"operationStatus\": \"PENDING\",\n    \"operationInitiatedBy\": \"USER\",\n    \"operationInitiatedVia\": \"PUBLIC-API\",\n    \"operationCreatedAt\": \"2021-11-09T12:44:31.000Z\",\n    \"operationUpdatedAt\": \"2021-11-09T12:44:31.000Z\",\n    \"changes\": {\n      \"additions\": {\n        \"active\": true,\n        \"askData\": {\n          \"amount\": \"100\",\n          \"currency\": \"USD\",\n          \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n        }\n      },\n      \"updates\": {\n        \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n      },\n      \"removals\": {}\n    },\n    \"error\": \"\"\n  },\n  \"initiatedShipments\": {\n    \"inbound\": {\n      \"displayId\": \"string\"\n    }\n  },\n  \"condition\": \"Used\",\n  \"conditionDescription\": \"Brand new, never worn\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a959ba7e-18dc-4448-a8c2-86b6b093390c",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f7717e1-883a-4c12-9f63-c23f4b822950",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32410f12-9c1e-44f4-aa0f-05b528b79894",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fdc5a0ff-9e91-4dc4-830e-3fa44806b87b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f264a895-9d5b-4e06-bcd7-c1423236edff",
+          "name": "Get single listing operation",
+          "request": {
+            "name": "Get single listing operation",
+            "description": {
+              "content": "Get listing operation API allows you to fetch a listing operation by listing ID and operation ID",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId",
+                "operations",
+                ":operationId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "operationId",
+                  "description": "(Required) Unique ID for this operation."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "61ea615f-f98a-41cb-b477-06f6bf686db9",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Unique ID for this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n  \"operationType\": \"CREATE\",\n  \"operationStatus\": \"PENDING\",\n  \"operationInitiatedBy\": \"SYSTEM\",\n  \"operationInitiatedVia\": \"INTERNAL-SYSTEM\",\n  \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n  \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n  \"changes\": {\n    \"additions\": {\n      \"active\": true,\n      \"askData\": {\n        \"amount\": \"100\",\n        \"currency\": \"USD\",\n        \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n      }\n    },\n    \"updates\": {\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n    },\n    \"removals\": {}\n  },\n  \"error\": null\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c3baaaa-af18-4657-b98f-2f13b3bfef94",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Unique ID for this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96cc5da2-a985-4b32-a21e-b2f859750c10",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Unique ID for this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4536141-2a25-4abc-9a15-531f7a2eecea",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Unique ID for this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3a2e129a-72e1-44f3-9e35-f67b84729424",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations",
+                    ":operationId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "operationId",
+                      "description": "(Required) Unique ID for this operation."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a973967-e02c-474a-b67f-e796f074a5c1",
+          "name": "Get all listing operations",
+          "request": {
+            "name": "Get all listing operations",
+            "description": {
+              "content": "Get all listing operations API allows you to fetch a paginated list of single listing with all operations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "selling",
+                "listings",
+                ":listingId",
+                "operations"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "<integer>",
+                  "description": "Requested page number. Starts at 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "cursor",
+                  "value": "<string>",
+                  "description": "The cursor to use as a starting point"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "listingId",
+                  "description": "(Required) Unique ID for this listing"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "apikey",
+              "apikey": [
+                {
+                  "key": "key",
+                  "value": "x-api-key"
+                },
+                {
+                  "key": "value",
+                  "value": "{{apiKey}}"
+                },
+                {
+                  "key": "in",
+                  "value": "header"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "44d27063-b0b2-46e9-a88a-64d5f6046661",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"nextCursor\": \"c29tZS1jdXJzb3ItZGF0YQ==\",\n  \"operations\": [\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"operationType\": \"CREATE\",\n      \"operationStatus\": \"PENDING\",\n      \"operationInitiatedBy\": \"SYSTEM\",\n      \"operationInitiatedVia\": \"INTERNAL-SYSTEM\",\n      \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n      \"changes\": {\n        \"additions\": {\n          \"active\": true,\n          \"askData\": {\n            \"amount\": \"100\",\n            \"currency\": \"USD\",\n            \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n          }\n        },\n        \"updates\": {\n          \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n        },\n        \"removals\": {}\n      },\n      \"error\": null\n    },\n    {\n      \"listingId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"operationId\": \"98e2e748-8000-45bf-a624-5531d6a68318\",\n      \"operationType\": \"CREATE\",\n      \"operationStatus\": \"PENDING\",\n      \"operationInitiatedBy\": \"SYSTEM\",\n      \"operationInitiatedVia\": \"INTERNAL-SYSTEM\",\n      \"createdAt\": \"2021-11-09T12:44:31.000Z\",\n      \"updatedAt\": \"2021-11-09T12:44:31.000Z\",\n      \"changes\": {\n        \"additions\": {\n          \"active\": true,\n          \"askData\": {\n            \"amount\": \"100\",\n            \"currency\": \"USD\",\n            \"expiresAt\": \"2022-08-24T18:06:43.600Z\"\n          }\n        },\n        \"updates\": {\n          \"updatedAt\": \"2021-11-09T12:44:31.000Z\"\n        },\n        \"removals\": {}\n      },\n      \"error\": null\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "88e67908-823b-42d7-bd24-6821c5ad2f41",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "40ee7daa-73e8-4c0d-9dcb-5ddcfecc39ee",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "71f0c4b2-f606-45ed-bef7-3ed2279312b6",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "selling",
+                    "listings",
+                    ":listingId",
+                    "operations"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "pageSize",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cursor",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "listingId",
+                      "description": "(Required) Unique ID for this listing"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "x-api-key",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"statusCode\": 400,\n  \"message\": \"The request did not succeed 😭\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stockx.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "bbe5b51d-064d-4ce4-9b23-8ce540b64620",
+    "name": "StockX Public Batch Listings API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Manage StockX seller account using APIs",
+      "type": "text/plain"
+    }
+  }
+}
