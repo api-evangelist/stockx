@@ -1,38 +1,46 @@
-# Kin Score artifact — stockx — 2026-08-01T163141
+# Kin Score artifact — stockx — 2026-08-30T220315
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: stockx
-  schema_version: 0.9
-  scored_at: '2026-08-01'
-  run_ts: 2026-08-01T163141
-  composite: 50.7
+  schema_version: 0.17.2
+  scored_at: '2026-08-30'
+  run_ts: 2026-08-30T220315
+  composite: 48.4
   band: developing
   facets:
-    discoverability: 92.6
-    contract_quality: 61.6
-    governance: 20.8
-    operational_transparency: 42.1
-    developer_ergonomics: 56.0
+    discoverability: 75.9
+    contract_quality: 59.5
+    governance: 18.2
+    operational_transparency: 39.5
+    developer_ergonomics: 58.9
     commercial_clarity: 34.2
+    contract_governance: 18.2
+    access_clarity: 34.2
   agent_readiness:
-    score: 48.4
+    score: 41.5
     band: agent-ready
+    band_gated_from: agent-native
     dimensions:
       spec_presence: true
       agentic_access: derived
-      mcp_server: derived
-      auth_clarity: true
+      reversibility_documented: false
+      mcp_server: false
+      auth_clarity: served
       idempotency: false
       error_semantics: verified
       openapi_examples: partial
       rate_limit_signal: documented
       event_surface_described: false
       agent_skills: derived
-      well_known_catalog: true
+      well_known_catalog: false
       consent_identity: false
       agent_card: false
       dry_run_mode: false
+      delegated_identity: served
+      protected_resource_metadata: false
+      dynamic_client_registration: true
+      agentic_commerce: false
   provenance:
     mcp: derived
     skills: derived
