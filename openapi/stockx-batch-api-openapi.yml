@@ -1,4 +1,4 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
   title: StockX Public Batch API
   version: 2.0.0
@@ -10,7 +10,7 @@ servers:
 - url: https://api.stockx.com/v2
 tags:
 - name: Batch
-  description: Batch APIs enable a user to create, update, delete listings in bulk. Batch APIs are asynchronous in nature and we provide mechanisms to poll the API so that you can keep track of the batch completion.  Once a batch is successfully completed, you can view the status of each individual listing.  We track each individual listing inside a batch separately so you can have scenarios where some listings succeed and some fail in a single batch.
+  description: Batch APIs enable a user to create, update, delete listings in bulk. Batch APIs are asynchronous in nature and we provide mechanisms to poll the API so that you can keep track of the batch completion. Once a batch is successfully completed, you can view the status of each individual listing. We track each individual listing inside a batch separately so you can have scenarios where some listings succeed and some fail in a single batch.
 paths:
   /selling/batch/create-listing:
     post:
@@ -392,302 +392,6 @@ paths:
         example: COMPLETED
 components:
   schemas:
-    UUID:
-      type: string
-      example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-      description: 'Stringified UUIDv4.
-
-        See [RFC 4112](https://tools.ietf.org/html/rfc4122)'
-      pattern: '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}'
-    GetListingUpdateBatchResponse:
-      properties:
-        batchId:
-          type: string
-          description: Unique Batch ID
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        status:
-          type: string
-          description: The status of the batch
-          example: QUEUED
-        completedAt:
-          type: string
-          nullable: true
-          description: When this batch was completed in UTC. Represented as ISO 8601 format like 2022-01-18T20:20:39Z
-          example: '2021-11-09T12:44:31.000Z'
-        createdAt:
-          type: string
-          description: When this batch was created in UTC. Represented as ISO 8601 format like 2022-01-18T20:20:39Z
-          example: '2021-11-09T12:44:31.000Z'
-        updatedAt:
-          type: string
-          description: When this batch was updated in UTC. Represented as ISO 8601 format like 2022-01-18T20:20:39Z
-          example: '2021-11-09T12:44:31.000Z'
-        totalItems:
-          type: number
-          format: double
-          description: Total number of items in this batch
-          example: 10
-        itemStatuses:
-          $ref: '#/components/schemas/BatchStatusCounts'
-          description: The number of items in this batch grouped by their statuses. This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch
-      required:
-      - batchId
-      - status
-      - completedAt
-      - createdAt
-      - updatedAt
-      - totalItems
-      - itemStatuses
-      type: object
-      additionalProperties: false
-    UpdateBatchListingRequestItem:
-      properties:
-        listingId:
-          type: string
-          description: Unique listing ID that needs to be updated
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        amount:
-          type: string
-          description: The amount this Listing is updated to
-          example: 79
-        expiresAt:
-          type: string
-          description: UTC timestamp representing the Listing expiry date that is being updated to
-          example: '2021-11-09T12:44:31.000Z'
-        currencyCode:
-          type: string
-          description: 'The currency this Listing is updated to<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-          example: USD
-        active:
-          type: boolean
-          description: Flag used to indicate that the listing should be active or not
-          example: true
-      required:
-      - listingId
-      type: object
-      additionalProperties: false
-    CreateBatchListingRequestItem:
-      properties:
-        inventoryType:
-          type: string
-          description: 'The inventory this product is being listed in. If not provided, it will default to STANDARD.<br><br>Available values: "STANDARD", "DIRECT"'
-          example: STANDARD
-        active:
-          type: boolean
-          description: Flag used to indicate that the listing should be active or not
-          example: true
-        quantity:
-          type: number
-          format: double
-          description: The total number of Listings that need to be created.
-          example: 10
-        currencyCode:
-          type: string
-          description: 'The currency this Listing is being listed in. If not provided, it will default to USD.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-          example: USD
-        variantId:
-          type: string
-          description: Unique StockX variant ID that this Listing is being created for
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        expiresAt:
-          type: string
-          description: UTC timestamp representing when this Listing should auto-expire.  If not provided, it will default to 999 days from today. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        amount:
-          type: string
-          description: The amount this Listing is being listed for
-          example: '79'
-      required:
-      - quantity
-      - variantId
-      - amount
-      type: object
-    BatchUpdateListingInput:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/UpdateBatchListingRequestItem'
-          type: array
-          description: An array of items that should be associated with the batch
-      required:
-      - items
-      type: object
-      additionalProperties: false
-    BatchDeleteListingInput:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/DeleteBatchListingRequestItem'
-          type: array
-          description: An array of IDs that should be associated with the batch
-      required:
-      - items
-      type: object
-      additionalProperties: false
-    GetListingUpdateBatchItemsResponse:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/GetListingUpdateBatchItem'
-          type: array
-          description: An array of items associated with the listing
-      required:
-      - items
-      type: object
-      additionalProperties: false
-    GetListingCreateBatchResponse:
-      properties:
-        batchId:
-          $ref: '#/components/schemas/UUID'
-          description: Unique Batch ID
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        status:
-          type: string
-          description: The status of this batch
-          example: QUEUED
-        completedAt:
-          type: string
-          nullable: true
-          description: When this batch fully completed. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        createdAt:
-          type: string
-          description: When this batch was created. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        updatedAt:
-          type: string
-          description: When this batch was last updated. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        totalItems:
-          type: number
-          format: double
-          description: Total number of items in this batch
-          example: 10
-        itemStatuses:
-          $ref: '#/components/schemas/BatchStatusCounts'
-          description: 'The number of items in this batch grouped by their statuses.
-
-            This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch'
-          example: IN_PROGRESS
-      required:
-      - batchId
-      - status
-      - completedAt
-      - createdAt
-      - updatedAt
-      - totalItems
-      - itemStatuses
-      type: object
-      additionalProperties: false
-    DeleteBatchListingRequestItem:
-      properties:
-        listingId:
-          type: string
-          description: Unique listing ID that needs to be deleted
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-      required:
-      - listingId
-      type: object
-      additionalProperties: false
-    BatchCreateListingResponse:
-      properties:
-        batchId:
-          type: string
-          description: Unique Batch ID
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        status:
-          type: string
-          description: The status of the batch
-          example: QUEUED
-        completedAt:
-          type: string
-          nullable: true
-          description: When the batch fully completed
-          example: '2021-11-09T12:44:31.000Z'
-        createdAt:
-          type: string
-          description: when this batch was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        updatedAt:
-          type: string
-          description: When this batch was last updated in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        totalItems:
-          type: number
-          format: double
-          description: Total number of items in this batch
-          example: 10
-        itemStatuses:
-          $ref: '#/components/schemas/BatchStatusCounts'
-          description: 'The number of items in this batch grouped by their statuses.
-
-            This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch.'
-      required:
-      - batchId
-      - status
-      - completedAt
-      - createdAt
-      - updatedAt
-      - totalItems
-      - itemStatuses
-      type: object
-      additionalProperties: false
-    PublicApiError:
-      properties:
-        statusCode:
-          $ref: '#/components/schemas/HttpStatusCodeLiteral'
-          description: The error status code
-          example: 400
-        message:
-          type: string
-          description: The error message
-          example: The request did not succeed 😭
-      required:
-      - statusCode
-      - message
-      type: object
-      additionalProperties: false
-    BatchDeleteListingResponse:
-      properties:
-        batchId:
-          type: string
-          description: Unique Batch ID
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        status:
-          type: string
-          description: The status of the batch
-          example: QUEUED
-        completedAt:
-          type: string
-          nullable: true
-          description: When this batch was completed in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        createdAt:
-          type: string
-          description: When this batch was created in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        updatedAt:
-          type: string
-          description: When this batch was updated in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        totalItems:
-          type: number
-          format: double
-          description: Total number of items in this batch
-          example: 10
-        itemStatuses:
-          $ref: '#/components/schemas/BatchStatusCounts'
-          description: The number of items in this batch grouped by their statuses. This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch
-      required:
-      - batchId
-      - status
-      - completedAt
-      - createdAt
-      - updatedAt
-      - totalItems
-      - itemStatuses
-      type: object
-      additionalProperties: false
     HttpStatusCodeLiteral:
       type: number
       enum:
@@ -750,17 +454,24 @@ components:
       - 508
       - 510
       - 511
-    BatchCreateListingInput:
+    BatchDeleteListingInput:
       properties:
         items:
           items:
-            $ref: '#/components/schemas/CreateBatchListingRequestItem'
+            $ref: '#/components/schemas/DeleteBatchListingRequestItem'
           type: array
-          description: An array of items that should be associated with the batch
+          description: An array of IDs that should be associated with the batch
       required:
       - items
       type: object
       additionalProperties: false
+    UUID:
+      type: string
+      example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+      description: 'Stringified UUIDv4.
+
+        See [RFC 4112](https://tools.ietf.org/html/rfc4122)'
+      pattern: '[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-4[0-9A-Fa-f]{3}-[89ABab][0-9A-Fa-f]{3}-[0-9A-Fa-f]{12}'
     GetListingUpdateBatchItem:
       properties:
         itemId:
@@ -774,8 +485,9 @@ components:
         listingInput:
           properties:
             active:
-              type: boolean
-              nullable: true
+              type:
+              - boolean
+              - 'null'
               description: Whether the listing is active or not
             currencyCode:
               type: string
@@ -801,13 +513,15 @@ components:
         result:
           properties:
             askId:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: The unique askId of this listing.
               example: 98e2e748-8000-45bf-a624-5531d6a68318
             listingId:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: The unique listingId of this listing. This is a new ID being introduced that is analogous to askId
               example: 98e2e748-8000-45bf-a624-5531d6a68318
           required:
@@ -824,87 +538,48 @@ components:
       - listingInput
       type: object
       additionalProperties: false
-    GetListingCreateBatchItem:
+    BatchCreateListingResponse:
       properties:
-        itemId:
+        batchId:
           type: string
-          nullable: true
-          description: Unique Item ID
+          description: Unique Batch ID
           example: 98e2e748-8000-45bf-a624-5531d6a68318
         status:
           type: string
-          nullable: true
-          description: The status of this item
+          description: The status of the batch
           example: QUEUED
-        listingInput:
-          properties:
-            active:
-              type: boolean
-              nullable: true
-              description: Whether this listing is active
-            currencyCode:
-              type: string
-              nullable: true
-              description: 'The currency code for this listing<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-              example: USD
-            variantId:
-              type: string
-              nullable: true
-              description: The ID of the variant
-              example: 98e2e748-8000-45bf-a624-5531d6a68318
-            expiresAt:
-              type: string
-              nullable: true
-              description: When this listing expires in UTC
-              example: '2021-11-09T12:44:31.000Z'
-            amount:
-              type: string
-              nullable: true
-              description: The amount this listing is listed for
-              example: '300'
-          required:
-          - active
-          - currencyCode
-          - variantId
-          - expiresAt
-          - amount
-          type: object
-          description: The input for this item that was used when creating the batch
-        result:
-          properties:
-            askId:
-              type: string
-              nullable: true
-              description: The unique askId of this listing.
-              example: 98e2e748-8000-45bf-a624-5531d6a68318
-            listingId:
-              type: string
-              nullable: true
-              description: The unique listingId of this listing. This is a new ID being introduced that is analogous to askId
-              example: 98e2e748-8000-45bf-a624-5531d6a68318
-          required:
-          - askId
-          - listingId
-          type: object
-          description: 'If an item was successfully processed, the result object will contain the following:'
-        error:
+        completedAt:
+          type:
+          - string
+          - 'null'
+          description: When the batch fully completed
+          example: '2021-11-09T12:44:31.000Z'
+        createdAt:
           type: string
-          description: If an item failed to process, the error attribute will contain the error message describing the reason the item failed to process
+          description: when this batch was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this batch was last updated in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        totalItems:
+          type: number
+          format: double
+          description: Total number of items in this batch
+          example: 10
+        itemStatuses:
+          $ref: '#/components/schemas/BatchStatusCounts'
+          description: 'The number of items in this batch grouped by their statuses.
+
+            This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch.'
       required:
-      - itemId
+      - batchId
       - status
-      - listingInput
-      type: object
-      additionalProperties: false
-    GetListingDeleteBatchItemsResponse:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/GetListingDeleteBatchItem'
-          type: array
-          description: An array of items associated with the listing
-      required:
-      - items
+      - completedAt
+      - createdAt
+      - updatedAt
+      - totalItems
+      - itemStatuses
       type: object
       additionalProperties: false
     GetListingDeleteBatchItem:
@@ -932,13 +607,15 @@ components:
         result:
           properties:
             askId:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: The unique askId of this listing.
               example: 09f3f859-9000-56cg-a624-6642d6a68318
             listingId:
-              type: string
-              nullable: true
+              type:
+              - string
+              - 'null'
               description: The unique listingId of this listing. This is a new ID being introduced that is analogous to askId
               example: 09f3f859-9000-56cg-a624-6642d6a68318
           required:
@@ -952,6 +629,123 @@ components:
       - listingInput
       type: object
       additionalProperties: false
+    GetListingUpdateBatchResponse:
+      properties:
+        batchId:
+          type: string
+          description: Unique Batch ID
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        status:
+          type: string
+          description: The status of the batch
+          example: QUEUED
+        completedAt:
+          type:
+          - string
+          - 'null'
+          description: When this batch was completed in UTC. Represented as ISO 8601 format like 2022-01-18T20:20:39Z
+          example: '2021-11-09T12:44:31.000Z'
+        createdAt:
+          type: string
+          description: When this batch was created in UTC. Represented as ISO 8601 format like 2022-01-18T20:20:39Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this batch was updated in UTC. Represented as ISO 8601 format like 2022-01-18T20:20:39Z
+          example: '2021-11-09T12:44:31.000Z'
+        totalItems:
+          type: number
+          format: double
+          description: Total number of items in this batch
+          example: 10
+        itemStatuses:
+          $ref: '#/components/schemas/BatchStatusCounts'
+          description: The number of items in this batch grouped by their statuses. This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch
+      required:
+      - batchId
+      - status
+      - completedAt
+      - createdAt
+      - updatedAt
+      - totalItems
+      - itemStatuses
+      type: object
+      additionalProperties: false
+    BatchCreateListingInput:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/CreateBatchListingRequestItem'
+          type: array
+          description: An array of items that should be associated with the batch
+      required:
+      - items
+      type: object
+      additionalProperties: false
+    GetListingUpdateBatchItemsResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/GetListingUpdateBatchItem'
+          type: array
+          description: An array of items associated with the listing
+      required:
+      - items
+      type: object
+      additionalProperties: false
+    GetListingDeleteBatchResponse:
+      properties:
+        batchId:
+          type: string
+          description: Unique Batch ID
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        status:
+          type: string
+          description: The status of the batch
+          example: QUEUED
+        completedAt:
+          type:
+          - string
+          - 'null'
+          description: When this batch was completed in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        createdAt:
+          type: string
+          description: When this batch was created in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this batch was updated in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        totalItems:
+          type: number
+          format: double
+          description: Total number of items in this batch
+          example: 10
+        itemStatuses:
+          $ref: '#/components/schemas/BatchStatusCounts'
+          description: The number of items in this batch grouped by their statuses. This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch
+      required:
+      - batchId
+      - status
+      - completedAt
+      - createdAt
+      - updatedAt
+      - totalItems
+      - itemStatuses
+      type: object
+      additionalProperties: false
+    GetListingDeleteBatchItemsResponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/GetListingDeleteBatchItem'
+          type: array
+          description: An array of items associated with the listing
+      required:
+      - items
+      type: object
+      additionalProperties: false
     GetListingCreateBatchItemsResponse:
       properties:
         items:
@@ -963,6 +757,227 @@ components:
       - items
       type: object
       additionalProperties: false
+    UpdateBatchListingRequestItem:
+      properties:
+        listingId:
+          type: string
+          description: Unique listing ID that needs to be updated
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        amount:
+          type: string
+          description: The amount this Listing is updated to
+          example: 79
+        expiresAt:
+          type: string
+          description: UTC timestamp representing the Listing expiry date that is being updated to
+          example: '2021-11-09T12:44:31.000Z'
+        currencyCode:
+          type: string
+          description: 'The currency this Listing is updated to<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        active:
+          type: boolean
+          description: Flag used to indicate that the listing should be active or not
+          example: true
+      required:
+      - listingId
+      type: object
+      additionalProperties: false
+    PublicApiError:
+      properties:
+        statusCode:
+          $ref: '#/components/schemas/HttpStatusCodeLiteral'
+          description: The error status code
+          example: 400
+        message:
+          type: string
+          description: The error message
+          example: The request did not succeed 😭
+      required:
+      - statusCode
+      - message
+      type: object
+      additionalProperties: false
+    BatchUpdateListingInput:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/UpdateBatchListingRequestItem'
+          type: array
+          description: An array of items that should be associated with the batch
+      required:
+      - items
+      type: object
+      additionalProperties: false
+    BatchDeleteListingResponse:
+      properties:
+        batchId:
+          type: string
+          description: Unique Batch ID
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        status:
+          type: string
+          description: The status of the batch
+          example: QUEUED
+        completedAt:
+          type:
+          - string
+          - 'null'
+          description: When this batch was completed in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        createdAt:
+          type: string
+          description: When this batch was created in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this batch was updated in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        totalItems:
+          type: number
+          format: double
+          description: Total number of items in this batch
+          example: 10
+        itemStatuses:
+          $ref: '#/components/schemas/BatchStatusCounts'
+          description: The number of items in this batch grouped by their statuses. This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch
+      required:
+      - batchId
+      - status
+      - completedAt
+      - createdAt
+      - updatedAt
+      - totalItems
+      - itemStatuses
+      type: object
+      additionalProperties: false
+    DeleteBatchListingRequestItem:
+      properties:
+        listingId:
+          type: string
+          description: Unique listing ID that needs to be deleted
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+      required:
+      - listingId
+      type: object
+      additionalProperties: false
+    GetListingCreateBatchItem:
+      properties:
+        itemId:
+          type:
+          - string
+          - 'null'
+          description: Unique Item ID
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        status:
+          type:
+          - string
+          - 'null'
+          description: The status of this item
+          example: QUEUED
+        listingInput:
+          properties:
+            active:
+              type:
+              - boolean
+              - 'null'
+              description: Whether this listing is active
+            currencyCode:
+              type:
+              - string
+              - 'null'
+              description: 'The currency code for this listing<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+              example: USD
+            variantId:
+              type:
+              - string
+              - 'null'
+              description: The ID of the variant
+              example: 98e2e748-8000-45bf-a624-5531d6a68318
+            expiresAt:
+              type:
+              - string
+              - 'null'
+              description: When this listing expires in UTC
+              example: '2021-11-09T12:44:31.000Z'
+            amount:
+              type:
+              - string
+              - 'null'
+              description: The amount this listing is listed for
+              example: '300'
+          required:
+          - active
+          - currencyCode
+          - variantId
+          - expiresAt
+          - amount
+          type: object
+          description: The input for this item that was used when creating the batch
+        result:
+          properties:
+            askId:
+              type:
+              - string
+              - 'null'
+              description: The unique askId of this listing.
+              example: 98e2e748-8000-45bf-a624-5531d6a68318
+            listingId:
+              type:
+              - string
+              - 'null'
+              description: The unique listingId of this listing. This is a new ID being introduced that is analogous to askId
+              example: 98e2e748-8000-45bf-a624-5531d6a68318
+          required:
+          - askId
+          - listingId
+          type: object
+          description: 'If an item was successfully processed, the result object will contain the following:'
+        error:
+          type: string
+          description: If an item failed to process, the error attribute will contain the error message describing the reason the item failed to process
+      required:
+      - itemId
+      - status
+      - listingInput
+      type: object
+      additionalProperties: false
+    CreateBatchListingRequestItem:
+      properties:
+        inventoryType:
+          type: string
+          description: 'The inventory this product is being listed in. If not provided, it will default to STANDARD.<br><br>Available values: "STANDARD", "DIRECT"'
+          example: STANDARD
+        active:
+          type: boolean
+          description: Flag used to indicate that the listing should be active or not
+          example: true
+        quantity:
+          type: number
+          format: double
+          description: The total number of Listings that need to be created.
+          example: 10
+        currencyCode:
+          type: string
+          description: 'The currency this Listing is being listed in. If not provided, it will default to USD.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        variantId:
+          type: string
+          description: Unique StockX variant ID that this Listing is being created for
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        expiresAt:
+          type: string
+          description: UTC timestamp representing when this Listing should auto-expire.  If not provided, it will default to 999 days from today. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        amount:
+          type: string
+          description: The amount this Listing is being listed for
+          example: '79'
+      required:
+      - quantity
+      - variantId
+      - amount
+      type: object
     BatchUpdateListingResponse:
       properties:
         batchId:
@@ -974,8 +989,9 @@ components:
           description: The status of the batch
           example: QUEUED
         completedAt:
-          type: string
-          nullable: true
+          type:
+          - string
+          - 'null'
           description: When this batch was last completed in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
         createdAt:
@@ -1018,28 +1034,29 @@ components:
       description: 'The number of items in this batch grouped by their statuses.
 
         This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch.'
-    GetListingDeleteBatchResponse:
+    GetListingCreateBatchResponse:
       properties:
         batchId:
-          type: string
+          $ref: '#/components/schemas/UUID'
           description: Unique Batch ID
           example: 98e2e748-8000-45bf-a624-5531d6a68318
         status:
           type: string
-          description: The status of the batch
+          description: The status of this batch
           example: QUEUED
         completedAt:
-          type: string
-          nullable: true
-          description: When this batch was completed in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          type:
+          - string
+          - 'null'
+          description: When this batch fully completed. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
         createdAt:
           type: string
-          description: When this batch was created in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          description: When this batch was created. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
         updatedAt:
           type: string
-          description: When this batch was updated in UTC.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          description: When this batch was last updated. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
         totalItems:
           type: number
@@ -1048,7 +1065,10 @@ components:
           example: 10
         itemStatuses:
           $ref: '#/components/schemas/BatchStatusCounts'
-          description: The number of items in this batch grouped by their statuses. This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch
+          description: 'The number of items in this batch grouped by their statuses.
+
+            This is a short-hand way to quickly introspect how many items are still enqued, how many succeeded or how many failed in a batch'
+          example: IN_PROGRESS
       required:
       - batchId
       - status

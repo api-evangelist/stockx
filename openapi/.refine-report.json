@@ -1,10 +1,7 @@
 {
   "provider": "stockx",
   "sources": [
-    "stockx-batch-api-openapi.yml",
-    "stockx-catalog-api-openapi.yml",
-    "stockx-listings-api-openapi.yml",
-    "stockx-order-api-openapi.yml"
+    "_original/stockx-public-openapi-original.json"
   ],
   "outputs": [
     "stockx-batch-api-openapi.yml",
@@ -15,6 +12,15 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "stockx-public-openapi-original.json: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "stockx-batch-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stockx-catalog-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stockx-listings-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "stockx-order-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
