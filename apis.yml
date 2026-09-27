@@ -55,6 +55,7 @@ tags:
 - Catalog
 - Selling
 - Order
+- Fashion
 tags_raw:
 - Company
 - Marketplace
@@ -66,6 +67,7 @@ tags_raw:
 - Catalog
 - Selling
 - Orders
+- Fashion
 apis:
 - aid: stockx:stockx-batch-api
   name: StockX Batch API
