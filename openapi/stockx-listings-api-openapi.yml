@@ -520,96 +520,39 @@ paths:
           type: string
 components:
   schemas:
-    ListingResponseAsk:
+    UpdateListingInput:
       properties:
-        askId:
+        amount:
           type: string
-          description: Id of the created ask
-        askCreatedAt:
+          description: 'The amount that will appear on stockx.com
+
+            The amount this product is being listed for'
+          example: '150'
+        currencyCode:
           type: string
-          description: When the ask was created
+          description: 'Currency in which the ask is placed<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"
+
+            The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        expiresAt:
+          type: string
+          description: 'When the ask expires
+
+            UTC timestamp representing when this listing should auto-expire.  If not provided, it will default to 999 days from today. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z'
           example: '2021-11-09T12:44:31.000Z'
-        askUpdatedAt:
-          type: string
-          description: When the ask was updated
-          example: '2021-11-09T12:44:31.000Z'
-        askExpiresAt:
-          type: string
-          description: When the ask will expire
-          example: '2021-11-09T12:44:31.000Z'
-      required:
-      - askId
-      - askCreatedAt
-      - askUpdatedAt
       type: object
       additionalProperties: false
-    Diff_RecursivePartial_ListingChangeableFields__:
-      description: JSON metadata object which include the changes of current listing
-      properties:
-        additions:
-          $ref: '#/components/schemas/Additions_RecursivePartial_ListingChangeableFields__'
-        updates:
-          $ref: '#/components/schemas/Updates_RecursivePartial_ListingChangeableFields__'
-        removals:
-          $ref: '#/components/schemas/Removals_RecursivePartial_ListingChangeableFields__'
-      required:
-      - additions
-      - updates
-      - removals
+    Additions_RecursivePartial_ListingChangeableFields__:
+      properties: {}
       type: object
-      additionalProperties: false
-    ListingResponseProduct:
-      properties:
-        productId:
-          type: string
-          description: Unique ID for this product
-          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-        productName:
-          type:
-          - string
-          - 'null'
-          description: The name of the product
-          example: Nike Air
-        styleId:
-          type:
-          - string
-          - 'null'
-          description: The style id of the product
-          example: FV5029-006
-      required:
-      - productId
-      - productName
-      - styleId
-      type: object
-      additionalProperties: false
-    ListingsResponseBatch:
-      properties:
-        batchId:
-          type: string
-          description: ID of the associated batch
-          example: 86378f62-ad0e-4a06-9c8e-642731bb9140
-        taskId:
-          type: string
-          description: Id of the associated task
-          example: 7083634e-3bc5-4747-a4f3-768093074b5e
-      type: object
-      additionalProperties: false
-    AuthenticationDetails:
-      properties:
-        status:
-          type:
-          - string
-          - 'null'
-        failureNotes:
-          type:
-          - string
-          - 'null'
-      required:
-      - status
-      - failureNotes
-      type: object
-      additionalProperties: false
-    ListingAsyncOperationResponse:
+      example:
+        active: true
+        askData:
+          amount: '100'
+          currency: USD
+          expiresAt: '2022-08-24T18:06:43.600Z'
+      description: The additions of current listing
+    OperationApi:
       properties:
         listingId:
           type: string
@@ -617,7 +560,7 @@ components:
           example: 98e2e748-8000-45bf-a624-5531d6a68318
         operationId:
           type: string
-          description: Unique ID for this operation
+          description: Unique ID for this operation.
           example: 98e2e748-8000-45bf-a624-5531d6a68318
         operationType:
           $ref: '#/components/schemas/OperationType'
@@ -627,27 +570,21 @@ components:
           $ref: '#/components/schemas/OperationStatus'
           description: The current operation status of this listing
           example: PENDING
-        operationUrl:
-          type:
-          - string
-          - 'null'
-          description: The URL used for to poll the status of the operation.
-          example: https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be
         operationInitiatedBy:
           $ref: '#/components/schemas/OperationInitiatedBy'
-          description: This field specifies how the operation was initiated
+          description: This field specifices how the operation was initiated
           example: SYSTEM
         operationInitiatedVia:
           $ref: '#/components/schemas/SupportedOperationInitiatedVia'
-          description: By whom was the operation initiated
-          example: PUBLIC-API
+          description: What initiated the operation
+          example: INTERNAL-SYSTEM
         createdAt:
           type: string
           description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
         updatedAt:
           type: string
-          description: When this listing was last updated in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          description: When this listing was last updated in UTC.  Represented as ISO 8601 format like 2022-01-18T20:20:39Z
           example: '2021-11-09T12:44:31.000Z'
         changes:
           $ref: '#/components/schemas/ListingOperationsChangesDiff'
@@ -663,45 +600,83 @@ components:
       - operationId
       - operationType
       - operationStatus
-      - operationUrl
       - operationInitiatedBy
       - operationInitiatedVia
       - createdAt
       - updatedAt
       - changes
+      - error
       type: object
       additionalProperties: false
-    Payout:
-      description: The payout object that contains the payout details and any adjustments
+    PublicApiError:
       properties:
-        totalPayout:
+        statusCode:
+          $ref: '#/components/schemas/HttpStatusCodeLiteral'
+          description: The error status code
+          example: 400
+        message:
           type: string
-          description: The total amount to be paid for the sale of the product
-          example: 76.81
-        salePrice:
-          type: string
-          description: The amount the product was sold for
-          example: 79
-        totalAdjustments:
-          type: string
-          description: The sum of all adjustments made
-          example: -7
-        currencyCode:
-          type: string
-          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-        adjustments:
-          items:
-            $ref: '#/components/schemas/Adjustment'
-          type: array
-          description: The payout adjustment details if applicable
+          description: The error message
+          example: The request did not succeed 😭
       required:
-      - totalPayout
-      - salePrice
-      - totalAdjustments
-      - currencyCode
-      - adjustments
+      - statusCode
+      - message
       type: object
       additionalProperties: false
+    ListingResponseOperation:
+      properties:
+        operationId:
+          type: string
+          description: Unique ID for this operation
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        operationType:
+          $ref: '#/components/schemas/OperationType'
+          description: The types of operation conducted on the listing
+          example: ACTIVATE
+        operationStatus:
+          $ref: '#/components/schemas/OperationStatus'
+          description: The current operation status of this listing
+          example: PENDING
+        operationInitiatedBy:
+          $ref: '#/components/schemas/OperationInitiatedBy'
+          description: This field specifies how the operation was initiated.
+          example: USER
+        operationInitiatedVia:
+          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
+          description: By whom was the operation initiated
+          example: PUBLIC-API
+        operationCreatedAt:
+          type: string
+          description: When the operation was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        operationUpdatedAt:
+          type: string
+          description: Time of the last update in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        changes:
+          $ref: '#/components/schemas/ListingOperationsChangesDiff'
+          description: Listing changes associated with this operation
+        error:
+          type:
+          - string
+          - 'null'
+          description: Operation error
+          example: ''
+      required:
+      - operationId
+      - operationType
+      - operationStatus
+      - operationInitiatedBy
+      - operationInitiatedVia
+      - operationCreatedAt
+      - operationUpdatedAt
+      - changes
+      type: object
+      additionalProperties: false
+    Removals_RecursivePartial_ListingChangeableFields__:
+      properties: {}
+      type: object
+      description: The removals of current listing
     OperationsCursorResponse:
       properties:
         nextCursor:
@@ -718,96 +693,6 @@ components:
       required:
       - nextCursor
       - operations
-      type: object
-      additionalProperties: false
-    ActivateListingInput:
-      properties:
-        amount:
-          type: string
-          description: The amount this product is being listed for
-          example: '150'
-        currencyCode:
-          type: string
-          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-          example: USD
-        expiresAt:
-          type: string
-          description: UTC timestamp representing when this Ask should auto-expire.  If not provided, it will default to 999 days from today.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-      type: object
-      additionalProperties: false
-    ListingOperationsChangesDiff:
-      $ref: '#/components/schemas/Diff_RecursivePartial_ListingChangeableFields__'
-      description: JSON metadata object which include the changes of current listing
-    OperationInitiatedBy:
-      type: string
-      enum:
-      - USER
-      - SYSTEM
-    OperationStatus:
-      type: string
-      enum:
-      - PENDING
-      - SUCCEEDED
-      - FAILED
-    ListingResponseVariant:
-      properties:
-        variantId:
-          type: string
-          description: Unique identifier that specifics a particular product.
-          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-        variantName:
-          type: string
-          description: Unique readable name of the products variant
-          example: color
-        variantValue:
-          type:
-          - string
-          - 'null'
-          description: The value of the variant variant. For example, in the sneakers case, this could be 10 or in the trading cards case, this could be PSA 10, etc
-          example: black
-      required:
-      - variantId
-      - variantName
-      - variantValue
-      type: object
-      additionalProperties: false
-    Updates_RecursivePartial_ListingChangeableFields__:
-      properties: {}
-      type: object
-      example:
-        updatedAt: '2021-11-09T12:44:31.000Z'
-      description: The updates of current listing
-    CreateListingInput:
-      properties:
-        amount:
-          type: string
-          description: The amount this product is being listed for
-          example: '150'
-        variantId:
-          type: string
-          description: Unique StockX variant ID that this listing is being created for
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        currencyCode:
-          type: string
-          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-          example: USD
-        expiresAt:
-          type: string
-          description: UTC timestamp representing when this Ask should auto-expire.  If not provided, it will default to 999 days from today.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        active:
-          type: boolean
-          description: A flag that defaults to true, activating the listing on the StockX marketplace
-          example: true
-          default: 'true'
-        inventoryType:
-          type: string
-          description: 'The inventory this product is being listed in. If not provided, it will default to STANDARD.<br><br>Available values: "STANDARD", "DIRECT"'
-          example: STANDARD
-      required:
-      - amount
-      - variantId
       type: object
       additionalProperties: false
     ListListings:
@@ -905,120 +790,95 @@ components:
       - conditionDescription
       type: object
       additionalProperties: false
-    Additions_RecursivePartial_ListingChangeableFields__:
+    ListingResponseVariant:
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier that specifics a particular product.
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        variantName:
+          type: string
+          description: Unique readable name of the products variant
+          example: color
+        variantValue:
+          type:
+          - string
+          - 'null'
+          description: The value of the variant variant. For example, in the sneakers case, this could be 10 or in the trading cards case, this could be PSA 10, etc
+          example: black
+      required:
+      - variantId
+      - variantName
+      - variantValue
+      type: object
+      additionalProperties: false
+    Updates_RecursivePartial_ListingChangeableFields__:
       properties: {}
       type: object
       example:
-        active: true
-        askData:
-          amount: '100'
-          currency: USD
-          expiresAt: '2022-08-24T18:06:43.600Z'
-      description: The additions of current listing
-    ListingResponseOperation:
+        updatedAt: '2021-11-09T12:44:31.000Z'
+      description: The updates of current listing
+    Payout:
+      description: The payout object that contains the payout details and any adjustments
       properties:
-        operationId:
+        totalPayout:
           type: string
-          description: Unique ID for this operation
-          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-        operationType:
-          $ref: '#/components/schemas/OperationType'
-          description: The types of operation conducted on the listing
-          example: ACTIVATE
-        operationStatus:
-          $ref: '#/components/schemas/OperationStatus'
-          description: The current operation status of this listing
-          example: PENDING
-        operationInitiatedBy:
-          $ref: '#/components/schemas/OperationInitiatedBy'
-          description: This field specifies how the operation was initiated.
-          example: USER
-        operationInitiatedVia:
-          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
-          description: By whom was the operation initiated
-          example: PUBLIC-API
-        operationCreatedAt:
+          description: The total amount to be paid for the sale of the product
+          example: 76.81
+        salePrice:
           type: string
-          description: When the operation was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        operationUpdatedAt:
+          description: The amount the product was sold for
+          example: 79
+        totalAdjustments:
           type: string
-          description: Time of the last update in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
-          example: '2021-11-09T12:44:31.000Z'
-        changes:
-          $ref: '#/components/schemas/ListingOperationsChangesDiff'
-          description: Listing changes associated with this operation
-        error:
-          type:
-          - string
-          - 'null'
-          description: Operation error
-          example: ''
+          description: The sum of all adjustments made
+          example: -7
+        currencyCode:
+          type: string
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+        adjustments:
+          items:
+            $ref: '#/components/schemas/Adjustment'
+          type: array
+          description: The payout adjustment details if applicable
       required:
-      - operationId
-      - operationType
-      - operationStatus
-      - operationInitiatedBy
-      - operationInitiatedVia
-      - operationCreatedAt
-      - operationUpdatedAt
-      - changes
+      - totalPayout
+      - salePrice
+      - totalAdjustments
+      - currencyCode
+      - adjustments
       type: object
       additionalProperties: false
-    OperationApi:
+    CreateListingInput:
       properties:
-        listingId:
+        amount:
           type: string
-          description: Unique ID for this listing
+          description: The amount this product is being listed for
+          example: '150'
+        variantId:
+          type: string
+          description: Unique StockX variant ID that this listing is being created for
           example: 98e2e748-8000-45bf-a624-5531d6a68318
-        operationId:
+        currencyCode:
           type: string
-          description: Unique ID for this operation.
-          example: 98e2e748-8000-45bf-a624-5531d6a68318
-        operationType:
-          $ref: '#/components/schemas/OperationType'
-          description: The types of operation conducted on the listing
-          example: CREATE
-        operationStatus:
-          $ref: '#/components/schemas/OperationStatus'
-          description: The current operation status of this listing
-          example: PENDING
-        operationInitiatedBy:
-          $ref: '#/components/schemas/OperationInitiatedBy'
-          description: This field specifices how the operation was initiated
-          example: SYSTEM
-        operationInitiatedVia:
-          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
-          description: What initiated the operation
-          example: INTERNAL-SYSTEM
-        createdAt:
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        expiresAt:
           type: string
-          description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          description: UTC timestamp representing when this Ask should auto-expire.  If not provided, it will default to 999 days from today.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
-        updatedAt:
+        active:
+          type: boolean
+          description: A flag that defaults to true, activating the listing on the StockX marketplace
+          example: true
+          default: 'true'
+        inventoryType:
           type: string
-          description: When this listing was last updated in UTC.  Represented as ISO 8601 format like 2022-01-18T20:20:39Z
-          example: '2021-11-09T12:44:31.000Z'
-        changes:
-          $ref: '#/components/schemas/ListingOperationsChangesDiff'
-          description: JSON metadata object which include the changes of current listing
-        error:
-          type:
-          - string
-          - 'null'
-          description: Error message if the creation failed
-          example: null
+          description: 'The inventory this product is being listed in. If not provided, it will default to STANDARD.<br><br>Available values: "STANDARD", "DIRECT"'
+          example: STANDARD
       required:
-      - listingId
-      - operationId
-      - operationType
-      - operationStatus
-      - operationInitiatedBy
-      - operationInitiatedVia
-      - createdAt
-      - updatedAt
-      - changes
-      - error
+      - amount
+      - variantId
       type: object
       additionalProperties: false
     HttpStatusCodeLiteral:
@@ -1083,45 +943,233 @@ components:
       - 508
       - 510
       - 511
-    PublicApiError:
+    ListingsResponseBatch:
       properties:
-        statusCode:
-          $ref: '#/components/schemas/HttpStatusCodeLiteral'
-          description: The error status code
-          example: 400
-        message:
+        batchId:
           type: string
-          description: The error message
-          example: The request did not succeed 😭
-      required:
-      - statusCode
-      - message
+          description: ID of the associated batch
+          example: 86378f62-ad0e-4a06-9c8e-642731bb9140
+        taskId:
+          type: string
+          description: Id of the associated task
+          example: 7083634e-3bc5-4747-a4f3-768093074b5e
       type: object
       additionalProperties: false
-    Removals_RecursivePartial_ListingChangeableFields__:
-      properties: {}
+    AuthenticationDetails:
+      properties:
+        status:
+          type:
+          - string
+          - 'null'
+        failureNotes:
+          type:
+          - string
+          - 'null'
+      required:
+      - status
+      - failureNotes
       type: object
-      description: The removals of current listing
-    UpdateListingInput:
+      additionalProperties: false
+    Adjustment:
+      properties:
+        adjustmentType:
+          type: string
+          description: The type of adjustment made
+          example: Shipping Fee (10%)
+        amount:
+          type: string
+          description: The amount of the adjustment
+          example: 2.13
+        percentage:
+          type: string
+          description: The percentage of the adjustment
+          example: 0.1
+      required:
+      - adjustmentType
+      - amount
+      - percentage
+      type: object
+      additionalProperties: false
+    Diff_RecursivePartial_ListingChangeableFields__:
+      description: JSON metadata object which include the changes of current listing
+      properties:
+        additions:
+          $ref: '#/components/schemas/Additions_RecursivePartial_ListingChangeableFields__'
+        updates:
+          $ref: '#/components/schemas/Updates_RecursivePartial_ListingChangeableFields__'
+        removals:
+          $ref: '#/components/schemas/Removals_RecursivePartial_ListingChangeableFields__'
+      required:
+      - additions
+      - updates
+      - removals
+      type: object
+      additionalProperties: false
+    ListingOperationsChangesDiff:
+      $ref: '#/components/schemas/Diff_RecursivePartial_ListingChangeableFields__'
+      description: JSON metadata object which include the changes of current listing
+    ListingResponseOrder:
+      properties:
+        orderNumber:
+          type:
+          - string
+          - 'null'
+          description: 'The order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
+        orderCreatedAt:
+          type:
+          - string
+          - 'null'
+          description: When the order was created
+          example: '2021-11-09T12:44:31.000Z'
+        orderStatus:
+          type:
+          - string
+          - 'null'
+          description: The status of the given order
+          example: CREATED
+      required:
+      - orderNumber
+      - orderCreatedAt
+      - orderStatus
+      type: object
+      additionalProperties: false
+    ListingResponseAsk:
+      properties:
+        askId:
+          type: string
+          description: Id of the created ask
+        askCreatedAt:
+          type: string
+          description: When the ask was created
+          example: '2021-11-09T12:44:31.000Z'
+        askUpdatedAt:
+          type: string
+          description: When the ask was updated
+          example: '2021-11-09T12:44:31.000Z'
+        askExpiresAt:
+          type: string
+          description: When the ask will expire
+          example: '2021-11-09T12:44:31.000Z'
+      required:
+      - askId
+      - askCreatedAt
+      - askUpdatedAt
+      type: object
+      additionalProperties: false
+    ActivateListingInput:
       properties:
         amount:
           type: string
-          description: 'The amount that will appear on stockx.com
-
-            The amount this product is being listed for'
+          description: The amount this product is being listed for
           example: '150'
         currencyCode:
           type: string
-          description: 'Currency in which the ask is placed<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"
-
-            The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          description: 'The currency code this product is being listed in. If not provided, it will default to USD.  Only valid currencies supported on stockx.com are supported via API<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
           example: USD
         expiresAt:
           type: string
-          description: 'When the ask expires
-
-            UTC timestamp representing when this listing should auto-expire.  If not provided, it will default to 999 days from today. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z'
+          description: UTC timestamp representing when this Ask should auto-expire.  If not provided, it will default to 999 days from today.  Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
           example: '2021-11-09T12:44:31.000Z'
+      type: object
+      additionalProperties: false
+    ManifestDataResponse:
+      properties:
+        inbound:
+          properties:
+            displayId:
+              type: string
+              description: 'The ID associated with the shipment arriving at StockX. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+          required:
+          - displayId
+          type: object
+      required:
+      - inbound
+      type: object
+      additionalProperties: false
+    ListingResponseProduct:
+      properties:
+        productId:
+          type: string
+          description: Unique ID for this product
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        productName:
+          type:
+          - string
+          - 'null'
+          description: The name of the product
+          example: Nike Air
+        styleId:
+          type:
+          - string
+          - 'null'
+          description: The style id of the product
+          example: FV5029-006
+      required:
+      - productId
+      - productName
+      - styleId
+      type: object
+      additionalProperties: false
+    ListingAsyncOperationResponse:
+      properties:
+        listingId:
+          type: string
+          description: Unique ID for this listing
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        operationId:
+          type: string
+          description: Unique ID for this operation
+          example: 98e2e748-8000-45bf-a624-5531d6a68318
+        operationType:
+          $ref: '#/components/schemas/OperationType'
+          description: The types of operation conducted on the listing
+          example: CREATE
+        operationStatus:
+          $ref: '#/components/schemas/OperationStatus'
+          description: The current operation status of this listing
+          example: PENDING
+        operationUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL used for to poll the status of the operation.
+          example: https://api.stockx.com/v2/selling/listings/c0a635ce-322f-49e1-9bfc-f954fc46f6bd/operations/d0a635ce-322f-49e1-9bfc-f954fc46f6be
+        operationInitiatedBy:
+          $ref: '#/components/schemas/OperationInitiatedBy'
+          description: This field specifies how the operation was initiated
+          example: SYSTEM
+        operationInitiatedVia:
+          $ref: '#/components/schemas/SupportedOperationInitiatedVia'
+          description: By whom was the operation initiated
+          example: PUBLIC-API
+        createdAt:
+          type: string
+          description: When the listing was created in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        updatedAt:
+          type: string
+          description: When this listing was last updated in UTC. Represented as ISO 8601 format like 2021-11-09T12:44:31.000Z
+          example: '2021-11-09T12:44:31.000Z'
+        changes:
+          $ref: '#/components/schemas/ListingOperationsChangesDiff'
+          description: JSON metadata object which include the changes of current listing
+        error:
+          type:
+          - string
+          - 'null'
+          description: Error message if the creation failed
+          example: null
+      required:
+      - listingId
+      - operationId
+      - operationType
+      - operationStatus
+      - operationUrl
+      - operationInitiatedBy
+      - operationInitiatedVia
+      - createdAt
+      - updatedAt
+      - changes
       type: object
       additionalProperties: false
     OperationType:
@@ -1136,6 +1184,22 @@ components:
       - RECLAIM
       - CANCEL_RECLAIM
       - TPS_CHECK
+    SupportedOperationInitiatedVia:
+      enum:
+      - IOS
+      - ANDROID
+      - WEB
+      - STOCKX-PRO
+      - SCOUT
+      - SHOPIFY
+      - PUBLIC-API
+      - INTERNAL-SYSTEM
+      type: string
+    OperationInitiatedBy:
+      type: string
+      enum:
+      - USER
+      - SYSTEM
     ListingResponse:
       properties:
         listingId:
@@ -1241,20 +1305,12 @@ components:
       - conditionDescription
       type: object
       additionalProperties: false
-    ManifestDataResponse:
-      properties:
-        inbound:
-          properties:
-            displayId:
-              type: string
-              description: 'The ID associated with the shipment arriving at StockX. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
-          required:
-          - displayId
-          type: object
-      required:
-      - inbound
-      type: object
-      additionalProperties: false
+    OperationStatus:
+      type: string
+      enum:
+      - PENDING
+      - SUCCEEDED
+      - FAILED
     Listings:
       properties:
         count:
@@ -1287,62 +1343,6 @@ components:
       - pageNumber
       - hasNextPage
       - listings
-      type: object
-      additionalProperties: false
-    Adjustment:
-      properties:
-        adjustmentType:
-          type: string
-          description: The type of adjustment made
-          example: Shipping Fee (10%)
-        amount:
-          type: string
-          description: The amount of the adjustment
-          example: 2.13
-        percentage:
-          type: string
-          description: The percentage of the adjustment
-          example: 0.1
-      required:
-      - adjustmentType
-      - amount
-      - percentage
-      type: object
-      additionalProperties: false
-    SupportedOperationInitiatedVia:
-      enum:
-      - IOS
-      - ANDROID
-      - WEB
-      - STOCKX-PRO
-      - SCOUT
-      - SHOPIFY
-      - PUBLIC-API
-      - INTERNAL-SYSTEM
-      type: string
-    ListingResponseOrder:
-      properties:
-        orderNumber:
-          type:
-          - string
-          - 'null'
-          description: 'The order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
-        orderCreatedAt:
-          type:
-          - string
-          - 'null'
-          description: When the order was created
-          example: '2021-11-09T12:44:31.000Z'
-        orderStatus:
-          type:
-          - string
-          - 'null'
-          description: The status of the given order
-          example: CREATED
-      required:
-      - orderNumber
-      - orderCreatedAt
-      - orderStatus
       type: object
       additionalProperties: false
   securitySchemes:

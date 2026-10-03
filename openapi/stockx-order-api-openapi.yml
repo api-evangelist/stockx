@@ -330,25 +330,91 @@ paths:
         example: 06-9XUDDWG8F1
 components:
   schemas:
-    Record_LanguageCode.DocumentURL_:
-      properties: {}
-      type: object
-      description: Construct a type with a set of properties K of type T
-    AuthenticationDetails:
+    HistoricalOrderStatus:
+      enum:
+      - AUTHFAILED
+      - DIDNOTSHIP
+      - CANCELED
+      - COMPLETED
+      - RETURNED
+      type: string
+    PublicApiError:
       properties:
-        status:
-          type:
-          - string
-          - 'null'
-        failureNotes:
-          type:
-          - string
-          - 'null'
+        statusCode:
+          $ref: '#/components/schemas/HttpStatusCodeLiteral'
+          description: The error status code
+          example: 400
+        message:
+          type: string
+          description: The error message
+          example: The request did not succeed 😭
       required:
-      - status
-      - failureNotes
+      - statusCode
+      - message
       type: object
       additionalProperties: false
+    InventoryType:
+      enum:
+      - STANDARD
+      - FLEX
+      - DFS
+      - DIRECT
+      type: string
+    Shipment:
+      properties:
+        shipByDate:
+          type:
+          - string
+          - 'null'
+          description: Date that the order should be shipped by.
+        trackingNumber:
+          type:
+          - string
+          - 'null'
+          description: The shipments tracking number
+          example: 1Z3983AF9121770825
+        trackingUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL to the carriers web page.
+          example: http://wwwapps.ups.com/etracking/tracking.cgi?tracknum=1Z3983AF9121770825
+        carrierCode:
+          type:
+          - string
+          - 'null'
+          description: The carrier code for the shipment provider.
+          example: UPS
+        shippingLabelUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL of the shipping label
+          example: https://stockx.com/shipping_label.png
+        shippingDocumentUrl:
+          type:
+          - string
+          - 'null'
+          description: The URL of the StockX shipping document.
+          example: https://api.stockx.io/v1/selling/orders/12342334/shipping-document/S-123
+      required:
+      - shipByDate
+      - trackingNumber
+      - trackingUrl
+      - carrierCode
+      - shippingLabelUrl
+      - shippingDocumentUrl
+      type: object
+      additionalProperties: false
+    OrderStatus:
+      anyOf:
+      - $ref: '#/components/schemas/ActiveOrderStatus'
+      - $ref: '#/components/schemas/HistoricalOrderStatus'
+      - $ref: '#/components/schemas/UnknownStatus'
+      description: Status for the current order
+    DocumentURL:
+      type: string
+      description: Type alias for document URLs.
     Payout:
       description: The payout object that contains the payout details and any adjustments
       properties:
@@ -378,172 +444,6 @@ components:
       - totalAdjustments
       - currencyCode
       - adjustments
-      type: object
-      additionalProperties: false
-    Orders:
-      properties:
-        count:
-          type: number
-          format: double
-          description: Total number of items present
-          example: 266
-        pageSize:
-          type: number
-          format: double
-          description: Total number of items in the current page
-          example: 10
-        pageNumber:
-          type: number
-          format: double
-          description: Requested page number. Starts at 1.
-          example: 1
-        hasNextPage:
-          type: boolean
-          description: Returns true if there are elements in the next page.
-          example: true
-        orders:
-          items:
-            $ref: '#/components/schemas/ListOrders'
-          type: array
-          description: List containing the orders
-      required:
-      - count
-      - pageSize
-      - pageNumber
-      - hasNextPage
-      - orders
-      type: object
-      additionalProperties: false
-    HistoricalOrderStatus:
-      enum:
-      - AUTHFAILED
-      - DIDNOTSHIP
-      - CANCELED
-      - COMPLETED
-      - RETURNED
-      type: string
-    UnknownStatus:
-      enum:
-      - UNKNOWN
-      type: string
-    OrderProduct:
-      description: Product information
-      properties:
-        productId:
-          type: string
-          description: StockX product ID
-          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-        productName:
-          type:
-          - string
-          - 'null'
-          description: Name of the product
-          example: Gucci Duchessa Boston Bag
-        styleId:
-          type:
-          - string
-          - 'null'
-          description: Style id of the product
-      required:
-      - productId
-      - productName
-      - styleId
-      type: object
-      additionalProperties: false
-    InventoryType:
-      enum:
-      - STANDARD
-      - FLEX
-      - DFS
-      - DIRECT
-      type: string
-    Record_string.DocumentURL_:
-      properties: {}
-      type: object
-      description: Construct a type with a set of properties K of type T
-    DetailedOrder:
-      properties:
-        askId:
-          type: string
-          description: Unique identifier for an ask on the StockX platform
-          example: '13658831621304650018'
-        orderNumber:
-          type: string
-          description: 'The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
-        listingId:
-          type:
-          - string
-          - 'null'
-          description: Unique ID for this listing
-          example: 35d76ac8-a112-4d75-b44f-c8ef04a87c93
-        amount:
-          type: string
-          description: The ask/order price
-          example: '140'
-        currencyCode:
-          type:
-          - string
-          - 'null'
-          description: 'The currency type for this order.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
-          example: USD
-        createdAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: When the order was created in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
-          example: '2021-08-25T13:51:47.000Z'
-        updatedAt:
-          type:
-          - string
-          - 'null'
-          format: date-time
-          description: When the order was updated in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
-          example: '2021-08-25T13:51:47.000Z'
-        variant:
-          $ref: '#/components/schemas/Variant'
-          description: Details about the product variant
-        product:
-          $ref: '#/components/schemas/OrderProduct'
-          description: Product information
-        status:
-          anyOf:
-          - $ref: '#/components/schemas/OrderStatus'
-          - type: string
-          description: The current status of the order.
-        shipment:
-          allOf:
-          - $ref: '#/components/schemas/Shipment'
-          description: The shipment details of the order.
-        initiatedShipments:
-          allOf:
-          - $ref: '#/components/schemas/ManifestDataResponse'
-          description: An object containing details about the seller initiated shipments.
-        inventoryType:
-          $ref: '#/components/schemas/InventoryType'
-          description: The inventory type of the order.
-        authenticationDetails:
-          allOf:
-          - $ref: '#/components/schemas/AuthenticationDetails'
-          description: Details about authentication status and failure notes
-        payout:
-          $ref: '#/components/schemas/Payout'
-          description: The payout object that contains the payout details and any adjustments like selling fees, shipping fees, taxes, etc.
-      required:
-      - askId
-      - orderNumber
-      - listingId
-      - amount
-      - currencyCode
-      - createdAt
-      - updatedAt
-      - variant
-      - product
-      - status
-      - shipment
-      - initiatedShipments
-      - inventoryType
-      - payout
       type: object
       additionalProperties: false
     HttpStatusCodeLiteral:
@@ -608,87 +508,23 @@ components:
       - 508
       - 510
       - 511
-    Variant:
-      description: Variant information
-      properties:
-        variantId:
-          type: string
-          description: Unique identifier for a products variant
-        variantName:
-          type: string
-          description: Unique readable name of the products variant
-          example: Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0
-        variantValue:
-          type:
-          - string
-          - 'null'
-          description: The value of the variant. For example, in the sneakers case, this could be 10 or in the trading cards case, this could be PSA 10, etc.
-          example: PSA 10
-      required:
-      - variantId
-      - variantName
-      - variantValue
+    Record_string.DocumentURL_:
+      properties: {}
       type: object
-      additionalProperties: false
-    PublicApiError:
+      description: Construct a type with a set of properties K of type T
+    AuthenticationDetails:
       properties:
-        statusCode:
-          $ref: '#/components/schemas/HttpStatusCodeLiteral'
-          description: The error status code
-          example: 400
-        message:
-          type: string
-          description: The error message
-          example: The request did not succeed 😭
+        status:
+          type:
+          - string
+          - 'null'
+        failureNotes:
+          type:
+          - string
+          - 'null'
       required:
-      - statusCode
-      - message
-      type: object
-      additionalProperties: false
-    Shipment:
-      properties:
-        shipByDate:
-          type:
-          - string
-          - 'null'
-          description: Date that the order should be shipped by.
-        trackingNumber:
-          type:
-          - string
-          - 'null'
-          description: The shipments tracking number
-          example: 1Z3983AF9121770825
-        trackingUrl:
-          type:
-          - string
-          - 'null'
-          description: The URL to the carriers web page.
-          example: http://wwwapps.ups.com/etracking/tracking.cgi?tracknum=1Z3983AF9121770825
-        carrierCode:
-          type:
-          - string
-          - 'null'
-          description: The carrier code for the shipment provider.
-          example: UPS
-        shippingLabelUrl:
-          type:
-          - string
-          - 'null'
-          description: The URL of the shipping label
-          example: https://stockx.com/shipping_label.png
-        shippingDocumentUrl:
-          type:
-          - string
-          - 'null'
-          description: The URL of the StockX shipping document.
-          example: https://api.stockx.io/v1/selling/orders/12342334/shipping-document/S-123
-      required:
-      - shipByDate
-      - trackingNumber
-      - trackingUrl
-      - carrierCode
-      - shippingLabelUrl
-      - shippingDocumentUrl
+      - status
+      - failureNotes
       type: object
       additionalProperties: false
     GetShipmentDetailsResponse:
@@ -729,6 +565,144 @@ components:
           description: Documents related to the shipment.
       type: object
       additionalProperties: false
+    ActiveOrderStatus:
+      enum:
+      - CREATED
+      - CCAUTHORIZATIONFAILED
+      - SHIPPED
+      - RECEIVED
+      - AUTHENTICATING
+      - AUTHENTICATED
+      - PAYOUTPENDING
+      - PAYOUTCOMPLETED
+      - SYSTEMFULFILLED
+      - PAYOUTFAILED
+      - SUSPENDED
+      - PENDING
+      - DONOTSHIP
+      type: string
+    Adjustment:
+      properties:
+        adjustmentType:
+          type: string
+          description: The type of adjustment made
+          example: Shipping Fee (10%)
+        amount:
+          type: string
+          description: The amount of the adjustment
+          example: 2.13
+        percentage:
+          type: string
+          description: The percentage of the adjustment
+          example: 0.1
+      required:
+      - adjustmentType
+      - amount
+      - percentage
+      type: object
+      additionalProperties: false
+    Record_LanguageCode.DocumentURL_:
+      properties: {}
+      type: object
+      description: Construct a type with a set of properties K of type T
+    Orders:
+      properties:
+        count:
+          type: number
+          format: double
+          description: Total number of items present
+          example: 266
+        pageSize:
+          type: number
+          format: double
+          description: Total number of items in the current page
+          example: 10
+        pageNumber:
+          type: number
+          format: double
+          description: Requested page number. Starts at 1.
+          example: 1
+        hasNextPage:
+          type: boolean
+          description: Returns true if there are elements in the next page.
+          example: true
+        orders:
+          items:
+            $ref: '#/components/schemas/ListOrders'
+          type: array
+          description: List containing the orders
+      required:
+      - count
+      - pageSize
+      - pageNumber
+      - hasNextPage
+      - orders
+      type: object
+      additionalProperties: false
+    ManifestDataResponse:
+      properties:
+        inbound:
+          properties:
+            displayId:
+              type: string
+              description: 'The ID associated with the shipment arriving at StockX. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
+          required:
+          - displayId
+          type: object
+      required:
+      - inbound
+      type: object
+      additionalProperties: false
+    Variant:
+      description: Variant information
+      properties:
+        variantId:
+          type: string
+          description: Unique identifier for a products variant
+        variantName:
+          type: string
+          description: Unique readable name of the products variant
+          example: Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0
+        variantValue:
+          type:
+          - string
+          - 'null'
+          description: The value of the variant. For example, in the sneakers case, this could be 10 or in the trading cards case, this could be PSA 10, etc.
+          example: PSA 10
+      required:
+      - variantId
+      - variantName
+      - variantValue
+      type: object
+      additionalProperties: false
+    OrderProduct:
+      description: Product information
+      properties:
+        productId:
+          type: string
+          description: StockX product ID
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        productName:
+          type:
+          - string
+          - 'null'
+          description: Name of the product
+          example: Gucci Duchessa Boston Bag
+        styleId:
+          type:
+          - string
+          - 'null'
+          description: Style id of the product
+      required:
+      - productId
+      - productName
+      - styleId
+      type: object
+      additionalProperties: false
+    UnknownStatus:
+      enum:
+      - UNKNOWN
+      type: string
     ListOrders:
       properties:
         orderNumber:
@@ -823,65 +797,91 @@ components:
       - conditionDescription
       type: object
       additionalProperties: false
-    OrderStatus:
-      anyOf:
-      - $ref: '#/components/schemas/ActiveOrderStatus'
-      - $ref: '#/components/schemas/HistoricalOrderStatus'
-      - $ref: '#/components/schemas/UnknownStatus'
-      description: Status for the current order
-    ManifestDataResponse:
+    DetailedOrder:
       properties:
-        inbound:
-          properties:
-            displayId:
-              type: string
-              description: 'The ID associated with the shipment arriving at StockX. Note: This is the same ID generated when a Flex inbound list is created in StockX Pro.'
-          required:
-          - displayId
-          type: object
-      required:
-      - inbound
-      type: object
-      additionalProperties: false
-    ActiveOrderStatus:
-      enum:
-      - CREATED
-      - CCAUTHORIZATIONFAILED
-      - SHIPPED
-      - RECEIVED
-      - AUTHENTICATING
-      - AUTHENTICATED
-      - PAYOUTPENDING
-      - PAYOUTCOMPLETED
-      - SYSTEMFULFILLED
-      - PAYOUTFAILED
-      - SUSPENDED
-      - PENDING
-      - DONOTSHIP
-      type: string
-    Adjustment:
-      properties:
-        adjustmentType:
+        askId:
           type: string
-          description: The type of adjustment made
-          example: Shipping Fee (10%)
+          description: Unique identifier for an ask on the StockX platform
+          example: '13658831621304650018'
+        orderNumber:
+          type: string
+          description: 'The unique order number. Standard example: 323314425-323214184. Flex example: 02-L0QT6MRVSG'
+        listingId:
+          type:
+          - string
+          - 'null'
+          description: Unique ID for this listing
+          example: 35d76ac8-a112-4d75-b44f-c8ef04a87c93
         amount:
           type: string
-          description: The amount of the adjustment
-          example: 2.13
-        percentage:
-          type: string
-          description: The percentage of the adjustment
-          example: 0.1
+          description: The ask/order price
+          example: '140'
+        currencyCode:
+          type:
+          - string
+          - 'null'
+          description: 'The currency type for this order.<br><br>Available values: "AUD", "CAD", "CHF", "EUR", "GBP", "HKD", "JPY", "KRW", "MXN", "NZD", "SGD", "USD"'
+          example: USD
+        createdAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the order was created in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
+          example: '2021-08-25T13:51:47.000Z'
+        updatedAt:
+          type:
+          - string
+          - 'null'
+          format: date-time
+          description: When the order was updated in UTC. Represented as ISO 8601 format like 2021-08-25T13:51:47.000Z
+          example: '2021-08-25T13:51:47.000Z'
+        variant:
+          $ref: '#/components/schemas/Variant'
+          description: Details about the product variant
+        product:
+          $ref: '#/components/schemas/OrderProduct'
+          description: Product information
+        status:
+          anyOf:
+          - $ref: '#/components/schemas/OrderStatus'
+          - type: string
+          description: The current status of the order.
+        shipment:
+          allOf:
+          - $ref: '#/components/schemas/Shipment'
+          description: The shipment details of the order.
+        initiatedShipments:
+          allOf:
+          - $ref: '#/components/schemas/ManifestDataResponse'
+          description: An object containing details about the seller initiated shipments.
+        inventoryType:
+          $ref: '#/components/schemas/InventoryType'
+          description: The inventory type of the order.
+        authenticationDetails:
+          allOf:
+          - $ref: '#/components/schemas/AuthenticationDetails'
+          description: Details about authentication status and failure notes
+        payout:
+          $ref: '#/components/schemas/Payout'
+          description: The payout object that contains the payout details and any adjustments like selling fees, shipping fees, taxes, etc.
       required:
-      - adjustmentType
+      - askId
+      - orderNumber
+      - listingId
       - amount
-      - percentage
+      - currencyCode
+      - createdAt
+      - updatedAt
+      - variant
+      - product
+      - status
+      - shipment
+      - initiatedShipments
+      - inventoryType
+      - payout
       type: object
       additionalProperties: false
-    DocumentURL:
-      type: string
-      description: Type alias for document URLs.
   securitySchemes:
     api_key:
       type: apiKey

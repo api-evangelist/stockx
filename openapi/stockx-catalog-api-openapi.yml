@@ -507,92 +507,6 @@ components:
       - electronics
       - trading cards
       type: string
-    IngestionApparelAccessoriesRequestInput:
-      properties:
-        category:
-          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
-          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
-          example: shoes
-        productTitle:
-          type: string
-          description: A string that uniquely identifies the name of the product.
-          example: Jordan 4 retro
-        brand:
-          type: string
-          description: The brand of the product.
-        productImages:
-          items:
-            type: string
-          type: array
-          description: Public facing links to the products image.
-        variants:
-          items:
-            type: string
-          type: array
-          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
-        retailPrice:
-          type: string
-          description: The products retail price.
-        releaseDate:
-          type: string
-          description: The products release date.
-        countryOfOrigin:
-          type: string
-          description: The country in which the product was manufactured in ISO Alpha 2 Format.
-          example: US
-        partnerProductId:
-          type: string
-          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
-        tags:
-          items:
-            type: string
-          type: array
-          description: A list of attributes or short descriptors associated with the product.
-        colorway:
-          type: string
-          description: The combinations of colors in which the product is designed.
-          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
-        material:
-          type: string
-          description: Brand listed materials.
-        gender:
-          type: string
-          description: The products targeted gender.
-        styleCode:
-          type: string
-          description: The Style Code for the product  @example "M990BK5"
-        gtin:
-          type: string
-          description: The products global trade item number.
-        productDescription:
-          type: string
-          description: Open text field used for describing the product to the customer.
-        dimensions:
-          type: string
-          description: A string of the dimensions of the product.
-        weight:
-          type: string
-          description: The weight of the product.
-        productURL:
-          type: string
-          description: Official third party product URL.
-        productCode:
-          $ref: '#/components/schemas/ProductCode'
-          description: An object containing Unique code that identifies the product and the type of the code
-      required:
-      - category
-      - productTitle
-      - brand
-      - productImages
-      - variants
-      - retailPrice
-      - releaseDate
-      - countryOfOrigin
-      - colorway
-      - material
-      - gender
-      type: object
-      additionalProperties: false
     IngestionControllerResponse:
       properties:
         ingestionId:
@@ -600,6 +514,116 @@ components:
           description: Unique ID used to return the status of an ingestion job.
       required:
       - ingestionId
+      type: object
+      additionalProperties: false
+    GetIngestionItem:
+      properties:
+        ingestionId:
+          type: string
+          description: Unique ID used to return the status of an ingestion job.
+        status:
+          $ref: '#/components/schemas/INGESTION_ITEM_STATUS'
+          description: The status of the ingestion job. In review, Completed, Rejected.
+        input:
+          anyOf:
+          - $ref: '#/components/schemas/IngestionSneakersShoesRequestInput'
+          - $ref: '#/components/schemas/IngestionApparelAccessoriesRequestInput'
+          - $ref: '#/components/schemas/IngestionCollectiblesRequestInput'
+          - $ref: '#/components/schemas/IngestionElectronicsRequestInput'
+          - $ref: '#/components/schemas/IngestionTradingCardsRequestInput'
+          description: The initial items submitted.
+        result:
+          allOf:
+          - $ref: '#/components/schemas/IngestionItemResult'
+          description: The result of the ingestion job if the status is completed.
+        partnerProductId:
+          type:
+          - string
+          - 'null'
+          description: The external partner ID provided in the request.
+        rejectionDetails:
+          allOf:
+          - $ref: '#/components/schemas/IngestionItemRejectionDetails'
+          description: The details about its rejection if REJECTED
+        createdAt:
+          type: string
+          description: Timestamp when the resource was created.
+        updatedAt:
+          type: string
+          description: Timestamp when the resource was last updated.
+      required:
+      - ingestionId
+      - status
+      - input
+      - result
+      - partnerProductId
+      - rejectionDetails
+      - createdAt
+      - updatedAt
+      type: object
+      additionalProperties: false
+    PublicApiError:
+      properties:
+        statusCode:
+          $ref: '#/components/schemas/HttpStatusCodeLiteral'
+          description: The error status code
+          example: 400
+        message:
+          type: string
+          description: The error message
+          example: The request did not succeed 😭
+      required:
+      - statusCode
+      - message
+      type: object
+      additionalProperties: false
+    ProductCode:
+      properties:
+        code:
+          type: string
+          description: Unique code that identifies the product.
+          example: Y0133892
+        name:
+          $ref: '#/components/schemas/PRODUCT_CODE_NAME'
+          description: The type of product code
+          example: serial number
+      required:
+      - code
+      - name
+      type: object
+      additionalProperties: false
+    Search:
+      properties:
+        count:
+          type: number
+          format: double
+          description: Total number of items present
+          example: 266
+        pageSize:
+          type: number
+          format: double
+          description: Total number of items in the current page
+          example: 10
+        pageNumber:
+          type: number
+          format: double
+          description: Requested page number. Starts at 1.
+          example: 1
+        hasNextPage:
+          type: boolean
+          description: Returns true if there are elements in the next page.
+          example: true
+        products:
+          items:
+            $ref: '#/components/schemas/SearchProduct'
+          type: array
+          description: List of products that matched the search term
+      required:
+      - count
+      - pageSize
+      - pageNumber
+      - hasNextPage
+      - products
       type: object
       additionalProperties: false
     CurrencyCode:
@@ -636,85 +660,6 @@ components:
       - USD
       - VND
       type: string
-    CatalogIngestionInput:
-      properties:
-        items:
-          items:
-            anyOf:
-            - $ref: '#/components/schemas/IngestionSneakersShoesRequestInput'
-            - $ref: '#/components/schemas/IngestionApparelAccessoriesRequestInput'
-            - $ref: '#/components/schemas/IngestionCollectiblesRequestInput'
-            - $ref: '#/components/schemas/IngestionElectronicsRequestInput'
-            - $ref: '#/components/schemas/IngestionTradingCardsRequestInput'
-          type: array
-          description: An array of items associated with the ingestion job.
-      required:
-      - items
-      type: object
-      additionalProperties: false
-    IngestionItemRejectionDetails:
-      properties:
-        reason:
-          type: string
-      required:
-      - reason
-      type: object
-      additionalProperties: false
-    ProductVariantDetails:
-      properties:
-        productId:
-          type: string
-          description: Unique identifier for a product
-          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-        variantId:
-          type: string
-          description: Unique identifier for a products variant
-          example: 586c3334-4dac-4ee0-bce3-eea845581a08
-        variantName:
-          type: string
-          description: SKU of the variant
-          example: Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0
-        variantValue:
-          type: string
-          description: Variant's value
-          example: PSA 10
-        sizeChart:
-          properties:
-            availableConversions:
-              items:
-                $ref: '#/components/schemas/VariantSizeConversion'
-              type: array
-              description: The available size conversions for this variant
-            defaultConversion:
-              allOf:
-              - $ref: '#/components/schemas/VariantSizeConversion'
-              description: The default sizing information for this variant
-          required:
-          - availableConversions
-          - defaultConversion
-          type: object
-          description: Size chart related information for this variant
-        gtins:
-          items:
-            $ref: '#/components/schemas/VariantGtinDetails'
-          type: array
-          description: The GTINs associated with this variant
-        isFlexEligible:
-          type: boolean
-          description: Indicates if the variant is eligible for flex fulfillment
-          example: true
-        isDirectEligible:
-          type: boolean
-          description: Indicates if the variant is eligible for direct fulfillment
-          example: false
-      required:
-      - productId
-      - variantId
-      - variantName
-      - variantValue
-      - sizeChart
-      type: object
-      additionalProperties: false
     Product:
       description: Product information
       properties:
@@ -828,6 +773,338 @@ components:
       - title
       - brand
       - productAttributes
+      type: object
+      additionalProperties: false
+    IngestionCollectiblesRequestInput:
+      properties:
+        category:
+          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
+          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
+          example: shoes
+        productTitle:
+          type: string
+          description: A string that uniquely identifies the name of the product.
+          example: Jordan 4 retro
+        brand:
+          type: string
+          description: The brand of the product.
+        productImages:
+          items:
+            type: string
+          type: array
+          description: Public facing links to the products image.
+        variants:
+          items:
+            type: string
+          type: array
+          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
+        retailPrice:
+          type: string
+          description: The products retail price.
+        releaseDate:
+          type: string
+          description: The products release date.
+        countryOfOrigin:
+          type: string
+          description: The country in which the product was manufactured in ISO Alpha 2 Format.
+          example: US
+        partnerProductId:
+          type: string
+          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
+        tags:
+          items:
+            type: string
+          type: array
+          description: A list of attributes or short descriptors associated with the product.
+        colorway:
+          type: string
+          description: The combinations of colors in which the product is designed.
+          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
+        styleCode:
+          type: string
+          description: The Style Code for the product  @example "M990BK5"
+        productDescription:
+          type: string
+          description: Open text field used for describing the product to the customer.
+        dimensions:
+          type: string
+          description: A string of the dimensions of the product.
+        weight:
+          type: string
+          description: The weight of the product.
+        productURL:
+          type: string
+          description: Official third party product URL.
+        productCode:
+          $ref: '#/components/schemas/ProductCode'
+          description: An object containing Unique code that identifies the product and the type of the code
+      required:
+      - category
+      - productTitle
+      - brand
+      - productImages
+      - variants
+      - retailPrice
+      - releaseDate
+      - countryOfOrigin
+      type: object
+      additionalProperties: false
+    HttpStatusCodeLiteral:
+      type: number
+      enum:
+      - 100
+      - 101
+      - 102
+      - 200
+      - 201
+      - 202
+      - 203
+      - 204
+      - 205
+      - 206
+      - 207
+      - 208
+      - 226
+      - 300
+      - 301
+      - 302
+      - 303
+      - 304
+      - 305
+      - 307
+      - 308
+      - 400
+      - 401
+      - 402
+      - 403
+      - 404
+      - 405
+      - 406
+      - 407
+      - 408
+      - 409
+      - 410
+      - 411
+      - 412
+      - 413
+      - 414
+      - 415
+      - 416
+      - 417
+      - 418
+      - 422
+      - 423
+      - 424
+      - 426
+      - 428
+      - 429
+      - 431
+      - 451
+      - 500
+      - 501
+      - 502
+      - 503
+      - 504
+      - 505
+      - 506
+      - 507
+      - 508
+      - 510
+      - 511
+    SearchProduct:
+      description: Product information returned in search results
+      properties:
+        productId:
+          type: string
+          description: Unique identifier for a product
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        urlKey:
+          type: string
+          description: The product name
+          example: purple-hand-bag-leather
+        styleId:
+          type:
+          - string
+          - 'null'
+          description: ID of product style
+          example: BY9109
+        productType:
+          type: string
+          description: The type of product categories that are available on StockX
+          example: handbags
+        title:
+          type:
+          - string
+          - 'null'
+          description: A string that uniquely identifies the product name.
+          example: Gucci Duchessa Boston Bag
+        brand:
+          type:
+          - string
+          - 'null'
+          description: Brand of the product
+          example: Nike
+        productAttributes:
+          properties:
+            gender:
+              type:
+              - string
+              - 'null'
+              description: Gender targeted product
+              example: women
+            season:
+              type:
+              - string
+              - 'null'
+              description: The season the product was released
+              example: SS21
+            releaseDate:
+              type:
+              - string
+              - 'null'
+              description: The date the product was released
+              example: '2017-09-14'
+            retailPrice:
+              type:
+              - number
+              - 'null'
+              format: double
+              description: The retail price of the product.
+              example: 456
+            colorway:
+              type:
+              - string
+              - 'null'
+              description: The combinations of colors in which the product is designed
+              example: String/Black-Villain Red-Neptune Green
+            color:
+              type:
+              - string
+              - 'null'
+              description: Color of product
+              example: purple
+          required:
+          - gender
+          - season
+          - releaseDate
+          - retailPrice
+          - colorway
+          - color
+          type: object
+          description: Object containing the attributes of the product.
+      required:
+      - productId
+      - urlKey
+      - styleId
+      - productType
+      - title
+      - brand
+      - productAttributes
+      type: object
+      additionalProperties: false
+    IngestionApparelAccessoriesRequestInput:
+      properties:
+        category:
+          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
+          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
+          example: shoes
+        productTitle:
+          type: string
+          description: A string that uniquely identifies the name of the product.
+          example: Jordan 4 retro
+        brand:
+          type: string
+          description: The brand of the product.
+        productImages:
+          items:
+            type: string
+          type: array
+          description: Public facing links to the products image.
+        variants:
+          items:
+            type: string
+          type: array
+          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
+        retailPrice:
+          type: string
+          description: The products retail price.
+        releaseDate:
+          type: string
+          description: The products release date.
+        countryOfOrigin:
+          type: string
+          description: The country in which the product was manufactured in ISO Alpha 2 Format.
+          example: US
+        partnerProductId:
+          type: string
+          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
+        tags:
+          items:
+            type: string
+          type: array
+          description: A list of attributes or short descriptors associated with the product.
+        colorway:
+          type: string
+          description: The combinations of colors in which the product is designed.
+          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
+        material:
+          type: string
+          description: Brand listed materials.
+        gender:
+          type: string
+          description: The products targeted gender.
+        styleCode:
+          type: string
+          description: The Style Code for the product  @example "M990BK5"
+        gtin:
+          type: string
+          description: The products global trade item number.
+        productDescription:
+          type: string
+          description: Open text field used for describing the product to the customer.
+        dimensions:
+          type: string
+          description: A string of the dimensions of the product.
+        weight:
+          type: string
+          description: The weight of the product.
+        productURL:
+          type: string
+          description: Official third party product URL.
+        productCode:
+          $ref: '#/components/schemas/ProductCode'
+          description: An object containing Unique code that identifies the product and the type of the code
+      required:
+      - category
+      - productTitle
+      - brand
+      - productImages
+      - variants
+      - retailPrice
+      - releaseDate
+      - countryOfOrigin
+      - colorway
+      - material
+      - gender
+      type: object
+      additionalProperties: false
+    VariantSizeConversion:
+      properties:
+        size:
+          type:
+          - string
+          - 'null'
+          description: The size of this size conversion
+          example: '5'
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of the size conversion/chart
+          example: us m
+      required:
+      - size
+      - type
       type: object
       additionalProperties: false
     VariantMarketDataResponse:
@@ -982,28 +1259,285 @@ components:
       - currencyCode
       type: object
       additionalProperties: false
-    PRODUCT_CODE_NAME:
-      enum:
-      - serial number
-      - mpn
-      type: string
-    ProductSizeConversion:
+    IngestionItemResult:
       properties:
-        name:
-          type:
-          - string
-          - 'null'
-          description: The display name for the size conversion
-          example: US M
-        type:
-          type:
-          - string
-          - 'null'
-          description: The type of the size conversion
-          example: us m
+        brand:
+          type: string
+          description: The brand of the product.
+        title:
+          type: string
+          description: A string that uniquely identifies the name of the product.
+        variantId:
+          type: string
+          description: Unique identifier for the product variant.
       required:
-      - name
+      - brand
+      - title
+      - variantId
+      type: object
+      additionalProperties: false
+    IngestionElectronicsRequestInput:
+      properties:
+        category:
+          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
+          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
+          example: shoes
+        productTitle:
+          type: string
+          description: A string that uniquely identifies the name of the product.
+          example: Jordan 4 retro
+        brand:
+          type: string
+          description: The brand of the product.
+        productImages:
+          items:
+            type: string
+          type: array
+          description: Public facing links to the products image.
+        variants:
+          items:
+            type: string
+          type: array
+          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
+        retailPrice:
+          type: string
+          description: The products retail price.
+        releaseDate:
+          type: string
+          description: The products release date.
+        countryOfOrigin:
+          type: string
+          description: The country in which the product was manufactured in ISO Alpha 2 Format.
+          example: US
+        partnerProductId:
+          type: string
+          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
+        tags:
+          items:
+            type: string
+          type: array
+          description: A list of attributes or short descriptors associated with the product.
+        colorway:
+          type: string
+          description: The combinations of colors in which the product is designed.
+          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
+        styleCode:
+          type: string
+          description: The Style Code for the product  @example "M990BK5"
+        gtin:
+          type: string
+          description: The products global trade item number.
+        productDescription:
+          type: string
+          description: Open text field used for describing the product to the customer.
+        dimensions:
+          type: string
+          description: A string of the dimensions of the product.
+        weight:
+          type: string
+          description: The weight of the product.
+        productURL:
+          type: string
+          description: Official third party product URL.
+        productCode:
+          $ref: '#/components/schemas/ProductCode'
+          description: An object containing Unique code that identifies the product and the type of the code
+      required:
+      - category
+      - productTitle
+      - brand
+      - productImages
+      - variants
+      - retailPrice
+      - releaseDate
+      - countryOfOrigin
+      type: object
+      additionalProperties: false
+    ProductVariantDetails:
+      properties:
+        productId:
+          type: string
+          description: Unique identifier for a product
+          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
+        variantId:
+          type: string
+          description: Unique identifier for a products variant
+          example: 586c3334-4dac-4ee0-bce3-eea845581a08
+        variantName:
+          type: string
+          description: SKU of the variant
+          example: Auston-Matthews-2016-Upper-Deck-Series-1-Young-Guns-Rookie-201:0
+        variantValue:
+          type: string
+          description: Variant's value
+          example: PSA 10
+        sizeChart:
+          properties:
+            availableConversions:
+              items:
+                $ref: '#/components/schemas/VariantSizeConversion'
+              type: array
+              description: The available size conversions for this variant
+            defaultConversion:
+              allOf:
+              - $ref: '#/components/schemas/VariantSizeConversion'
+              description: The default sizing information for this variant
+          required:
+          - availableConversions
+          - defaultConversion
+          type: object
+          description: Size chart related information for this variant
+        gtins:
+          items:
+            $ref: '#/components/schemas/VariantGtinDetails'
+          type: array
+          description: The GTINs associated with this variant
+        isFlexEligible:
+          type: boolean
+          description: Indicates if the variant is eligible for flex fulfillment
+          example: true
+        isDirectEligible:
+          type: boolean
+          description: Indicates if the variant is eligible for direct fulfillment
+          example: false
+      required:
+      - productId
+      - variantId
+      - variantName
+      - variantValue
+      - sizeChart
+      type: object
+      additionalProperties: false
+    VariantGtinDetails:
+      properties:
+        identifier:
+          type: string
+          description: The GTIN identifier
+          example: '887231059577'
+        type:
+          type: string
+          description: The type of GTIN
+          example: UPC
+      required:
+      - identifier
       - type
+      type: object
+      additionalProperties: false
+    CatalogIngestionInput:
+      properties:
+        items:
+          items:
+            anyOf:
+            - $ref: '#/components/schemas/IngestionSneakersShoesRequestInput'
+            - $ref: '#/components/schemas/IngestionApparelAccessoriesRequestInput'
+            - $ref: '#/components/schemas/IngestionCollectiblesRequestInput'
+            - $ref: '#/components/schemas/IngestionElectronicsRequestInput'
+            - $ref: '#/components/schemas/IngestionTradingCardsRequestInput'
+          type: array
+          description: An array of items associated with the ingestion job.
+      required:
+      - items
+      type: object
+      additionalProperties: false
+    GetIngestionItemsReponse:
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/GetIngestionItem'
+          type: array
+      required:
+      - items
+      type: object
+      additionalProperties: false
+    INGESTION_ITEM_STATUS:
+      enum:
+      - In Review
+      - Completed
+      - Rejected
+      type: string
+    IngestionTradingCardsRequestInput:
+      properties:
+        category:
+          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
+          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
+          example: shoes
+        productTitle:
+          type: string
+          description: A string that uniquely identifies the name of the product.
+          example: Jordan 4 retro
+        brand:
+          type: string
+          description: The brand of the product.
+        productImages:
+          items:
+            type: string
+          type: array
+          description: Public facing links to the products image.
+        variants:
+          items:
+            type: string
+          type: array
+          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
+        retailPrice:
+          type: string
+          description: The products retail price.
+        releaseDate:
+          type: string
+          description: The products release date.
+        countryOfOrigin:
+          type: string
+          description: The country in which the product was manufactured in ISO Alpha 2 Format.
+          example: US
+        partnerProductId:
+          type: string
+          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
+        tags:
+          items:
+            type: string
+          type: array
+          description: A list of attributes or short descriptors associated with the product.
+        colorway:
+          type: string
+          description: The combinations of colors in which the product is designed.
+          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
+        styleCode:
+          type: string
+          description: The Style Code for the product  @example "M990BK5"
+        gtin:
+          type: string
+          description: The products global trade item number.
+        productDescription:
+          type: string
+          description: Open text field used for describing the product to the customer.
+        dimensions:
+          type: string
+          description: A string of the dimensions of the product.
+        weight:
+          type: string
+          description: The weight of the product.
+        productURL:
+          type: string
+          description: Official third party product URL.
+        productCode:
+          $ref: '#/components/schemas/ProductCode'
+          description: An object containing Unique code that identifies the product and the type of the code
+      required:
+      - category
+      - productTitle
+      - brand
+      - productImages
+      - variants
+      - retailPrice
+      - releaseDate
+      - countryOfOrigin
+      type: object
+      additionalProperties: false
+    IngestionItemRejectionDetails:
+      properties:
+        reason:
+          type: string
+      required:
+      - reason
       type: object
       additionalProperties: false
     ProductVariant:
@@ -1064,6 +1598,30 @@ components:
       - sizeChart
       type: object
       additionalProperties: false
+    ProductSizeConversion:
+      properties:
+        name:
+          type:
+          - string
+          - 'null'
+          description: The display name for the size conversion
+          example: US M
+        type:
+          type:
+          - string
+          - 'null'
+          description: The type of the size conversion
+          example: us m
+      required:
+      - name
+      - type
+      type: object
+      additionalProperties: false
+    PRODUCT_CODE_NAME:
+      enum:
+      - serial number
+      - mpn
+      type: string
     IngestionSneakersShoesRequestInput:
       properties:
         category:
@@ -1145,564 +1703,6 @@ components:
       - gtin
       - gender
       - styleCode
-      type: object
-      additionalProperties: false
-    INGESTION_ITEM_STATUS:
-      enum:
-      - In Review
-      - Completed
-      - Rejected
-      type: string
-    VariantGtinDetails:
-      properties:
-        identifier:
-          type: string
-          description: The GTIN identifier
-          example: '887231059577'
-        type:
-          type: string
-          description: The type of GTIN
-          example: UPC
-      required:
-      - identifier
-      - type
-      type: object
-      additionalProperties: false
-    IngestionElectronicsRequestInput:
-      properties:
-        category:
-          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
-          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
-          example: shoes
-        productTitle:
-          type: string
-          description: A string that uniquely identifies the name of the product.
-          example: Jordan 4 retro
-        brand:
-          type: string
-          description: The brand of the product.
-        productImages:
-          items:
-            type: string
-          type: array
-          description: Public facing links to the products image.
-        variants:
-          items:
-            type: string
-          type: array
-          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
-        retailPrice:
-          type: string
-          description: The products retail price.
-        releaseDate:
-          type: string
-          description: The products release date.
-        countryOfOrigin:
-          type: string
-          description: The country in which the product was manufactured in ISO Alpha 2 Format.
-          example: US
-        partnerProductId:
-          type: string
-          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
-        tags:
-          items:
-            type: string
-          type: array
-          description: A list of attributes or short descriptors associated with the product.
-        colorway:
-          type: string
-          description: The combinations of colors in which the product is designed.
-          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
-        styleCode:
-          type: string
-          description: The Style Code for the product  @example "M990BK5"
-        gtin:
-          type: string
-          description: The products global trade item number.
-        productDescription:
-          type: string
-          description: Open text field used for describing the product to the customer.
-        dimensions:
-          type: string
-          description: A string of the dimensions of the product.
-        weight:
-          type: string
-          description: The weight of the product.
-        productURL:
-          type: string
-          description: Official third party product URL.
-        productCode:
-          $ref: '#/components/schemas/ProductCode'
-          description: An object containing Unique code that identifies the product and the type of the code
-      required:
-      - category
-      - productTitle
-      - brand
-      - productImages
-      - variants
-      - retailPrice
-      - releaseDate
-      - countryOfOrigin
-      type: object
-      additionalProperties: false
-    SearchProduct:
-      description: Product information returned in search results
-      properties:
-        productId:
-          type: string
-          description: Unique identifier for a product
-          example: bf364c53-eb77-4522-955c-6a6ce952cc6f
-        urlKey:
-          type: string
-          description: The product name
-          example: purple-hand-bag-leather
-        styleId:
-          type:
-          - string
-          - 'null'
-          description: ID of product style
-          example: BY9109
-        productType:
-          type: string
-          description: The type of product categories that are available on StockX
-          example: handbags
-        title:
-          type:
-          - string
-          - 'null'
-          description: A string that uniquely identifies the product name.
-          example: Gucci Duchessa Boston Bag
-        brand:
-          type:
-          - string
-          - 'null'
-          description: Brand of the product
-          example: Nike
-        productAttributes:
-          properties:
-            gender:
-              type:
-              - string
-              - 'null'
-              description: Gender targeted product
-              example: women
-            season:
-              type:
-              - string
-              - 'null'
-              description: The season the product was released
-              example: SS21
-            releaseDate:
-              type:
-              - string
-              - 'null'
-              description: The date the product was released
-              example: '2017-09-14'
-            retailPrice:
-              type:
-              - number
-              - 'null'
-              format: double
-              description: The retail price of the product.
-              example: 456
-            colorway:
-              type:
-              - string
-              - 'null'
-              description: The combinations of colors in which the product is designed
-              example: String/Black-Villain Red-Neptune Green
-            color:
-              type:
-              - string
-              - 'null'
-              description: Color of product
-              example: purple
-          required:
-          - gender
-          - season
-          - releaseDate
-          - retailPrice
-          - colorway
-          - color
-          type: object
-          description: Object containing the attributes of the product.
-      required:
-      - productId
-      - urlKey
-      - styleId
-      - productType
-      - title
-      - brand
-      - productAttributes
-      type: object
-      additionalProperties: false
-    HttpStatusCodeLiteral:
-      type: number
-      enum:
-      - 100
-      - 101
-      - 102
-      - 200
-      - 201
-      - 202
-      - 203
-      - 204
-      - 205
-      - 206
-      - 207
-      - 208
-      - 226
-      - 300
-      - 301
-      - 302
-      - 303
-      - 304
-      - 305
-      - 307
-      - 308
-      - 400
-      - 401
-      - 402
-      - 403
-      - 404
-      - 405
-      - 406
-      - 407
-      - 408
-      - 409
-      - 410
-      - 411
-      - 412
-      - 413
-      - 414
-      - 415
-      - 416
-      - 417
-      - 418
-      - 422
-      - 423
-      - 424
-      - 426
-      - 428
-      - 429
-      - 431
-      - 451
-      - 500
-      - 501
-      - 502
-      - 503
-      - 504
-      - 505
-      - 506
-      - 507
-      - 508
-      - 510
-      - 511
-    PublicApiError:
-      properties:
-        statusCode:
-          $ref: '#/components/schemas/HttpStatusCodeLiteral'
-          description: The error status code
-          example: 400
-        message:
-          type: string
-          description: The error message
-          example: The request did not succeed 😭
-      required:
-      - statusCode
-      - message
-      type: object
-      additionalProperties: false
-    ProductCode:
-      properties:
-        code:
-          type: string
-          description: Unique code that identifies the product.
-          example: Y0133892
-        name:
-          $ref: '#/components/schemas/PRODUCT_CODE_NAME'
-          description: The type of product code
-          example: serial number
-      required:
-      - code
-      - name
-      type: object
-      additionalProperties: false
-    IngestionItemResult:
-      properties:
-        brand:
-          type: string
-          description: The brand of the product.
-        title:
-          type: string
-          description: A string that uniquely identifies the name of the product.
-        variantId:
-          type: string
-          description: Unique identifier for the product variant.
-      required:
-      - brand
-      - title
-      - variantId
-      type: object
-      additionalProperties: false
-    IngestionCollectiblesRequestInput:
-      properties:
-        category:
-          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
-          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
-          example: shoes
-        productTitle:
-          type: string
-          description: A string that uniquely identifies the name of the product.
-          example: Jordan 4 retro
-        brand:
-          type: string
-          description: The brand of the product.
-        productImages:
-          items:
-            type: string
-          type: array
-          description: Public facing links to the products image.
-        variants:
-          items:
-            type: string
-          type: array
-          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
-        retailPrice:
-          type: string
-          description: The products retail price.
-        releaseDate:
-          type: string
-          description: The products release date.
-        countryOfOrigin:
-          type: string
-          description: The country in which the product was manufactured in ISO Alpha 2 Format.
-          example: US
-        partnerProductId:
-          type: string
-          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
-        tags:
-          items:
-            type: string
-          type: array
-          description: A list of attributes or short descriptors associated with the product.
-        colorway:
-          type: string
-          description: The combinations of colors in which the product is designed.
-          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
-        styleCode:
-          type: string
-          description: The Style Code for the product  @example "M990BK5"
-        productDescription:
-          type: string
-          description: Open text field used for describing the product to the customer.
-        dimensions:
-          type: string
-          description: A string of the dimensions of the product.
-        weight:
-          type: string
-          description: The weight of the product.
-        productURL:
-          type: string
-          description: Official third party product URL.
-        productCode:
-          $ref: '#/components/schemas/ProductCode'
-          description: An object containing Unique code that identifies the product and the type of the code
-      required:
-      - category
-      - productTitle
-      - brand
-      - productImages
-      - variants
-      - retailPrice
-      - releaseDate
-      - countryOfOrigin
-      type: object
-      additionalProperties: false
-    GetIngestionItemsReponse:
-      properties:
-        items:
-          items:
-            $ref: '#/components/schemas/GetIngestionItem'
-          type: array
-      required:
-      - items
-      type: object
-      additionalProperties: false
-    VariantSizeConversion:
-      properties:
-        size:
-          type:
-          - string
-          - 'null'
-          description: The size of this size conversion
-          example: '5'
-        type:
-          type:
-          - string
-          - 'null'
-          description: The type of the size conversion/chart
-          example: us m
-      required:
-      - size
-      - type
-      type: object
-      additionalProperties: false
-    IngestionTradingCardsRequestInput:
-      properties:
-        category:
-          $ref: '#/components/schemas/PRODUCT_CATEGORIES'
-          description: 'A string that specifies product category. Valid values: "sneakers, shoes, apparel, accessories, collectibles, electronics, trading cards"'
-          example: shoes
-        productTitle:
-          type: string
-          description: A string that uniquely identifies the name of the product.
-          example: Jordan 4 retro
-        brand:
-          type: string
-          description: The brand of the product.
-        productImages:
-          items:
-            type: string
-          type: array
-          description: Public facing links to the products image.
-        variants:
-          items:
-            type: string
-          type: array
-          description: The product variants available to sell. For example, for sneakers, each different size is a different variant or for electronics like iPhone, each different storage capacity is a different variant.
-        retailPrice:
-          type: string
-          description: The products retail price.
-        releaseDate:
-          type: string
-          description: The products release date.
-        countryOfOrigin:
-          type: string
-          description: The country in which the product was manufactured in ISO Alpha 2 Format.
-          example: US
-        partnerProductId:
-          type: string
-          description: An external ID that partners will use to reference an internal StockX catalog item if approved. Note that this is the higher level product id, not the variantId.
-        tags:
-          items:
-            type: string
-          type: array
-          description: A list of attributes or short descriptors associated with the product.
-        colorway:
-          type: string
-          description: The combinations of colors in which the product is designed.
-          example: VIOLET ORE/MEDIUM ASH-BLACK-MUSLIN-BURGUNDY CRUSH
-        styleCode:
-          type: string
-          description: The Style Code for the product  @example "M990BK5"
-        gtin:
-          type: string
-          description: The products global trade item number.
-        productDescription:
-          type: string
-          description: Open text field used for describing the product to the customer.
-        dimensions:
-          type: string
-          description: A string of the dimensions of the product.
-        weight:
-          type: string
-          description: The weight of the product.
-        productURL:
-          type: string
-          description: Official third party product URL.
-        productCode:
-          $ref: '#/components/schemas/ProductCode'
-          description: An object containing Unique code that identifies the product and the type of the code
-      required:
-      - category
-      - productTitle
-      - brand
-      - productImages
-      - variants
-      - retailPrice
-      - releaseDate
-      - countryOfOrigin
-      type: object
-      additionalProperties: false
-    Search:
-      properties:
-        count:
-          type: number
-          format: double
-          description: Total number of items present
-          example: 266
-        pageSize:
-          type: number
-          format: double
-          description: Total number of items in the current page
-          example: 10
-        pageNumber:
-          type: number
-          format: double
-          description: Requested page number. Starts at 1.
-          example: 1
-        hasNextPage:
-          type: boolean
-          description: Returns true if there are elements in the next page.
-          example: true
-        products:
-          items:
-            $ref: '#/components/schemas/SearchProduct'
-          type: array
-          description: List of products that matched the search term
-      required:
-      - count
-      - pageSize
-      - pageNumber
-      - hasNextPage
-      - products
-      type: object
-      additionalProperties: false
-    GetIngestionItem:
-      properties:
-        ingestionId:
-          type: string
-          description: Unique ID used to return the status of an ingestion job.
-        status:
-          $ref: '#/components/schemas/INGESTION_ITEM_STATUS'
-          description: The status of the ingestion job. In review, Completed, Rejected.
-        input:
-          anyOf:
-          - $ref: '#/components/schemas/IngestionSneakersShoesRequestInput'
-          - $ref: '#/components/schemas/IngestionApparelAccessoriesRequestInput'
-          - $ref: '#/components/schemas/IngestionCollectiblesRequestInput'
-          - $ref: '#/components/schemas/IngestionElectronicsRequestInput'
-          - $ref: '#/components/schemas/IngestionTradingCardsRequestInput'
-          description: The initial items submitted.
-        result:
-          allOf:
-          - $ref: '#/components/schemas/IngestionItemResult'
-          description: The result of the ingestion job if the status is completed.
-        partnerProductId:
-          type:
-          - string
-          - 'null'
-          description: The external partner ID provided in the request.
-        rejectionDetails:
-          allOf:
-          - $ref: '#/components/schemas/IngestionItemRejectionDetails'
-          description: The details about its rejection if REJECTED
-        createdAt:
-          type: string
-          description: Timestamp when the resource was created.
-        updatedAt:
-          type: string
-          description: Timestamp when the resource was last updated.
-      required:
-      - ingestionId
-      - status
-      - input
-      - result
-      - partnerProductId
-      - rejectionDetails
-      - createdAt
-      - updatedAt
       type: object
       additionalProperties: false
   securitySchemes:
