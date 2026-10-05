@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.stockx.com/swagger.json",
+ "requested_url": "https://developer.stockx.com/swagger.json",
+ "status": 200,
+ "content_type": "application/json; charset=UTF-8",
+ "bytes": 204110,
+ "sha256": "5b4ba84182d73b1c43d9ce2eac7c5629c5bed43cd2265cdde5e4cdc7cd5d1584",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "byte-identical",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the archived file is byte-identical to what the provider serves."
+}
